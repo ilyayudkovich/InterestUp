@@ -1,13 +1,21 @@
 package com.example.mdenker.interestup;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by tsengjonathan on 2/28/18.
@@ -15,10 +23,12 @@ import java.util.ArrayList;
 
 public class Search extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    ArrayAdapter adapter;
+    EventAdapter adapter;
     ListView listView;
     SearchView searchView;
-    String[] events = {"Hiking Trip", "Go Hiking", "Another Event"};
+    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains")
+            , new Event("Go Hiking", "2018/04/01", "Red Hills")
+            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House")};
 
 
     @Override
@@ -26,7 +36,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        adapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, new String[] {});
+        adapter = new EventAdapter(this, R.layout.activity_list_view);
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -38,17 +48,16 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
 
     protected void eventFilter(String search) {
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Event> eventResult = new ArrayList<>();
 
-        for (String s : events) {
-            if (s.contains(search)) {
-                result.add(s);
+        for (int i = 0; i < events.length; i++) {
+            if (events[i].getName().toLowerCase().contains(search.toLowerCase())) {
+                eventResult.add(events[i]);
             }
         }
 
-        System.out.println(result.toString());
 
-        adapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, result.toArray(new String[result.size()]));
+        adapter = new EventAdapter(this, R.layout.activity_list_view, eventResult);
         listView.setAdapter(adapter);
     }
 
@@ -61,5 +70,34 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     @Override
     public boolean onQueryTextChange(String s) {
         return false;
+    }
+
+    public class EventAdapter extends ArrayAdapter<Event> {
+
+
+        public EventAdapter(@NonNull Context context, int resource) {
+            super(context, resource);
+        }
+
+        public EventAdapter(@NonNull Context context, int resource, List<Event> objects) {
+            super(context, resource, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Event event = getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_list_view, parent, false);
+            }
+
+            TextView eventName = (TextView) convertView.findViewById(R.id.eventName);
+            TextView eventDetail = (TextView) convertView.findViewById(R.id.eventDetail);
+
+            eventName.setText(event.getName());
+            eventDetail.setText(event.getDate() + " | " + event.getLocation());
+
+            return convertView;
+        }
     }
 }
