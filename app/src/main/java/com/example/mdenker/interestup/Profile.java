@@ -1,8 +1,10 @@
 package com.example.mdenker.interestup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 
 /**
@@ -19,6 +21,8 @@ public class Profile extends AppCompatActivity {
         //add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //add edit button on right
     }
 
     @Override
@@ -32,6 +36,12 @@ public class Profile extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void OnEditClick(View view) {
+        //Intent i = new Intent(this, Profile.class); // figure out this
+        //startActivity(i);
     }
 
 }
