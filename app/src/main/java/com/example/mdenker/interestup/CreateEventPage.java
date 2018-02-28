@@ -100,9 +100,11 @@ public class CreateEventPage extends AppCompatActivity {
                     CreateEventPage_GeneralTab GeneralTab = new CreateEventPage_GeneralTab();
                     return GeneralTab;
                 case 1:
+                    System.out.println("hi there");
                     CreateEventPage_AdvancedTab AdvancedTab = new CreateEventPage_AdvancedTab();
                     return AdvancedTab;
                 default:
+                    System.out.println("null returned.");
                     return null;
             }
         }
@@ -110,7 +112,7 @@ public class CreateEventPage extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
