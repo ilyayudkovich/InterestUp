@@ -23,4 +23,9 @@ public class Home extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void OnClickGoToEventPage(View view) {
+        Intent i = new Intent(this, CreateEventPage.class);
+        startActivity(i);
+    }
+
 }
