@@ -17,10 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.Window;
 import android.widget.TextView;
 
-public class CreateEventPage extends AppCompatActivity {
+public class EventDisplay extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -30,7 +29,7 @@ public class CreateEventPage extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private com.example.mdenker.interestup.SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -42,13 +41,11 @@ public class CreateEventPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event_page);
 
-        //Removing toolbar
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), "GENERAL", "ADVANCED");
+        mSectionsPagerAdapter = new com.example.mdenker.interestup.SectionsPagerAdapter(getSupportFragmentManager(), "INFO", "DISCUSSION");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -64,7 +61,7 @@ public class CreateEventPage extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_event_page, menu);
+        getMenuInflater().inflate(R.menu.menu_event_display, menu);
         return true;
     }
 
@@ -94,18 +91,16 @@ public class CreateEventPage extends AppCompatActivity {
             //Returning the current tab
             switch(position) {
                 case 0:
-                    CreateEventPage_GeneralTab GeneralTab = new CreateEventPage_GeneralTab();
-                    return GeneralTab;
+                    EventDisplayInfo info = new EventDisplayInfo();
+                    return info;
                 case 1:
                     System.out.println("hi there");
-                    CreateEventPage_AdvancedTab AdvancedTab = new CreateEventPage_AdvancedTab();
-                    return AdvancedTab;
+                    EventDisplayDiscussion discussion = new EventDisplayDiscussion();
+                    return discussion;
                 default:
                     System.out.println("null returned.");
                     return null;
             }
         }
     }
-
-    //Deleted PlaceholderFragment class from here since each tab has it's own class now.
 }
