@@ -16,14 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Search"></activity>
-
-        <activity android:name=".Profile"></activity>
-
+        <activity android:name=".Search" />
+        <activity android:name=".Profile" />
         <activity
             android:name=".CreateEventPage"
             android:label="@string/title_activity_create_event_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EventDisplay"
+            android:label="@string/title_activity_event_display"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
