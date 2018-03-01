@@ -10,11 +10,11 @@ import android.view.ViewGroup;
  * Created by Jorge Delgado on 2/28/2018.
  */
 
-public class ProfilePage_InterestsTab extends Fragment {
+public class Profile_InterestsTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.create_event_advanced_tab, container, false);
+        View rootView = inflater.inflate(R.layout.profile_interests_tab, container, false);
         return rootView;
     }
 }

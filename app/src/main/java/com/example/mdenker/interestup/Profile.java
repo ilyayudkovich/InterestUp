@@ -28,18 +28,18 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-/*
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), "INTERESTS", "PERSONAL INFO");
+
+        mSectionsPagerAdapter = new ProfileTabAdapter(getSupportFragmentManager(), "INTERESTS", "PERSONAL INFO");
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.ProfileContainer);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        */
+
     }
 
     public void OnBackClick(View view) {
@@ -62,12 +62,12 @@ public class Profile extends AppCompatActivity {
             //Returning the current tab
             switch(position) {
                 case 0:
-                    CreateEventPage_GeneralTab GeneralTab = new CreateEventPage_GeneralTab();
-                    return GeneralTab;
+                    Profile_InterestsTab firstTab = new Profile_InterestsTab();
+                    return firstTab;
                 case 1:
                     System.out.println("hi there");
-                    CreateEventPage_AdvancedTab AdvancedTab = new CreateEventPage_AdvancedTab();
-                    return AdvancedTab;
+                    Profile_PersonalInfoTab secondTab = new Profile_PersonalInfoTab();
+                    return secondTab;
                 default:
                     System.out.println("null returned.");
                     return null;
