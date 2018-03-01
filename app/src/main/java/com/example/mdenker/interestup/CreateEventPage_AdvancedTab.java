@@ -2,10 +2,13 @@ package com.example.mdenker.interestup;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -14,6 +17,12 @@ import android.widget.Spinner;
  */
 
 public class CreateEventPage_AdvancedTab extends Fragment {
+
+    String name;
+
+    EditText eventNameInput;
+
+    Button createEventButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +45,6 @@ public class CreateEventPage_AdvancedTab extends Fragment {
         ArrayAdapter<String> AttendeeAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, AttendeeValues);
         AttendeeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         AttendeeSpinner.setAdapter(AttendeeAdapter);
-
 
         return rootView;
 

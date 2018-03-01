@@ -60,6 +60,10 @@ public class CreateEventPage extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
+    public void OnBackClick(View view) {
+        this.finish();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
