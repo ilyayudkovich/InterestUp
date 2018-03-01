@@ -45,7 +45,7 @@ public class CreateEventPage extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), "GENERAL", "ADVANCED");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -80,16 +80,10 @@ public class CreateEventPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Deleted PlaceholderFragment class from here since each tab has it's own class now.
+    public class CreateEventTabAdapter extends SectionsPagerAdapter {
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public CreateEventTabAdapter(FragmentManager fm, String leftOption, String rightOption) {
+            super(fm, leftOption, rightOption);
         }
 
         @Override
@@ -108,22 +102,7 @@ public class CreateEventPage extends AppCompatActivity {
                     return null;
             }
         }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch(position) {
-                case 0:
-                    return "GENERAL";
-                case 1:
-                    return "ADVANCED";
-            }
-            return null;
-        }
     }
+
+    //Deleted PlaceholderFragment class from here since each tab has it's own class now.
 }
