@@ -19,8 +19,8 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.profile);
 
         //add back button
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //add edit button on right
     }

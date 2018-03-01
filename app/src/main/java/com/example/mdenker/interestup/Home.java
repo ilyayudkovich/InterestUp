@@ -14,8 +14,8 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //add back button
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void OnProfileClick(View view) {
