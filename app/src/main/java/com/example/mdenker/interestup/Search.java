@@ -72,6 +72,10 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
         return false;
     }
 
+    public void OnBackClick(View view) {
+        this.finish();
+    }
+
     public class EventAdapter extends ArrayAdapter<Event> {
 
 
