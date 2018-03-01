@@ -29,7 +29,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         ((TextView) holder.cardView.findViewById(R.id.eventName)).setText(events[position].getName());
         ((TextView) holder.cardView.findViewById(R.id.eventInterests)).setText("");//events[position].getInterests());
-        ((TextView) holder.cardView.findViewById(R.id.eventDate)).setText(events[position].getDate());
+        ((TextView) holder.cardView.findViewById(R.id.eventDate)).setText("");//events[position].getStartDate().toString());
         ((TextView) holder.cardView.findViewById(R.id.eventTime)).setText("");//events[position].getTime());
         ((TextView) holder.cardView.findViewById(R.id.eventLocation)).setText(events[position].getLocation());
         ((TextView) holder.cardView.findViewById(R.id.eventAttendees)).setText("");//events[position].getAttendees());

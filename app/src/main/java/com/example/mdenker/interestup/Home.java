@@ -8,6 +8,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.Collections;
@@ -53,19 +56,29 @@ public class Home extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void onProfileClick(View view) {
-        Intent i = new Intent(this, Profile.class);
-        startActivity(i);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_page, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
-    public void onClickGoToEventPage(View view) {
-        Intent i = new Intent(this, CreateEventPage.class);
-        startActivity(i);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.home_page_profile:
+                startActivity(new Intent(this, Profile.class));
+                return true;
+            case R.id.home_page_search:
+                startActivity(new Intent(this, Search.class));
+                return true;
+            case R.id.home_page_new:
+                startActivity(new Intent(this, CreateEventPage.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
-
-    public void OnClickGoToSearchPage(View view) {
-        Intent i = new Intent(this, Search.class);
-        startActivity(i);
-    }
-
 }
