@@ -28,8 +28,8 @@ public class Home extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void OnClickGoToEventHome(View view) {
-        Intent i = new Intent(this, EventDisplay.class);
+    public void OnClickGoToSearchPage(View view) {
+        Intent i = new Intent(this, Search.class);
         startActivity(i);
     }
 
