@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by Jorge Delgado on 2/28/2018.
  */
 
-public class CreateEventPage_AdvancedTab extends Fragment {
+public class ProfilePage_InterestsTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
