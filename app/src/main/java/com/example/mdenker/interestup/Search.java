@@ -14,6 +14,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     EventAdapter adapter;
     ListView listView;
     SearchView searchView;
-    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains")
-            , new Event("Go Hiking", "2018/04/01", "Red Hills")
-            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House")};
+    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains", Collections.<String>emptyList())
+            , new Event("Go Hiking", "2018/04/01", "Red Hills", Collections.<String>emptyList())
+            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House", Collections.<String>emptyList())};
 
 
     @Override
