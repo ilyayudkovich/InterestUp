@@ -67,35 +67,6 @@ public class Profile extends AppCompatActivity {
         editButton = (ImageButton) findViewById(R.id.editButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         doneButton = (Button) findViewById(R.id.doneButton);
-
- /*
-        int index = 0;
-        interestsLayout = findViewById(R.id.InterestContainer);
-        LinearLayout interestRow = new LinearLayout(this);
-
-        interestsLayout.addView(interestRow);
-
-        interestRow.setOrientation(LinearLayout.HORIZONTAL);
-        interestRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        topInterestRow = interestRow;
-
-        while (index < interests.size()) {
-            if (index > 0 && index % 2 == 0) {
-                interestRow = new LinearLayout(this);
-                interestsLayout.addView(interestRow);
-                interestRow.setOrientation(LinearLayout.HORIZONTAL);
-                interestRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                topInterestRow = interestRow;
-            }
-            TextView interestItem = new TextView(this);
-            interestItem.setText(interests.get(index));
-            interestRow.addView(interestItem);
-            //ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            //titleView.setLayoutParams(lparams);
-            //interestItem.setTextAppearance(this, android.R.attr.textAppearanceLarge); // TODO how to add text appearance in xml
-            index++;
-        }
-*/
     }
 
     @Override

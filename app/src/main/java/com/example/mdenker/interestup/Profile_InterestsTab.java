@@ -54,16 +54,12 @@ public class Profile_InterestsTab extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        // ListView listView = (ListView) findViewById(R.id.lvItems);
-        //listView.setAdapter(itemsAdapter);
-
         Collections.addAll(interests,"Music Performance", "Hiking", "Improv", "Writing",
              "Frisbee", "Twilight");
 
-        // have two grids, one gone, with edit version
-
         interestArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.interest_item, interests);
-        editInterestArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.interest_item_edit, interests);
+        editInterestArrayAdapter = new EditableInterestAdapter(getActivity(), interests, this);
+
 
         gridView = (GridView) view.findViewById(R.id.gridView1);
         gridView.setAdapter(interestArrayAdapter);
@@ -71,16 +67,6 @@ public class Profile_InterestsTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.gridView1Edit);
         gridViewEdit.setAdapter(editInterestArrayAdapter);
 
-        gridViewEdit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                // TODO Auto-generated method stub
-                parent.removeViewAt(position);
-            }
-        });
-/*
         editButton = (ImageButton) getActivity().findViewById(R.id.editButton);
         cancelButton = (Button) getActivity().findViewById(R.id.cancelButton);
         doneButton = (Button) getActivity().findViewById(R.id.doneButton);
@@ -90,8 +76,10 @@ public class Profile_InterestsTab extends Fragment {
             @Override
             public void onClick(View v)
             {
-                gridViewEdit.setVisibility(View.VISIBLE);
                 gridView.setVisibility(View.GONE);
+                gridViewEdit.setVisibility(View.VISIBLE);
+                Profile profileActivity = (Profile) getActivity();
+                profileActivity.OnEditClick(v);
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener()
@@ -101,6 +89,8 @@ public class Profile_InterestsTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+                Profile profileActivity = (Profile) getActivity();
+                profileActivity.OnEditClick(v);
             }
         });
         doneButton.setOnClickListener(new View.OnClickListener()
@@ -110,10 +100,12 @@ public class Profile_InterestsTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+                Profile profileActivity = (Profile) getActivity();
+                profileActivity.OnEditClick(v);
             }
         });
 
-*/
+
         addInterest = view.findViewById(R.id.AddInterest);
 
 
@@ -150,5 +142,9 @@ public class Profile_InterestsTab extends Fragment {
                 }
             }
         });
+    }
+
+    public void OnEditXClicked(String element) {
+        editInterestArrayAdapter.remove(element);
     }
 }
