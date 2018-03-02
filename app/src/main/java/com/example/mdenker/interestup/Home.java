@@ -1,10 +1,9 @@
 package com.example.mdenker.interestup;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +12,34 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Home extends AppCompatActivity {
-
-    private String[] tabNames = {"All", "Interested", "Going", "Concerts",
-            "Food + Drink", "Outdoors", "Sports", "Gaming", "Comedy", "Art"};
-    private Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains", Collections.<String>emptyList()),
-            new Event("Go Hiking", "2018/04/01", "Red Hills", Collections.<String>emptyList()),
-            new Event("Cats the Musical", "2018/06/17", "Boston Opera House", Collections.<String>emptyList())};
+    private List<Event> events = Arrays.asList(
+            EventFactory.create().setName("Hiking Trip")
+                    .setHost("Danielle Keller")
+                    .setInterests("Hiking", "Outdoors")
+                    .setLocation("Blue Mountains")
+                    .setGoing("John Duke", "Liza McCall", "Rob Holt").build(),
+            EventFactory.create().setName("Walk the Moon")
+                    .setHost("Annie Gomez")
+                    .setInterests("Concerts", "Music")
+                    .setLocation("Blue Hills Bank Pavilion")
+                    .setGoing("Joan Chen", "Doug Nichols", "Maria Yano")
+                    .setInterested("Hayden Carter").build(),
+            EventFactory.create().setName("Weekend Camping")
+                    .setHost("Sam Tanner")
+                    .setInterests("Outdoors", "Camping")
+                    .setLocation("Red Hills")
+                    .setGoing("Madison Conti").build(),
+            EventFactory.create().setName("Cats the Musical")
+                    .setHost("Angelo Fiorello")
+                    .setInterests("Theatre", "Music")
+                    .setInterested("Sarah Fowler")
+                    .setLocation("Boston Opera House").build());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +50,11 @@ public class Home extends AppCompatActivity {
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        Set<String> tabNames = new LinkedHashSet<>(Arrays.asList("All", "Going", "Interested"));
+        for (Event e : events) {
+            tabNames.addAll(e.getInterests());
+        }
         for (String tabName : tabNames) {
             TabLayout.Tab t = tabs.newTab();
             t.setText(tabName);
@@ -48,12 +71,9 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // specify an adapter (see also next example)
-        EventAdapter adapter = new EventAdapter(this.events);
+        EventAdapter adapter = new EventAdapter(this, this.events);
+        tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
-
-        //add back button
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -80,5 +100,11 @@ public class Home extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onEventClick(View view) {
+        Intent i = new Intent(this, EventDisplay.class);
+        i.putExtra("event", (Event) view.getTag());
+        startActivity(i);
     }
 }

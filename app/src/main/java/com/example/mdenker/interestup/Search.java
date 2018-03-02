@@ -27,9 +27,9 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     EventAdapter adapter;
     ListView listView;
     SearchView searchView;
-    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains", Collections.<String>emptyList())
-            , new Event("Go Hiking", "2018/04/01", "Red Hills", Collections.<String>emptyList())
-            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House", Collections.<String>emptyList())};
+    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains")
+            , new Event("Go Hiking", "2018/04/01", "Red Hills")
+            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House")};
 
 
     @Override
@@ -100,7 +100,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
             TextView eventDetail = (TextView) convertView.findViewById(R.id.eventDetail);
 
             eventName.setText(event.getName());
-            eventDetail.setText(event.getEndDate() + " | " + event.getLocation());
+            eventDetail.setText(event.getEndDateTime().toString() + " | " + event.getLocation());
 
             return convertView;
         }

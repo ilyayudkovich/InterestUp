@@ -42,7 +42,7 @@ public class EventDisplayInfo extends Fragment {
         View view = inflater.inflate(R.layout.event_display_info, container, false);
         where      = (EditText)view.findViewById(R.id.where);
         address    = (EditText)view.findViewById(R.id.address);
-        time       = (EditText)view.findViewById(R.id.eventTime);
+        time       = (EditText)view.findViewById(R.id.time);
         when       = (EditText)view.findViewById(R.id.when);
         totalGoing = (EditText)view.findViewById(R.id.totalGoing);
         toBring    = (EditText)view.findViewById(R.id.toBring);
@@ -56,9 +56,9 @@ public class EventDisplayInfo extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         where.setText(event.getLocation());
         address.setText(event.getLocation());
-        time.setText(event.getStartTime().format2445());
-        when.setText(event.getStartDate().toString());
-        totalGoing.setText(event.getNumberOfAttendees());
+        time.setText(event.getStartDateTime().getTime().toString());
+        when.setText(event.getStartDateTime().getTime().toString());
+        totalGoing.setText(Integer.toString(event.getNumberOfAttendees()));
         toBring.setText("Shoes, boots, chapstick, rainjacket");
     }
 }

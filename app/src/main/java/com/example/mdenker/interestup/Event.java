@@ -1,49 +1,73 @@
 package com.example.mdenker.interestup;
 
-import android.text.format.DateFormat;
-import android.text.format.Time;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by tsengjonathan on 2/28/18.
  */
 
-public class Event {
+public class Event implements Serializable {
     private int id;
+    private String host;
     private String name;
     private String description;
-    private DateFormat startDate;
-    private DateFormat endDate;
-    private Time startTime;
-    private Time endTime;
+    private Calendar startDateTime;
+    private Calendar endDateTime;
     private boolean tentativeDates;
     private String location;
-    private Collection<String> interests;
+    private List<String> interests;
+    private List<String> going;
+    private List<String> interested;
+    private List<String> items;
     private int numberOfAttendees;
     private String viewRestrictions;
-    private ArrayList exclusions;
-    private ArrayList items;
+    private List<String> exclusions;
 
-    Event(String name, String date, String location, Collection<String> interests) {
-        //this.id = id;
+    public Event() {
+        this.id = -1;
+        this.host = "";
+        this.name = "";
+        this.description = "";
+        this.startDateTime = Calendar.getInstance();
+        this.endDateTime = Calendar.getInstance();
+        this.tentativeDates = true;
+        this.location = "";
+        this.interests = new ArrayList<>();
+        this.going = new ArrayList<>();
+        this.interested = new ArrayList<>();
+        this.items = new ArrayList<>();
+        this.numberOfAttendees = 1;
+        this.viewRestrictions = "";
+        this.exclusions = new ArrayList<>();
+    }
+
+    public Event(String name, String date, String location) {
+        this.id = -1;
+        this.host = "";
         this.name = name;
-        //this.description = description;
-        //this.startDate = startDate;
-        //this.endDate = endDate;
-        //this.startTime = startTime;
-        //this.endTime = endTime;
-        //this.tentativeDates = tentativeDates;
+        this.description = "";
+        this.startDateTime = Calendar.getInstance();
+        this.endDateTime = Calendar.getInstance();
+        this.tentativeDates = true;
         this.location = location;
-        this.interests = interests;
-        //this.numberOfAttendees = numberOfAttendees;
-        //this.viewRestrictions = viewRestrictions;
-        //this.exclusions = exclusions;
+        this.interests = new ArrayList<>();
+        this.going = new ArrayList<>();
+        this.interested = new ArrayList<>();
+        this.items = new ArrayList<>();
+        this.numberOfAttendees = 1;
+        this.viewRestrictions = "";
+        this.exclusions = new ArrayList<>();
     }
 
     public int getID() {
         return this.id;
+    }
+
+    public String getHost() {
+        return this.host;
     }
 
     public String getName() {
@@ -54,20 +78,12 @@ public class Event {
         return this.description;
     }
 
-    public DateFormat getStartDate() {
-        return this.startDate;
+    public Calendar getStartDateTime() {
+        return this.startDateTime;
     }
 
-    public DateFormat getEndDate() {
-        return this.endDate;
-    }
-
-    public Time getStartTime() {
-        return this.startTime;
-    }
-
-    public Time getEndTime() {
-        return this.endTime;
+    public Calendar getEndDateTime() {
+        return this.endDateTime;
     }
 
     public boolean getTentativeDates() {
@@ -78,8 +94,20 @@ public class Event {
         return this.location;
     }
 
-    public Collection<String> getInterests() {
+    public List<String> getInterests() {
         return this.interests;
+    }
+
+    public List<String> getGoing() {
+        return this.going;
+    }
+
+    public List<String> getInterested() {
+        return this.interested;
+    }
+
+    public List<String> getItems() {
+        return this.items;
     }
 
     public int getNumberOfAttendees() {
@@ -90,8 +118,12 @@ public class Event {
         return this.viewRestrictions;
     }
 
-    public ArrayList getExclusions() {
+    public List<String> getExclusions() {
         return this.exclusions;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public void setName(String name) {
@@ -102,20 +134,12 @@ public class Event {
         this.description = description;
     }
 
-    public void setStartDate(DateFormat startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(Calendar startDate) {
+        this.startDateTime = startDate;
     }
 
-    public void setEndDate(DateFormat endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setEndDateTime(Calendar endDate) {
+        this.endDateTime = endDate;
     }
 
     public void setTentativeDates(boolean tentativeDates) {
@@ -126,13 +150,21 @@ public class Event {
         this.location = location;
     }
 
-    public void setInterests(Collection<String> interests) {
+    public void setInterests(List<String> interests) {
         this.interests = interests;
     }
 
-    public void setItems(ArrayList<String> items) { this.items = items; }
+    public void setGoing(List<String> going) {
+        this.going = going;
+    }
 
-    public ArrayList<String> getItems() {return this.items;}
+    public void setInterested(List<String> interested) {
+        this.interested = interested;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
 
     public void setNumberOfAttendees(int numberOfAttendees) {
         this.numberOfAttendees = numberOfAttendees;
@@ -142,7 +174,7 @@ public class Event {
         this.viewRestrictions = viewRestrictions;
     }
 
-    public void setExclusions(ArrayList exclusions) {
+    public void setExclusions(List<String> exclusions) {
         this.exclusions = exclusions;
     }
 }

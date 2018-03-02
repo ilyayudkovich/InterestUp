@@ -46,9 +46,9 @@ public class EventDisplayDiscussion extends Fragment {
         mname4 = (EditText)view.findViewById(R.id.name4);
 
         mcomment1 = (EditText)view.findViewById(R.id.comment1);
-        mcomment1 = (EditText)view.findViewById(R.id.comment2);
-        mcomment1 = (EditText)view.findViewById(R.id.comment3);
-        mcomment1 = (EditText)view.findViewById(R.id.comment4);
+        mcomment2 = (EditText)view.findViewById(R.id.comment2);
+        mcomment3 = (EditText)view.findViewById(R.id.comment3);
+        mcomment4 = (EditText)view.findViewById(R.id.comment4);
 
 
         return view;

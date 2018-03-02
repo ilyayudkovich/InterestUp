@@ -36,6 +36,8 @@ public class EventDisplay extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private Event event;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class EventDisplay extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new com.example.mdenker.interestup.SectionsPagerAdapter(getSupportFragmentManager(), "INFO", "DISCUSSION");
+        mSectionsPagerAdapter = new CreateEventTabAdapter(getSupportFragmentManager(), "INFO", "DISCUSSION");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -55,6 +57,8 @@ public class EventDisplay extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        event = (Event) getIntent().getExtras().getSerializable("event");
     }
 
 
@@ -91,7 +95,7 @@ public class EventDisplay extends AppCompatActivity {
             //Returning the current tab
             switch(position) {
                 case 0:
-                    EventDisplayInfo info = new EventDisplayInfo();
+                    EventDisplayInfo info = new EventDisplayInfo(event);
                     return info;
                 case 1:
                     EventDisplayDiscussion discussion = new EventDisplayDiscussion();
