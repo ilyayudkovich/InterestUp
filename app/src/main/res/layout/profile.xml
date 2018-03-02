@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:onClick="OnScreenTapped">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -28,7 +31,7 @@
     </android.support.design.widget.TabLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backButton"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -38,17 +41,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />
 
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="74dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginTop="4dp"
+        android:onClick="OnEditClick"
+        android:text="Done"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="85dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:onClick="OnEditClick"
+        android:text="Cancel"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="107dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="50dp"
         android:maxHeight="150dp"
         android:minHeight="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView2"
@@ -85,11 +112,12 @@
     </android.support.constraint.ConstraintLayout>
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/editButton"
         android:layout_width="56dp"
         android:layout_height="43dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="4dp"
+        android:onClick="OnEditClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/edit" />
