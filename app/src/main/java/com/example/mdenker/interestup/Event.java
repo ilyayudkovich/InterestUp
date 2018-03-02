@@ -24,6 +24,7 @@ public class Event {
     private int numberOfAttendees;
     private String viewRestrictions;
     private ArrayList exclusions;
+    private ArrayList items;
 
     Event(String name, String date, String location, Collection<String> interests) {
         //this.id = id;
@@ -128,6 +129,10 @@ public class Event {
     public void setInterests(Collection<String> interests) {
         this.interests = interests;
     }
+
+    public void setItems(ArrayList<String> items) { this.items = items; }
+
+    public ArrayList<String> getItems() {return this.items;}
 
     public void setNumberOfAttendees(int numberOfAttendees) {
         this.numberOfAttendees = numberOfAttendees;
