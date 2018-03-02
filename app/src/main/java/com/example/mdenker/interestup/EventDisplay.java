@@ -41,7 +41,7 @@ public class EventDisplay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_event_page);
+        setContentView(R.layout.activity_event_display);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,6 +59,11 @@ public class EventDisplay extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         event = (Event) getIntent().getExtras().getSerializable("event");
+    }
+
+    //Functionality for back button
+    public void OnBackClick(View view) {
+        this.finish();
     }
 
 
