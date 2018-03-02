@@ -1,0 +1,54 @@
+-- General --
+In order to run the application, you can either download the apk and run it from your android phone or simulate a phone using Android studio.
+Below you will find instructions on installing, and running, the application on Windows.
+
+-- Installations Tested --
+These steps were tested on a virtualized Windows 10 64 bit machine.
+
+-- Installation Instructions --
+1. Go to this URL: https://stackoverflow.com/questions/11318551/creating-a-custom-edittext-with-tag-like-feature .
+2. Click "DOWNLOAD ANDROID STUDIO", it is free.
+3. You will be prompted to accept the EULA, accept it by checking the checkbox.
+4. Click "DOWNLOAD ANDROID STUDIO FOR WINDOWS".
+5. Once it has been downloaded, double click on the installer. 
+6. You will be prompted to "Run" or "Cancel".
+7. Select "Run".
+8. Follow through the prompts by clicking next. (IT IS ESSENTIAL YOU SAVE EVERYTHING TO THE MAIN DRIVE AND HAVE NO SPACES IN ANY FOLDER NAMES)
+- I recommend just saving it to the C drive itself.
+9. After installation is complete, click "Finish." (By default, Android Studio will start right up. If it does not, run it from your Start Menu)
+10. Android Studio will prompt to import studio settings. Select "Do not import settings." and click "OK"
+11. You will be greeted to the welcome screen.
+12. Select "Standard" for the setup type.
+13. Select IntelliJ for the UI Theme.
+14. When prompted for the SDK Component Setup, select "Android Virtual Device" by selecting the check mark.
+- IT IS ESSENTIAL THAT YOU INSTALL THE ANDROID SDK INTO A FOLDER ON THE MAIN DRIVE WITH NO SPACES ANYWHERE IN THE PATH!!!!
+15. Click "Next"
+16. Click "Finish"
+17. Android Studio will now download and install all the components it needs. This process might take a while. 
+18. After installing, you will be prompted by the Android Studio Welcome screen. 
+19. Download the .zip file provided with all of the files for InterestUp!
+20. Extract the zip file to a location of your choice. 
+21. On Android Studio, select "Open an existing Android Studio Project" 
+22. Navigate to the location you extracted the InterestUp application to, highlight it, and click "OK".
+23. Android Studio will now build the project for you.
+24. you may be prompted with a "Windows Security Alert", simply select BOTH check boxes, and click "Allow Access".
+25. Allow Android Studio to build the project for you (take note on the bottom right hand side, it will say "x processes running")
+26. You may see some error messages in the bottom right, we will fix those shortly.
+27. Click "Event Log" at the bottom right hand side once it is done attempting to run the application. 
+28. You will see "Invalid CSV root Mapping", click on "Configure" 
+29. Next, it will open the settings menu and will place you in the "version Control" tab.
+30. Highly the application and select "-" on the right. 
+31. Click "OK"
+(OPTIONAL) If you do not have Intel HAXM installed, download it from: https://github.com/intel/haxm/releases/download/v7.0.0/haxm-windows_v7_0_0.zip
+and install it. 
+(OPTIONAL) Once you have it downloaded, extract it and double click "intelhaxm-android" and follow the installation prompts
+32. In Android Studio, go to "File" -> "Project Structure" -> enter "4.1" into "Gradle version"  and click "OK"
+33. In Android Studio, go to "File" -> "Settings" -> "System Settings" -> "Android SDK" -> "SDK Tools" tab -> Check "CMake" and click "OK"
+34. At the top bar, go to "run" and then select "run 'app'"
+35. It will prompt you asking what Virtual Device you want to use.
+36. Select "Nexus 5X API 27 x 86" and click "OK"
+37. After it finishes building InterestUp!, you will see an emulated Android screen.
+38. Once the application is ready, it will automatically be opened and presented to the user. You may now use the application.
+(OPTIONAL) If, you are unable to run the application due to missing packages, simply go to the event log and select to "add" them.
+
+

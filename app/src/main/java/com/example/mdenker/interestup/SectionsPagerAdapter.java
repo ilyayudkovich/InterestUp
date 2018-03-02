@@ -27,7 +27,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 CreateEventPage_GeneralTab GeneralTab = new CreateEventPage_GeneralTab();
                 return GeneralTab;
             case 1:
-                System.out.println("hi there");
                 CreateEventPage_AdvancedTab AdvancedTab = new CreateEventPage_AdvancedTab();
                 return AdvancedTab;
             default:

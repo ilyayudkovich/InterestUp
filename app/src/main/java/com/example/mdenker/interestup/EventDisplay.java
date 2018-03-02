@@ -94,7 +94,6 @@ public class EventDisplay extends AppCompatActivity {
                     EventDisplayInfo info = new EventDisplayInfo();
                     return info;
                 case 1:
-                    System.out.println("hi there");
                     EventDisplayDiscussion discussion = new EventDisplayDiscussion();
                     return discussion;
                 default:

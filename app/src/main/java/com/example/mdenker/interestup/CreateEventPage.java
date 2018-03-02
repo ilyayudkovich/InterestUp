@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class CreateEventPage extends AppCompatActivity {
@@ -58,8 +60,24 @@ public class CreateEventPage extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        //Grab entries
+        Button createEventButton = (Button) findViewById(R.id.create_event_button);
+        createEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Do something here to create event.");
+                OnBackClick(view);
+            }
+
+
+        });
     }
 
+    //Functionality for back button
+    public void OnBackClick(View view) {
+        this.finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,11 +115,9 @@ public class CreateEventPage extends AppCompatActivity {
                     CreateEventPage_GeneralTab GeneralTab = new CreateEventPage_GeneralTab();
                     return GeneralTab;
                 case 1:
-                    System.out.println("hi there");
                     CreateEventPage_AdvancedTab AdvancedTab = new CreateEventPage_AdvancedTab();
                     return AdvancedTab;
                 default:
-                    System.out.println("null returned.");
                     return null;
             }
         }
