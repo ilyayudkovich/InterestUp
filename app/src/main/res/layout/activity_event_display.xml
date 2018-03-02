@@ -8,24 +8,28 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.mdenker.interestup.EventDisplay">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="383dp"
+        android:layout_height="61dp">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="OnBackClick"
+            app:srcCompat="@drawable/back"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="3dp" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-            app:title="@string/app_name">
-
-        </android.support.v7.widget.Toolbar>
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
+        android:layout_marginTop="120px"
+        tools:layout_editor_absoluteY="1dp">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
