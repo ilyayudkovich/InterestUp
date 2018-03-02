@@ -35,11 +35,11 @@ public class Home extends AppCompatActivity {
                     .setInterests("Outdoors", "Camping")
                     .setLocation("Red Hills")
                     .setGoing("Madison Conti").build(),
-            EventFactory.create().setName("Cats the Musical")
+            EventFactory.create().setName("Hair")
                     .setHost("Angelo Fiorello")
                     .setInterests("Theatre", "Music")
                     .setInterested("Sarah Fowler")
-                    .setLocation("Boston Opera House").build());
+                    .setLocation("Studio Theatre").build());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
