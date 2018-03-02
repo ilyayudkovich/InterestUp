@@ -27,10 +27,6 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     EventAdapter adapter;
     ListView listView;
     SearchView searchView;
-    Event[] events = {new Event("Hiking Trip", "2018/03/21", "Blue Mountains")
-            , new Event("Go Hiking", "2018/04/01", "Red Hills")
-            , new Event("Cats the Musical", "2018/06/17", "Boston Opera House")};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +47,9 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     protected void eventFilter(String search) {
         ArrayList<Event> eventResult = new ArrayList<>();
 
-        for (int i = 0; i < events.length; i++) {
-            if (events[i].getName().toLowerCase().contains(search.toLowerCase())) {
-                eventResult.add(events[i]);
+        for (int i = 0; i < Home.events.size(); i++) {
+            if (Home.events.get(i).getName().toLowerCase().contains(search.toLowerCase())) {
+                eventResult.add(Home.events.get(i));
             }
         }
 

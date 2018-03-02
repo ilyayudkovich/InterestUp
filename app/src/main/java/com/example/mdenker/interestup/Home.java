@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Home extends AppCompatActivity {
-    private List<Event> events = Arrays.asList(
+    public static List<Event> events = Arrays.asList(
             EventFactory.create().setName("Hiking Trip")
                     .setHost("Danielle Keller")
                     .setInterests("Hiking", "Outdoors")
@@ -71,7 +71,7 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // specify an adapter (see also next example)
-        EventAdapter adapter = new EventAdapter(this.events);
+        EventAdapter adapter = new EventAdapter(events);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
     }
