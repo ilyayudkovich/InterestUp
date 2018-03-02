@@ -100,7 +100,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
             TextView eventDetail = (TextView) convertView.findViewById(R.id.eventDetail);
 
             eventName.setText(event.getName());
-            eventDetail.setText(event.getEndDateTime().toString() + " | " + event.getLocation());
+            eventDetail.setText(event.getEndDateTime().getTime().toString() + " | " + event.getLocation());
 
             return convertView;
         }

@@ -21,12 +21,10 @@ import java.util.Locale;
  */
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> implements TabLayout.OnTabSelectedListener {
-    private Activity home;
     private List<Event> events;
     private List<Event> filtered;
 
-    EventAdapter(Activity home, List<Event> events) {
-        this.home = home;
+    EventAdapter(List<Event> events) {
         this.events = events;
         this.filtered = new ArrayList<>();
     }
