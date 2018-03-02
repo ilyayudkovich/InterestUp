@@ -2,8 +2,10 @@
 In order to run the application, you can either download the apk and run it from your android phone or simulate a phone using Android studio.
 Below you will find instructions on installing, and running, the application on Windows.
 
+-- Installations Tested --
+These steps were tested on a virtualized Windows 10 64 bit machine.
 
--- Instructions --
+-- Installation Instructions --
 1. Go to this URL: https://stackoverflow.com/questions/11318551/creating-a-custom-edittext-with-tag-like-feature .
 2. Click "DOWNLOAD ANDROID STUDIO", it is free.
 3. You will be prompted to accept the EULA, accept it by checking the checkbox.
