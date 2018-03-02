@@ -1,6 +1,7 @@
 package com.example.mdenker.interestup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -27,6 +29,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     EventAdapter adapter;
     ListView listView;
     SearchView searchView;
+    ArrayList<Event> eventResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,14 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(Search.this, EventDisplay.class);
+                intent.putExtra("event", eventResult.get(i));
+                startActivity(intent);
+            }
+        });
 
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
@@ -45,7 +56,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
 
     protected void eventFilter(String search) {
-        ArrayList<Event> eventResult = new ArrayList<>();
+        eventResult = new ArrayList<>();
 
         for (int i = 0; i < Home.events.size(); i++) {
             if (Home.events.get(i).getName().toLowerCase().contains(search.toLowerCase())) {
@@ -73,6 +84,10 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
         this.finish();
     }
 
+    public void OnEventClick(View view) {
+        System.out.println(listView.getSelectedItem());
+    }
+
     public class EventAdapter extends ArrayAdapter<Event> {
 
 
@@ -96,7 +111,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
             TextView eventDetail = (TextView) convertView.findViewById(R.id.eventDetail);
 
             eventName.setText(event.getName());
-            eventDetail.setText(event.getEndDateTime().getTime().toString() + " | " + event.getLocation());
+            eventDetail.setText(event.getEndDateTime().getTime().toString().substring(0, 10) + " | " + event.getLocation());
 
             return convertView;
         }
