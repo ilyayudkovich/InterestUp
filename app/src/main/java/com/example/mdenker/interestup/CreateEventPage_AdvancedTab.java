@@ -18,7 +18,7 @@ import android.widget.Spinner;
 
 public class CreateEventPage_AdvancedTab extends Fragment {
 
-    String name;
+    String eventName;
 
     EditText eventNameInput;
 
@@ -45,6 +45,7 @@ public class CreateEventPage_AdvancedTab extends Fragment {
         ArrayAdapter<String> AttendeeAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, AttendeeValues);
         AttendeeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         AttendeeSpinner.setAdapter(AttendeeAdapter);
+
 
         return rootView;
 
