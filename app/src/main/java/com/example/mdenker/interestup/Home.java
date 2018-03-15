@@ -74,6 +74,9 @@ public class Home extends AppCompatActivity {
         EventAdapter adapter = new EventAdapter(events);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
+
+        tabs.getTabAt(1).select();
+        tabs.getTabAt(0).select();
     }
 
     @Override
