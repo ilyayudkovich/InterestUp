@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +58,7 @@ public class Profile_InterestsTab extends Fragment {
         Collections.addAll(interests,"Music Performance", "Hiking", "Improv", "Writing",
              "Frisbee", "Twilight");
 
-        interestArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.interest_item, interests);
+        interestArrayAdapter = new InterestAdapter(getActivity(), interests, this);
         editInterestArrayAdapter = new EditableInterestAdapter(getActivity(), interests, this);
 
 
@@ -114,9 +115,13 @@ public class Profile_InterestsTab extends Fragment {
             @Override
             public void onClick(View v)
             {
-                if (addInterest.getText().length() > 3) {
+                if (addInterest.getText().length() > 2) {
                     interestArrayAdapter.add(addInterest.getText().toString());
                     addInterest.setText("");
+                }
+                else {
+                    Toast.makeText(getActivity(), "Not long enough to be a valid interest",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -134,11 +139,21 @@ public class Profile_InterestsTab extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() > 2) { // at least 0, but 2 for real words
+                if (s.length() > 3) { // at least 0, but 2 for real words - last \n
                     if (s.charAt(s.length() - 1) == '\n') {
-                        interestArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
-                        addInterest.setText("");
+                        if (s.length() > 22) {
+                            Toast.makeText(getActivity(), "Too many characters in potential interest",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            interestArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
+                            addInterest.setText("");
+                        }
                     }
+                }
+                else if (s.length() > 0 && s.charAt(s.length() - 1) == '\n') {
+                    addInterest.setText(s.subSequence(0, s.length() - 1));
+                    Toast.makeText(getActivity(), "Not long enough to be a valid interest",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
