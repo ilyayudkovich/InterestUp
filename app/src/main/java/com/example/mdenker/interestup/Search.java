@@ -24,7 +24,7 @@ import java.util.List;
  * Created by tsengjonathan on 2/28/18.
  */
 
-public class Search extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class Search extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     EventAdapter adapter;
     ListView listView;
@@ -52,6 +52,12 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
         searchView.setOnQueryTextListener(this);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
     }
 
 
@@ -87,6 +93,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     public void OnEventClick(View view) {
         System.out.println(listView.getSelectedItem());
     }
+
 
     public class EventAdapter extends ArrayAdapter<Event> {
 
