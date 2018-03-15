@@ -51,6 +51,8 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("Search Events");
         searchView.setOnQueryTextListener(this);
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
