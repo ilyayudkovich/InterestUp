@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by Ilya Yudkovich on 2/28/2018.
@@ -19,12 +20,13 @@ public class EventDisplayInfo extends Fragment {
 
     Event event;
 
-    private EditText where;
-    private EditText address;
-    private EditText time;
-    private EditText when;
-    private EditText totalGoing;
-    private EditText toBring;
+    private TextView name;
+    private TextView where;
+    private TextView address;
+    private TextView time;
+    private TextView when;
+    private TextView totalGoing;
+    private TextView toBring;
 
 
     public EventDisplayInfo() {}
@@ -40,12 +42,13 @@ public class EventDisplayInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.event_display_info, container, false);
-        where      = (EditText)view.findViewById(R.id.where);
-        address    = (EditText)view.findViewById(R.id.address);
-        time       = (EditText)view.findViewById(R.id.time);
-        when       = (EditText)view.findViewById(R.id.when);
-        totalGoing = (EditText)view.findViewById(R.id.totalGoing);
-        toBring    = (EditText)view.findViewById(R.id.toBring);
+        name       = (TextView)view.findViewById(R.id.name);
+        where      = (TextView)view.findViewById(R.id.where);
+        address    = (TextView)view.findViewById(R.id.address);
+        time       = (TextView)view.findViewById(R.id.time);
+        when       = (TextView)view.findViewById(R.id.when);
+        totalGoing = (TextView)view.findViewById(R.id.totalGoing);
+        toBring    = (TextView)view.findViewById(R.id.toBring);
 
 
         return view;
@@ -54,6 +57,7 @@ public class EventDisplayInfo extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        name.setText(event.getName());
         where.setText(event.getLocation());
         address.setText(event.getLocation());
         time.setText(event.getStartDateTime().getTime().toString());
