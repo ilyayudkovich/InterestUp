@@ -61,13 +61,13 @@ public class EventFactory {
         return factory;
     }
 
-    public EventFactory setGoing(String... going) {
-        event.setGoing(Arrays.asList(going));
+    public EventFactory addGoing(String... going) {
+        event.addGoing(Arrays.asList(going));
         return factory;
     }
 
-    public EventFactory setInterested(String... interested) {
-        event.setInterested(Arrays.asList(interested));
+    public EventFactory addInterested(String... interested) {
+        event.addInterested(Arrays.asList(interested));
         return factory;
     }
 

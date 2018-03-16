@@ -8,37 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Home extends AppCompatActivity {
-    public static List<Event> events = Arrays.asList(
-            EventFactory.create().setName("Hiking Trip")
-                    .setHost("Danielle Keller")
-                    .setInterests("Hiking", "Outdoors")
-                    .setLocation("Blue Mountains")
-                    .setGoing("John Duke", "Liza McCall", "Rob Holt").build(),
-            EventFactory.create().setName("Walk the Moon")
-                    .setHost("Annie Gomez")
-                    .setInterests("Concerts", "Music")
-                    .setLocation("Blue Hills Bank Pavilion")
-                    .setGoing("Joan Chen", "Doug Nichols", "Maria Yano")
-                    .setInterested("Hayden Carter").build(),
-            EventFactory.create().setName("Weekend Camping")
-                    .setHost("Sam Tanner")
-                    .setInterests("Outdoors", "Camping")
-                    .setLocation("Red Hills")
-                    .setGoing("Madison Conti").build(),
-            EventFactory.create().setName("Hair")
-                    .setHost("Angelo Fiorello")
-                    .setInterests("Theatre", "Music")
-                    .setInterested("Sarah Fowler")
-                    .setLocation("Studio Theatre").build());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +29,7 @@ public class Home extends AppCompatActivity {
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         Set<String> tabNames = new LinkedHashSet<>(Arrays.asList("All", "Going", "Interested"));
-        for (Event e : events) {
+        for (Event e : Database.events) {
             tabNames.addAll(e.getInterests());
         }
         for (String tabName : tabNames) {
@@ -71,7 +48,7 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // specify an adapter (see also next example)
-        EventAdapter adapter = new EventAdapter(events);
+        EventAdapter adapter = new EventAdapter(Database.events);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
 
@@ -107,5 +84,26 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(this, EventDisplay.class);
         i.putExtra("event", (Event) view.getTag());
         startActivity(i);
+    }
+
+    public void onInterestedClick(View view) {
+        Event e = (Event) ((View) view.getParent().getParent()).getTag();
+        ImageButton b = view.findViewById(R.id.home_interest_button);
+        if (e.getInterested().contains(Database.user)) {
+            e.removeInterested(Database.user);
+            b.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
+        } else {
+            e.addInterested(Database.user);
+            b.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
+        }
+    }
+
+    public void onGoingClick(View view) {
+        Event e = (Event) view.getTag();
+        if (e.getGoing().contains(Database.user)) {
+            e.getGoing().remove(Database.user);
+        } else {
+            e.getGoing().add(Database.user);
+        }
     }
 }

@@ -66,9 +66,9 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
     protected void eventFilter(String search) {
         eventResult = new ArrayList<>();
 
-        for (int i = 0; i < Home.events.size(); i++) {
-            if (Home.events.get(i).getName().toLowerCase().contains(search.toLowerCase())) {
-                eventResult.add(Home.events.get(i));
+        for (int i = 0; i < Database.events.size(); i++) {
+            if (Database.events.get(i).getName().toLowerCase().contains(search.toLowerCase())) {
+                eventResult.add(Database.events.get(i));
             }
         }
 
