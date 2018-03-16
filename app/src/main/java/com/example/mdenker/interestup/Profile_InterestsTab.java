@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by Jorge Delgado on 2/28/2018.
+ * Created by mdenker on 2/28/2018.
  */
 
 public class Profile_InterestsTab extends Fragment {
@@ -60,7 +60,6 @@ public class Profile_InterestsTab extends Fragment {
 
         interestArrayAdapter = new InterestAdapter(getActivity(), interests, this);
         editInterestArrayAdapter = new EditableInterestAdapter(getActivity(), interests, this);
-
 
         gridView = (GridView) view.findViewById(R.id.gridView1);
         gridView.setAdapter(interestArrayAdapter);
@@ -161,5 +160,6 @@ public class Profile_InterestsTab extends Fragment {
 
     public void OnEditXClicked(String element) {
         editInterestArrayAdapter.remove(element);
+        interestArrayAdapter.remove(element);
     }
 }

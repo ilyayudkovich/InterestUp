@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -80,35 +79,27 @@ public class Profile extends AppCompatActivity {
         this.finish();
     }
 
-
-
     private void ForceExitKeyboard(View view) {
-        //View view = this.getCurrentFocus();
-        //if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-       // }
-  //      view.restoreDefaultFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void EnableDisableView(View view) {
 
-        if (view.getId() != R.id.AddInterest) {
-
+        // so that only fields that are touchable (like text fields) are focusable ever
+        if (view.getTag() != null && view.getTag().toString().equals("touchableFields")) {
             if (!enabled && view.isFocused()) {
                 ForceExitKeyboard(view);
                 view.clearFocus(); // makes sure you're not still focused no the item after removing keyboard
             }
-
             view.setFocusableInTouchMode(enabled);
+        }
 
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
 
-            if (view instanceof ViewGroup) {
-                ViewGroup group = (ViewGroup) view;
-
-                for (int idx = 0; idx < group.getChildCount(); idx++) {
-                    EnableDisableView(group.getChildAt(idx));
-                }
+            for (int idx = 0; idx < group.getChildCount(); idx++) {
+                EnableDisableView(group.getChildAt(idx));
             }
         }
     }
@@ -119,11 +110,9 @@ public class Profile extends AppCompatActivity {
 
 
     public void OnEditClick(View view) {
-        //mViewPager.setFocusable(true);
         enabled = !enabled;
 
         if (!enabled) {
-        //    ForceExitKeyboard();
             doneButton.setVisibility(View.GONE);
             cancelButton.setVisibility(View.GONE);
 
