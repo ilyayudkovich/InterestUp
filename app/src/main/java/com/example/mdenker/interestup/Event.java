@@ -1,5 +1,7 @@
 package com.example.mdenker.interestup;
 
+import android.view.View;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -154,14 +156,6 @@ public class Event implements Serializable {
         this.interests = interests;
     }
 
-    public void setGoing(List<String> going) {
-        this.going = going;
-    }
-
-    public void setInterested(List<String> interested) {
-        this.interested = interested;
-    }
-
     public void setItems(List<String> items) {
         this.items = items;
     }
@@ -176,5 +170,29 @@ public class Event implements Serializable {
 
     public void setExclusions(List<String> exclusions) {
         this.exclusions = exclusions;
+    }
+
+    public void addGoing(String going) {
+        this.going.add(going);
+    }
+
+    public void addGoing(List<String> going) {
+        this.going.addAll(going);
+    }
+
+    public void removeGoing(String going) {
+        this.going.remove(going);
+    }
+
+    public void addInterested(String interested) {
+        this.interested.add(interested);
+    }
+
+    public void addInterested(List<String> interested) {
+        this.interested.addAll(interested);
+    }
+
+    public void removeInterested(String interested) {
+        this.interested.remove(interested);
     }
 }
