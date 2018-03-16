@@ -99,11 +99,14 @@ public class Home extends AppCompatActivity {
     }
 
     public void onGoingClick(View view) {
-        Event e = (Event) view.getTag();
+        Event e = (Event) ((View) view.getParent().getParent()).getTag();
+        ImageButton b = view.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(Database.user)) {
-            e.getGoing().remove(Database.user);
+            e.removeGoing(Database.user);
+            b.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_green_36dp));
         } else {
-            e.getGoing().add(Database.user);
+            e.addGoing(Database.user);
+            b.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         }
     }
 }
