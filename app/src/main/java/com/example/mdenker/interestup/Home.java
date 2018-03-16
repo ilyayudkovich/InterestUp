@@ -3,12 +3,11 @@ package com.example.mdenker.interestup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -47,6 +46,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        showActionBar();
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -79,29 +79,27 @@ public class Home extends AppCompatActivity {
         tabs.getTabAt(0).select();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_page, menu);
-        return super.onCreateOptionsMenu(menu);
+    private void showActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled (false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setCustomView(R.layout.home_action_bar);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onMenuItemClick(View view) {
         // Handle presses on the action bar items
-        switch (item.getItemId()) {
+        switch (view.getId()) {
             case R.id.home_page_profile:
                 startActivity(new Intent(this, Profile.class));
-                return true;
+                break;
             case R.id.home_page_search:
                 startActivity(new Intent(this, Search.class));
-                return true;
+                break;
             case R.id.home_page_new:
                 startActivity(new Intent(this, CreateEventPage.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
     }
 
