@@ -80,6 +80,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="120dp"
         android:ems="10"
+        android:hint="Required"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -91,6 +92,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="56dp"
         android:ems="10"
+        android:hint="Required"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,6 +152,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="400dp"
         android:ems="10"
+        android:hint="Required"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -179,6 +182,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="456dp"
         android:ems="10"
+        android:hint="Required"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="parent" />
