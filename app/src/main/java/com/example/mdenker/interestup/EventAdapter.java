@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -21,10 +22,12 @@ import java.util.Locale;
  */
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> implements TabLayout.OnTabSelectedListener {
+    private Activity activity;
     private List<Event> events;
     private List<Event> filtered;
 
-    EventAdapter(List<Event> events) {
+    EventAdapter(Activity activity, List<Event> events) {
+        this.activity = activity;
         this.events = events;
         this.filtered = new ArrayList<>();
     }
@@ -47,6 +50,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             interests.append(e.getInterests().get(i));
         }
         ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(interests.toString());
+
+        ImageButton interestButton = holder.itemView.findViewById(R.id.home_interest_button);
+        if (e.getInterested().contains(Database.user)) {
+            interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
+        } else {
+            interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
+        }
+
+        ImageButton b = holder.itemView.findViewById(R.id.home_going_button);
+        if (e.getGoing().contains(Database.user)) {
+            b.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
+        } else {
+            b.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
+        }
 
         DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM d", Locale.US);
         String date = dateFormat.format(e.getStartDateTime().getTime()) + " - " +
@@ -88,14 +105,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
             case "going":
                 for (Event e : events) {
-                    if (e.getInterested().contains("USER")) {
+                    if (e.getGoing().contains(Database.user)) {
                         filtered.add(e);
                     }
                 }
                 break;
             case "interested":
                 for (Event e : events) {
-                    if (e.getInterested().contains("USER")) {
+                    if (e.getInterested().contains(Database.user)) {
                         filtered.add(e);
                     }
                 }
