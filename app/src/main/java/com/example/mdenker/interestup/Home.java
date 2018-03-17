@@ -99,7 +99,6 @@ public class Home extends AppCompatActivity {
     }
 
     public void onGoingClick(View view) {
-        // Delete because git is stupid.
         Event e = (Event) ((View) view.getParent().getParent()).getTag();
         ImageButton b = view.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(Database.user)) {
