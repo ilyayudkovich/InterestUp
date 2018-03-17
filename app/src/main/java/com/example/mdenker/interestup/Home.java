@@ -48,7 +48,7 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // specify an adapter (see also next example)
-        EventAdapter adapter = new EventAdapter(Database.events);
+        EventAdapter adapter = new EventAdapter(this, Database.events);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
 
