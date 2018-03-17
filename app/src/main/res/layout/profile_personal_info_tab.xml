@@ -7,7 +7,7 @@
     android:onClick="OnScreenTapped">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/add_tag_field"
         android:layout_width="wrap_content"
         android:layout_height="81dp"
         android:focusableInTouchMode="false"
@@ -79,8 +79,8 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:tag="touchableFields"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintStart_toStartOf="@+id/add_tag_field"
+        app:layout_constraintTop_toBottomOf="@+id/add_tag_field"
         tools:focusableInTouchMode="true" />
 
     <EditText
