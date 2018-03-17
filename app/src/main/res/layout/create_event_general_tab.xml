@@ -7,6 +7,13 @@
     android:background="@color/white"
     tools:context="com.example.mdenker.interestup.CreateEventPage$PlaceholderFragment">
 
+    <GridView
+        android:id="@+id/tag_grid_view"
+        android:layout_width="384dp"
+        android:layout_height="58dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="509dp" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -176,10 +183,10 @@
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
+    <AutoCompleteTextView
+        android:id="@+id/add_tag_field"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
         android:layout_marginStart="68dp"
         android:layout_marginTop="456dp"
         android:ems="10"
@@ -187,5 +194,68 @@
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/add_tag_button"
+        android:layout_width="38dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="456dp"
+        android:text="+"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/edit_tag_button"
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="316dp"
+        android:layout_marginTop="456dp"
+        android:onClick="OnTagEditClick"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/done_edit_button"
+        android:layout_width="46dp"
+        android:layout_height="42dp"
+        android:onClick="OnTagEditClick"
+        android:text="D"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="316dp"
+        tools:layout_editor_absoluteY="456dp" />
+
+    <Button
+        android:id="@+id/cancel_edit_button"
+        android:layout_width="46dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="456dp"
+        android:onClick="OnTagEditClick"
+        android:text="C"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridView
+        android:id="@+id/tag_grid_view_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:clipChildren="true"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddInterest" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.mdenker.interestup;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,8 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,11 @@ public class CreateEventPage extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private boolean enabled = true;
+
+    ImageButton editTagButton;
+    Button cancelTagEditButton;
+    Button doneTagEditButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +75,10 @@ public class CreateEventPage extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        editTagButton = (ImageButton) findViewById(R.id.edit_tag_button);
+        cancelTagEditButton = (Button) findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (Button) findViewById(R.id.done_edit_button);
 
         //Grab entries
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
@@ -156,16 +168,6 @@ public class CreateEventPage extends AppCompatActivity {
         });
     }
 
-    public boolean isThisDateValid(String startDate, String endDate){
-
-        return true;
-    }
-
-    //Functionality for back button
-    public void OnBackClick(View view) {
-        this.finish();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -186,6 +188,56 @@ public class CreateEventPage extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Functionality for back button
+    public void OnBackClick(View view) {
+        this.finish();
+    }
+
+    private void ForceExitKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void EnableDisableView(View view) {
+
+        // so that only fields that are touchable (like text fields) are focusable ever
+        if (view.getTag() != null && view.getTag().toString().equals("touchableFields")) {
+            if (!enabled && view.isFocused()) {
+                ForceExitKeyboard(view);
+                view.clearFocus(); // makes sure you're not still focused no the item after removing keyboard
+            }
+            view.setFocusableInTouchMode(enabled);
+        }
+
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+
+            for (int idx = 0; idx < group.getChildCount(); idx++) {
+                EnableDisableView(group.getChildAt(idx));
+            }
+        }
+    }
+
+    public void OnScreenTapped(View view) {
+        ForceExitKeyboard(view);
+    }
+
+    public void OnTagEditClick(View view) {
+        enabled = !enabled;
+
+        if (!enabled) {
+            doneTagEditButton.setVisibility(View.GONE);
+            cancelTagEditButton.setVisibility(View.GONE);
+            editTagButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            doneTagEditButton.setVisibility(View.VISIBLE);
+            cancelTagEditButton.setVisibility(View.VISIBLE);
+            editTagButton.setVisibility(View.GONE);
+        }
+        EnableDisableView(mViewPager);
     }
 
     public class CreateEventTabAdapter extends SectionsPagerAdapter {
