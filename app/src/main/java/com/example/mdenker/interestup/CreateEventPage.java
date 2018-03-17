@@ -53,6 +53,7 @@ public class CreateEventPage extends AppCompatActivity {
     ImageButton editTagButton;
     Button cancelTagEditButton;
     Button doneTagEditButton;
+    TextView addTagButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +77,15 @@ public class CreateEventPage extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        editTagButton = (ImageButton) findViewById(R.id.edit_tag_button);
-        cancelTagEditButton = (Button) findViewById(R.id.cancel_edit_button);
-        doneTagEditButton = (Button) findViewById(R.id.done_edit_button);
+
+        //Inflating different view to grab correct buttons
+        View generalTabView = getLayoutInflater().inflate(R.layout.create_event_general_tab, null);
+
+        //Initializing buttons
+        editTagButton = (ImageButton) generalTabView.findViewById(R.id.edit_tag_button);
+        cancelTagEditButton = (Button) generalTabView.findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (Button) generalTabView.findViewById(R.id.done_edit_button);
+        addTagButton = (TextView) generalTabView.findViewById(R.id.add_tag_button);
 
         //Grab entries
         Button createEventButton = (Button) findViewById(R.id.create_event_button);
@@ -144,7 +151,6 @@ public class CreateEventPage extends AppCompatActivity {
                         errorHandler = 1;
                     } else if (startDateFormat.after(endDateFormat) || startDateFieldDate == null || startDateFieldDate.equals("") || endDateFieldDate == null || endDateFieldDate.equals("")) {//TODO do date validation
                         Toast.makeText(getApplicationContext(), "Description field is mandatory!", Toast.LENGTH_SHORT).show();
-                        System.out.println("Date fields must be valid!");
                         errorHandler = 1;
                     } else if (startTimeFormat.after(endTimeFormat) || startTimeFieldTime == null || startTimeFieldTime.equals("") || endTimeFieldTime == null || endTimeFieldTime.equals("")) {//TODO do time validation
                         Toast.makeText(getApplicationContext(), "Time fields must be valid!", Toast.LENGTH_SHORT).show();
@@ -167,6 +173,8 @@ public class CreateEventPage extends AppCompatActivity {
 
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -220,22 +228,26 @@ public class CreateEventPage extends AppCompatActivity {
         }
     }
 
-    public void OnScreenTapped(View view) {
-        ForceExitKeyboard(view);
-    }
+    public void OnScreenTapped(View view) { ForceExitKeyboard(view); }
 
     public void OnTagEditClick(View view) {
+
         enabled = !enabled;
 
         if (!enabled) {
+            editTagButton.setVisibility(View.VISIBLE);
+            addTagButton.setVisibility(View.VISIBLE);
+
             doneTagEditButton.setVisibility(View.GONE);
             cancelTagEditButton.setVisibility(View.GONE);
-            editTagButton.setVisibility(View.VISIBLE);
+
         }
         else {
             doneTagEditButton.setVisibility(View.VISIBLE);
             cancelTagEditButton.setVisibility(View.VISIBLE);
+
             editTagButton.setVisibility(View.GONE);
+            addTagButton.setVisibility(View.GONE);
         }
         EnableDisableView(mViewPager);
     }
