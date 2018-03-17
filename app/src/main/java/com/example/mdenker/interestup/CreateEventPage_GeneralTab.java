@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,7 +37,6 @@ public class CreateEventPage_GeneralTab extends Fragment {
     GridView gridViewEdit;
 
     TextView addTagButton;
-
     ImageButton editTagButton;
     Button cancelTagEditButton;
     Button doneTagEditButton;
@@ -53,8 +54,7 @@ public class CreateEventPage_GeneralTab extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        Collections.addAll(tags,"Music Performance", "Hiking", "Improv", "Writing",
-                "Frisbee", "Twilight");
+        //Collections.addAll(tags,"j");
 
         tagArrayAdapter = new TagAdapter(getActivity(), tags, this);
         editTagArrayAdapter = new EditableTagAdapter(getActivity(), tags, this);
@@ -65,9 +65,11 @@ public class CreateEventPage_GeneralTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.tag_grid_view_edit);
         gridViewEdit.setAdapter(editTagArrayAdapter);
 
-        editTagButton = (ImageButton) getActivity().findViewById(R.id.edit_tag_button);
-        cancelTagEditButton = (Button) getActivity().findViewById(R.id.cancel_edit_button);
-        doneTagEditButton = (Button) getActivity().findViewById(R.id.done_edit_button);
+
+        addTagButton = (TextView) view.findViewById(R.id.add_tag_button);
+        editTagButton = (ImageButton) view.findViewById(R.id.edit_tag_button);
+        cancelTagEditButton = (Button) view.findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (Button) view.findViewById(R.id.done_edit_button);
 
         editTagButton.setOnClickListener(new View.OnClickListener()
         {
@@ -118,7 +120,7 @@ public class CreateEventPage_GeneralTab extends Fragment {
                     addTag.setText("");
                 }
                 else {
-                    Toast.makeText(getActivity(), "Not long enough to be a valid interest",
+                    Toast.makeText(getActivity(), "Not long enough to be a valid tag",
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -140,7 +142,7 @@ public class CreateEventPage_GeneralTab extends Fragment {
                 if (s.length() > 3) { // at least 0, but 2 for real words - last \n
                     if (s.charAt(s.length() - 1) == '\n') {
                         if (s.length() > 22) {
-                            Toast.makeText(getActivity(), "Too many characters in potential interest",
+                            Toast.makeText(getActivity(), "Too many characters in potential tag",
                                     Toast.LENGTH_LONG).show();
                         } else {
                             tagArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
@@ -150,7 +152,7 @@ public class CreateEventPage_GeneralTab extends Fragment {
                 }
                 else if (s.length() > 0 && s.charAt(s.length() - 1) == '\n') {
                     addTag.setText(s.subSequence(0, s.length() - 1));
-                    Toast.makeText(getActivity(), "Not long enough to be a valid interest",
+                    Toast.makeText(getActivity(), "Not long enough to be a valid tag",
                             Toast.LENGTH_LONG).show();
                 }
             }

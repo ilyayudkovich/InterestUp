@@ -18,9 +18,9 @@ public class EditableTagAdapter extends ArrayAdapter<String> {
     private CreateEventPage_GeneralTab tag_fragment;
     private String editableTag;
 
-    public EditableTagAdapter(Context context, ArrayList<String> editableTag,
+    public EditableTagAdapter(Context context, ArrayList<String> editableTags,
                               CreateEventPage_GeneralTab tag_fragment) {
-        super(context, 0, editableTag);
+        super(context, 0, editableTags);
         this.tag_fragment = tag_fragment;
     }
 
