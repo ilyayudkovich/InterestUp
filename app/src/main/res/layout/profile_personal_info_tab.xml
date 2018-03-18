@@ -38,7 +38,7 @@
         android:layout_marginTop="8dp"
         android:text="Email:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
+        app:layout_constraintTop_toTopOf="@+id/add_exclude_people_field" />
 
     <TextView
         android:id="@+id/textView10"
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/add_exclude_people_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="false"
@@ -92,8 +92,8 @@
         android:ems="10"
         android:inputType="phone"
         android:tag="touchableFields"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
+        app:layout_constraintStart_toStartOf="@+id/add_exclude_people_field"
+        app:layout_constraintTop_toBottomOf="@+id/add_exclude_people_field"
         tools:focusableInTouchMode="true" />
 
     <EditText

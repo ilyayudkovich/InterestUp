@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by rosef on 3/17/2018.
+ * Created by Jorge Delgado on 3/17/2018.
  */
 
 public class EditableTagAdapter extends ArrayAdapter<String> {

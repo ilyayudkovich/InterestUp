@@ -94,6 +94,7 @@ public class CreateEventPage_GeneralTab extends Fragment {
                 CreateEventActivity.OnTagEditClick(v);
             }
         });
+
         doneTagEditButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -105,7 +106,6 @@ public class CreateEventPage_GeneralTab extends Fragment {
                 CreateEventActivity.OnTagEditClick(v);
             }
         });
-
 
         addTag = view.findViewById(R.id.add_tag_field);
 
