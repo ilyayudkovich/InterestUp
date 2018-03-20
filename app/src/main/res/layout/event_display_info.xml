@@ -116,26 +116,30 @@
         app:layout_constraintTop_toTopOf="@+id/tabItem" />
 
     <ImageButton
-        android:id="@+id/imageButton5"
+        android:id="@+id/eventGoingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/transparent"
         android:contentDescription="going"
+        android:onClick="onEventGoingClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_light" />
+        app:srcCompat="@drawable/ic_check_green_36dp" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/eventInterestedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         android:contentDescription="interested"
+        android:onClick="onEventInterestedClick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_orange_light" />
+        app:layout_constraintTop_toBottomOf="@+id/eventGoingButton"
+        app:srcCompat="@drawable/ic_star_border_yellow_36dp" />
 
     <TextView
         android:id="@+id/totalGoing"

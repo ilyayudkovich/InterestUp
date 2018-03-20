@@ -124,6 +124,10 @@ public class Event implements Serializable {
         return this.exclusions;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setHost(String host) {
         this.host = host;
     }
