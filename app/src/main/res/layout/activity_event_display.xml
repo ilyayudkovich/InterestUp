@@ -9,8 +9,9 @@
     tools:context="com.example.mdenker.interestup.EventDisplay">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="383dp"
-        android:layout_height="61dp">
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary">
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -18,8 +19,10 @@
             android:layout_height="wrap_content"
             android:onClick="OnBackClick"
             app:srcCompat="@drawable/back"
+            android:layout_marginStart="4dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="3dp" />
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.AppBarLayout
@@ -28,24 +31,28 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
+        android:background="@color/white"
         android:layout_marginTop="120px"
         tools:layout_editor_absoluteY="1dp">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/event_display_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="info" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/event_display_discussion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="discussion" />
 
         </android.support.design.widget.TabLayout>
