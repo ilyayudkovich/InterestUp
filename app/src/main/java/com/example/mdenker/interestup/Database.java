@@ -30,8 +30,8 @@ public class Database {
                     .setInterests("Outdoors", "Camping")
                     .setLocation("Red Hills")
                     .addGoing("Madison Conti").build(),
-            EventFactory.create()
-                    .setId(3).setName("Hair")
+            EventFactory.create().setId(3)
+                    .setName("Hair")
                     .setHost("Angelo Fiorello")
                     .setInterests("Theatre", "Music")
                     .addInterested("Sarah Fowler")
