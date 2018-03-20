@@ -82,12 +82,13 @@ public class Home extends AppCompatActivity {
 
     public void onEventClick(View view) {
         Intent i = new Intent(this, EventDisplay.class);
-        i.putExtra("event", (Event) view.getTag());
+        i.putExtra("event", (int) view.getTag());
         startActivity(i);
     }
 
     public void onInterestedClick(View view) {
-        Event e = (Event) ((View) view.getParent().getParent()).getTag();
+        int id = (int) ((View) view.getParent().getParent()).getTag();
+        Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
         if (e.getInterested().contains(Database.user)) {
             e.removeInterested(Database.user);
@@ -99,7 +100,8 @@ public class Home extends AppCompatActivity {
     }
 
     public void onGoingClick(View view) {
-        Event e = (Event) ((View) view.getParent().getParent()).getTag();
+        int id = (int) ((View) view.getParent().getParent()).getTag();
+        Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(Database.user)) {
             e.removeGoing(Database.user);

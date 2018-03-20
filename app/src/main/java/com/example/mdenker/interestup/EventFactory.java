@@ -21,6 +21,11 @@ public class EventFactory {
         return factory;
     }
 
+    public EventFactory setId(int id) {
+        event.setId(id);
+        return factory;
+    }
+
     public EventFactory setHost(String host) {
         event.setHost(host);
         return factory;

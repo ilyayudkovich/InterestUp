@@ -1,23 +1,16 @@
 package com.example.mdenker.interestup;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 public class EventDisplay extends AppCompatActivity {
 
@@ -58,7 +51,7 @@ public class EventDisplay extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        event = (Event) getIntent().getExtras().getSerializable("event");
+        event = Database.getEvent(getIntent().getExtras().getInt("event"));
     }
 
     //Functionality for back button
@@ -89,6 +82,14 @@ public class EventDisplay extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onEventInterestedClick(View view) {
+        ((EventDisplayInfo) mSectionsPagerAdapter.getItem(0)).onInterestedClick(view);
+    }
+
+    public void onEventGoingClick(View view) {
+        ((EventDisplayInfo) mSectionsPagerAdapter.getItem(0)).onGoingClick(view);
+    }
+
     public class CreateEventTabAdapter extends SectionsPagerAdapter {
 
         public CreateEventTabAdapter(FragmentManager fm, String leftOption, String rightOption) {
@@ -100,11 +101,9 @@ public class EventDisplay extends AppCompatActivity {
             //Returning the current tab
             switch(position) {
                 case 0:
-                    EventDisplayInfo info = new EventDisplayInfo(event);
-                    return info;
+                    return new EventDisplayInfo(EventDisplay.this, event);
                 case 1:
-                    EventDisplayDiscussion discussion = new EventDisplayDiscussion();
-                    return discussion;
+                    return new EventDisplayDiscussion();
                 default:
                     System.out.println("null returned.");
                     return null;

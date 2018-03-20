@@ -58,11 +58,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         }
 
-        ImageButton b = holder.itemView.findViewById(R.id.home_going_button);
+        ImageButton goingButton = holder.itemView.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(Database.user)) {
-            b.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
+            goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         } else {
-            b.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
+            goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
         }
 
         DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM d", Locale.US);
@@ -87,7 +87,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         attendees.append(" ").append(suffix);
         ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees.toString());
 
-        holder.itemView.setTag(e);
+        holder.itemView.setTag(e.getID());
     }
 
     @Override

@@ -1,14 +1,14 @@
 package com.example.mdenker.interestup;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -18,7 +18,8 @@ import android.widget.TextView;
 public class EventDisplayInfo extends Fragment {
     public static final String TAG = "EventDisplayInfo";
 
-    Event event;
+    private Context context;
+    private Event event;
 
     private TextView name;
     private TextView where;
@@ -27,12 +28,15 @@ public class EventDisplayInfo extends Fragment {
     private TextView when;
     private TextView totalGoing;
     private TextView toBring;
+    private ImageButton interestedButton;
+    private ImageButton goingButton;
 
 
     public EventDisplayInfo() {}
 
     @SuppressLint("ValidFragment")
-    public EventDisplayInfo(Event event) {
+    public EventDisplayInfo(Context context, Event event) {
+        this.context = context;
         this.event = event;
     }
 
@@ -49,7 +53,8 @@ public class EventDisplayInfo extends Fragment {
         when       = (TextView)view.findViewById(R.id.when);
         totalGoing = (TextView)view.findViewById(R.id.totalGoing);
         toBring    = (TextView)view.findViewById(R.id.toBring);
-
+        interestedButton = view.findViewById(R.id.eventInterestedButton);
+        goingButton = view.findViewById(R.id.eventGoingButton);
 
         return view;
     }
@@ -64,5 +69,39 @@ public class EventDisplayInfo extends Fragment {
         when.setText(event.getStartDateTime().getTime().toString());
         totalGoing.setText(Integer.toString(event.getNumberOfAttendees()));
         toBring.setText("Shoes, boots, chapstick, rainjacket");
+
+        if (event.getInterested().contains(Database.user)) {
+            interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
+        } else {
+            interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
+        }
+
+        if (event.getGoing().contains(Database.user)) {
+            goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
+        } else {
+            goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_green_36dp));
+        }
+    }
+
+    public void onInterestedClick(View view) {
+        interestedButton = view.findViewById(R.id.eventInterestedButton);
+        if (event.getInterested().contains(Database.user)) {
+            event.removeInterested(Database.user);
+            interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
+        } else {
+            event.addInterested(Database.user);
+            interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
+        }
+    }
+
+    public void onGoingClick(View view) {
+        goingButton = view.findViewById(R.id.eventGoingButton);
+        if (event.getGoing().contains(Database.user)) {
+            event.removeGoing(Database.user);
+            goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_green_36dp));
+        } else {
+            event.addGoing(Database.user);
+            goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
+        }
     }
 }
