@@ -17,11 +17,11 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:onClick="OnBackClick"
-            app:srcCompat="@drawable/back"
-            android:layout_marginStart="4dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="3dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -29,39 +29,36 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay"
+        android:layout_marginTop="60dp"
         android:background="@color/white"
-        android:layout_marginTop="120px"
+        android:paddingTop="@dimen/appbar_padding_top"
         tools:layout_editor_absoluteY="1dp">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/event_view_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/event_display_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:id="@+id/event_display_info1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="info" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/event_display_discussion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:text="discussion" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/event_display_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

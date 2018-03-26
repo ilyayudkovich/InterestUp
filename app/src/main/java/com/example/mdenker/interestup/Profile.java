@@ -42,7 +42,7 @@ public class Profile extends AppCompatActivity {
     private boolean enabled = true;
 
     ImageButton backButton;
-    ImageButton editButton;
+    Button editButton;
     Button cancelButton;
     Button doneButton;
 
@@ -63,7 +63,7 @@ public class Profile extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         backButton = (ImageButton) findViewById(R.id.backButton);
-        editButton = (ImageButton) findViewById(R.id.editButton);
+        editButton = (Button) findViewById(R.id.editButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         doneButton = (Button) findViewById(R.id.doneButton);
     }

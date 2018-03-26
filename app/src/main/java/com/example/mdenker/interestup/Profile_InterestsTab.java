@@ -39,7 +39,7 @@ public class Profile_InterestsTab extends Fragment {
 
     TextView plusButton;
 
-    ImageButton editButton;
+    Button editButton;
     Button cancelButton;
     Button doneButton;
 
@@ -67,7 +67,7 @@ public class Profile_InterestsTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.gridView1Edit);
         gridViewEdit.setAdapter(editInterestArrayAdapter);
 
-        editButton = (ImageButton) getActivity().findViewById(R.id.editButton);
+        editButton = (Button) getActivity().findViewById(R.id.editButton);
         cancelButton = (Button) getActivity().findViewById(R.id.cancelButton);
         doneButton = (Button) getActivity().findViewById(R.id.doneButton);
 
