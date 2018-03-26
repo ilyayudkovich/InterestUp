@@ -23,18 +23,19 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <android.support.design.widget.TabItem
-            android:id="@+id/create_event_page_general_tab"
+            android:id="@+id/profile_general_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Interests" />
 
         <android.support.design.widget.TabItem
-            android:id="@+id/create_event_page_advanced_tab"
+            android:id="@+id/profile_advanced_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Personal Info" />
@@ -93,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:text="Janette Mog"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"
             app:layout_constraintTop_toTopOf="@+id/imageButton2"
@@ -103,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="6dp"
             android:text="Boston, MA"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -121,16 +123,17 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <ImageButton
+    <Button
         android:id="@+id/editButton"
-        android:layout_width="56dp"
-        android:layout_height="43dp"
+        android:layout_width="60dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="4dp"
         android:onClick="OnEditClick"
+        android:text="Edit"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/edit" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/ProfileContainer"
@@ -140,6 +143,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

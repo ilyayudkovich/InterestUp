@@ -10,21 +10,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         
-        <activity android:name=".Home">
+        <activity
+            android:name=".Home"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Search" />
-        <activity android:name=".Profile" />
+        <activity
+            android:name=".Search"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".CreateEventPage"
             android:label="@string/title_activity_create_event_page"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EventDisplay"
             android:label="@string/title_activity_event_display"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
