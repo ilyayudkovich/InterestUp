@@ -1,6 +1,7 @@
 package com.example.mdenker.interestup;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
@@ -11,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Home extends AppCompatActivity {
+    private static EventAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +52,11 @@ public class Home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // specify an adapter (see also next example)
-        EventAdapter adapter = new EventAdapter(this, Database.events);
+        adapter = new EventAdapter(this, tabs);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
 
-        tabs.getTabAt(1).select();
-        tabs.getTabAt(0).select();
+        new GetEventsTask().execute();
     }
 
     private void showActionBar() {
@@ -109,6 +112,19 @@ public class Home extends AppCompatActivity {
         } else {
             e.addGoing(Database.user);
             b.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
+        }
+    }
+
+    private static class GetEventsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Database.fetchEvents();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            adapter.setEvents(Database.events);
         }
     }
 }

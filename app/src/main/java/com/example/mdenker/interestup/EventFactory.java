@@ -11,18 +11,16 @@ import java.util.List;
 public class EventFactory {
     private static EventFactory factory;
     private static Event event;
+    private static int id = -1;
 
     private EventFactory() {
+        id++;
         event = new Event();
+        event.setId(id);
     }
 
     public static EventFactory create() {
         factory = new EventFactory();
-        return factory;
-    }
-
-    public EventFactory setId(int id) {
-        event.setId(id);
         return factory;
     }
 
