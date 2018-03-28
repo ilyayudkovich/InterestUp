@@ -12,8 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class Home extends AppCompatActivity {
-    private static EventAdapter adapter;
+public class Home extends AppCompatActivity implements EventsListener {
+    private EventAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,8 @@ public class Home extends AppCompatActivity {
         adapter = new EventAdapter(this, tabs);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
+
+        Database.addEventListener(this);
 
         new GetEventsTask().execute();
     }
@@ -99,6 +101,11 @@ public class Home extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onEventsAdded() {
+        adapter.setEvents(Database.events);
+    }
+
     private static class GetEventsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -108,7 +115,7 @@ public class Home extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void v) {
-            adapter.setEvents(Database.events);
+            Database.notifyListeners();
         }
     }
 }

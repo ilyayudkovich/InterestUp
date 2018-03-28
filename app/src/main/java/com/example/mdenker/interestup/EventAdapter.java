@@ -41,12 +41,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public void setEvents(List<Event> events) {
         this.events.clear();
-        this.addEvents(events);
-        int selectedTab = tabLayout.getSelectedTabPosition();
-        this.onTabSelected(tabLayout.getTabAt(selectedTab));
-    }
-
-    public void addEvents(List<Event> events) {
         this.events.addAll(events);
         for (Event event : events) {
             for (String interest : event.getInterests()) {
@@ -58,6 +52,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 }
             }
         }
+        int selectedTab = tabLayout.getSelectedTabPosition();
+        this.onTabSelected(tabLayout.getTabAt(selectedTab));
     }
 
     @Override
