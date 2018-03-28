@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class CreateEventPage_AdvancedTab extends Fragment {
 
-    private ArrayList<String> tags = new ArrayList<String>();
+    private ArrayList<String> exclusions = new ArrayList<String>();
 
     ArrayAdapter<String> excludePeopleArrayAdapter;
     ArrayAdapter<String> editExcludePeopleArrayAdapter;
@@ -82,8 +82,8 @@ public class CreateEventPage_AdvancedTab extends Fragment {
 
         //Collections.addAll(tags,"j");
 
-        excludePeopleArrayAdapter = new ExcludePeopleAdapter(getActivity(), tags, this);
-        editExcludePeopleArrayAdapter = new EditableExcludePeopleAdapter(getActivity(), tags, this);
+        excludePeopleArrayAdapter = new ExcludePeopleAdapter(getActivity(), exclusions, this);
+        editExcludePeopleArrayAdapter = new EditableExcludePeopleAdapter(getActivity(), exclusions, this);
 
         gridView = (GridView) view.findViewById(R.id.exclude_people_grid_view);
         gridView.setAdapter(excludePeopleArrayAdapter);
@@ -179,6 +179,10 @@ public class CreateEventPage_AdvancedTab extends Fragment {
                 }
             }
         });
+    }
+
+    public ArrayList<String> getExclusions(){
+        return this.exclusions;
     }
 
     public void OnEditXClicked(String element) {

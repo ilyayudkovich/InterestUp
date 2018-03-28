@@ -33,6 +33,8 @@ import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CreateEventPage extends AppCompatActivity {
@@ -83,7 +85,7 @@ public class CreateEventPage extends AppCompatActivity {
 
         //Inflating different view to grab correct buttons
         View generalTabView = getLayoutInflater().inflate(R.layout.create_event_general_tab, null);
-        View advancedTabView = getLayoutInflater().inflate(R.layout.create_event_advanced_tab, null);
+        final View advancedTabView = getLayoutInflater().inflate(R.layout.create_event_advanced_tab, null);
 
         //Initializing buttons
         editTagButton = (ImageButton) generalTabView.findViewById(R.id.edit_tag_button);
@@ -178,22 +180,23 @@ public class CreateEventPage extends AppCompatActivity {
 
                 if(errorHandler == 0) {
                     Toast.makeText(getApplicationContext(), "Event created!", Toast.LENGTH_SHORT).show();
-                    System.out.println("Do something here to create event.");
-                    System.out.println(nameFieldText);
-                    System.out.println(descriptionFieldText);
-                    System.out.println(startDateFieldDate);
-                    System.out.println(endDateFieldDate);
-                    System.out.println(startTimeFieldTime);
-                    System.out.println(endTimeFieldTime);
-                    System.out.println(tentativeDatesSwitchValue);
-                    System.out.println(locationFieldText);
 
-                    //TODO grab arraylist and print it
 
-                    System.out.println(numberOfAttendeesText);
-                    System.out.println(viewRestrictionText);
+                    Calendar startDateCalendar = null;
+                    Calendar endDateCalendar = null;
 
-                    //TODO grab arraylist and print it
+                    try {
+                        startDateCalendar = combineDateAndTme(startDateFieldDate, startTimeFieldTime);
+                        endDateCalendar = combineDateAndTme(endDateFieldDate, endTimeFieldTime);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //TODO still need to grab tags and exclusions
+                    Event event = EventFactory.create().setName(nameFieldText).setDescription(descriptionFieldText).setStartDateTime(startDateCalendar)
+                            .setEndDateTime(endDateCalendar).setTentativeDates(tentativeDatesSwitchValue).setLocation(locationFieldText)
+                            .setInterests("").setNumberOfAttendees(Integer.parseInt(numberOfAttendeesText)).setViewRestrictions(viewRestrictionText).setExclusions(new ArrayList<String>()).build();
+                    Database.addEvent(event);
                     OnBackClick(view);
                 }
             }
@@ -202,6 +205,24 @@ public class CreateEventPage extends AppCompatActivity {
         });
     }
 
+    public Calendar combineDateAndTme(String Date, String Time) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        Date DateFormat = null;
+        Date TimeFormat = null;
+
+        try {
+            DateFormat = new SimpleDateFormat("MM/dd/yyyy").parse(Date);
+            TimeFormat = new SimpleDateFormat("hh:mm").parse(Time);
+
+            Date combinedDateAndTime = new Date(DateFormat.getYear(), DateFormat.getMonth(), DateFormat.getDay(), TimeFormat.getHours(), TimeFormat.getMinutes());
+            calendar.setTime(combinedDateAndTime);
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return calendar;
+    }
 
 
     @Override

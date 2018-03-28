@@ -159,6 +159,10 @@ public class CreateEventPage_GeneralTab extends Fragment {
         });
     }
 
+    public ArrayList<String> getTags(){
+        return this.tags;
+    }
+
     public void OnEditXClicked(String element) {
         editTagArrayAdapter.remove(element);
         tagArrayAdapter.remove(element);
