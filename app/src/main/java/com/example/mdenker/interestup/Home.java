@@ -12,12 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 public class Home extends AppCompatActivity {
     private static EventAdapter adapter;
 
@@ -31,16 +25,6 @@ public class Home extends AppCompatActivity {
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-        Set<String> tabNames = new LinkedHashSet<>(Arrays.asList("All", "Going", "Interested"));
-        for (Event e : Database.events) {
-            tabNames.addAll(e.getInterests());
-        }
-        for (String tabName : tabNames) {
-            TabLayout.Tab t = tabs.newTab();
-            t.setText(tabName);
-            tabs.addTab(t);
-        }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 

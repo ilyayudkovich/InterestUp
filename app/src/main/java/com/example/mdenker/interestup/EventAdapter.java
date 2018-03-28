@@ -12,12 +12,16 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> implements TabLayout.OnTabSelectedListener {
     private Activity activity;
     private TabLayout tabLayout;
+    private Set<String> tabNames;
     private List<Event> events;
     private List<Event> filtered;
 
@@ -26,13 +30,34 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         this.tabLayout = tabLayout;
         this.events = new ArrayList<>();
         this.filtered = new ArrayList<>();
+
+        this.tabNames = new LinkedHashSet<>(Arrays.asList("All", "Going", "Interested"));
+        for (String tabName : tabNames) {
+            TabLayout.Tab t = tabLayout.newTab();
+            t.setText(tabName);
+            tabLayout.addTab(t);
+        }
     }
 
     public void setEvents(List<Event> events) {
         this.events.clear();
-        this.events.addAll(events);
+        this.addEvents(events);
         int selectedTab = tabLayout.getSelectedTabPosition();
         this.onTabSelected(tabLayout.getTabAt(selectedTab));
+    }
+
+    public void addEvents(List<Event> events) {
+        this.events.addAll(events);
+        for (Event event : events) {
+            for (String interest : event.getInterests()) {
+                if (!tabNames.contains(interest)) {
+                    tabNames.add(interest);
+                    TabLayout.Tab t = tabLayout.newTab();
+                    t.setText(interest);
+                    tabLayout.addTab(t);
+                }
+            }
+        }
     }
 
     @Override

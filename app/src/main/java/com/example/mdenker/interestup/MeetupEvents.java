@@ -17,36 +17,58 @@ public class MeetupEvents {
         private String local_date;
         private String local_time;
         private Venue venue;
-        private String description;
+        private String plain_text_description;
+        private Group group;
+        private Host[] event_hosts;
 
         public String getName() {
             return this.name;
         }
 
         public long getDuration() {
-            return duration;
+            return this.duration;
         }
 
         public String getLocalDate() {
-            return local_date;
+            return this.local_date;
         }
 
         public String getLocalTime() {
-            return local_time;
+            return this.local_time;
         }
 
         public String getVenue() {
             if (this.venue == null) {
                 return "Blackstone Grill";
             }
-            return venue.name;
+            return this.venue.name;
         }
 
         public String getDescription() {
-            return description;
+            return this.plain_text_description;
+        }
+
+        public String getCategory() {
+            return this.group.category.shortname;
+        }
+
+        public String getHost() {
+            return this.event_hosts[0].name;
+        }
+
+        private class Group {
+            private Category category;
+
+            private class Category {
+                private String shortname;
+            }
         }
 
         private class Venue {
+            private String name;
+        }
+
+        private class Host {
             private String name;
         }
     }

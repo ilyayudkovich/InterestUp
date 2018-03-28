@@ -4,16 +4,13 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,7 +34,9 @@ public class Database {
 
     public static void fetchEvents() {
         try {
-            URL url = new URL("https://api.meetup.com/find/upcoming_events?key=7e6810756824521576265de5f124652");
+            String spec = "https://api.meetup.com/find/upcoming_events?" +
+                    "key=7e6810756824521576265de5f124652&fields=group_category,+event_hosts,+plain_text_description";
+            URL url = new URL(spec);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -63,6 +62,8 @@ public class Database {
                         .setStartDateTime(start)
                         .setEndDateTime(end)
                         .setLocation(event.getVenue())
+                        .setHost(event.getHost())
+                        .setInterests(event.getCategory())
                         .build();
                 Database.addEvent(e);
             }
