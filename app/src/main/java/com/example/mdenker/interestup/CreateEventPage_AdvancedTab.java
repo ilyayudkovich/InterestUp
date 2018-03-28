@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class CreateEventPage_AdvancedTab extends Fragment {
 
-    private ArrayList<String> exclusions = new ArrayList<String>();
+    public static ArrayList<String> exclusions = new ArrayList<String>();
 
     ArrayAdapter<String> excludePeopleArrayAdapter;
     ArrayAdapter<String> editExcludePeopleArrayAdapter;

@@ -27,7 +27,7 @@ import java.util.Collections;
 
 public class CreateEventPage_GeneralTab extends Fragment {
 
-    private ArrayList<String> tags = new ArrayList<String>();
+    public static ArrayList<String> tags = new ArrayList<String>();
 
     ArrayAdapter<String> tagArrayAdapter;
     ArrayAdapter<String> editTagArrayAdapter;

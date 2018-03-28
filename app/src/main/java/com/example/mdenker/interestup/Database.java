@@ -62,7 +62,7 @@ public class Database {
                         .setEndDateTime(end)
                         .setLocation(event.getVenue())
                         .setHost(event.getHost())
-                        .setInterests(event.getCategory())
+                        .setTags(event.getCategory())
                         .build();
                 Database.addEvent(e);
             }

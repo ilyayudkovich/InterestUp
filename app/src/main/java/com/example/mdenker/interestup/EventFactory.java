@@ -64,8 +64,8 @@ public class EventFactory {
         return factory;
     }
 
-    public EventFactory setInterests(String... interests) {
-        event.setInterests(Arrays.asList(interests));
+    public EventFactory setTags(String... tags) {
+        event.setInterests(Arrays.asList(tags));
         return factory;
     }
 

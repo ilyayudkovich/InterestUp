@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -191,11 +192,12 @@ public class CreateEventPage extends AppCompatActivity {
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
+                    
+                    String[] tagsToAdd = CreateEventPage_GeneralTab.tags.toArray(new String[CreateEventPage_GeneralTab.tags.size()]);
 
-                    //TODO still need to grab tags and exclusions
                     Event event = EventFactory.create().setName(nameFieldText).setDescription(descriptionFieldText).setStartDateTime(startDateCalendar)
                             .setEndDateTime(endDateCalendar).setTentativeDates(tentativeDatesSwitchValue).setLocation(locationFieldText)
-                            .setInterests("").setNumberOfAttendees(Integer.parseInt(numberOfAttendeesText)).setViewRestrictions(viewRestrictionText).setExclusions(new ArrayList<String>()).build();
+                            .setTags(tagsToAdd).setNumberOfAttendees(Integer.parseInt(numberOfAttendeesText)).setViewRestrictions(viewRestrictionText).setExclusions(CreateEventPage_AdvancedTab.exclusions).build();
                     Database.addEvent(event);
                     OnBackClick(view);
                 }
@@ -204,6 +206,7 @@ public class CreateEventPage extends AppCompatActivity {
 
         });
     }
+
 
     public Calendar combineDateAndTme(String Date, String Time) throws ParseException {
         Calendar calendar = Calendar.getInstance();
