@@ -41,6 +41,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public void setEvents(List<Event> events) {
         this.events.clear();
+        this.addEvents(events);
+    }
+
+    public void addEvents(List<Event> events) {
         this.events.addAll(events);
         for (Event event : events) {
             for (String interest : event.getInterests()) {

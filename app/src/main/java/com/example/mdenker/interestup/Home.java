@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.List;
+
 public class Home extends AppCompatActivity implements EventsListener {
     private EventAdapter adapter;
 
@@ -102,8 +104,13 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     @Override
-    public void onEventsAdded() {
-        adapter.setEvents(Database.events);
+    public void onEventsAdded(List<Event> events) {
+        adapter.addEvents(events);
+    }
+
+    @Override
+    public void onEventsFetched(List<Event> events) {
+        adapter.setEvents(events);
     }
 
     private static class GetEventsTask extends AsyncTask<Void, Void, Void> {
@@ -115,7 +122,7 @@ public class Home extends AppCompatActivity implements EventsListener {
 
         @Override
         protected void onPostExecute(Void v) {
-            Database.notifyListeners();
+            Database.notifyEventsFetched();
         }
     }
 }

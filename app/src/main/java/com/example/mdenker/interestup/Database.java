@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -22,10 +23,10 @@ public class Database {
     public static void addEventListener(EventsListener listener) {
         listeners.add(listener);
     }
-    
-    public static void notifyListeners() {
+
+    public static void notifyEventsFetched() {
         for (EventsListener listener : listeners) {
-            listener.onEventsAdded();
+            listener.onEventsFetched(events);
         }
     }
 
@@ -40,9 +41,13 @@ public class Database {
 
     public static void addEvent(Event e) {
         events.add(e);
+        for (EventsListener listener : listeners) {
+            listener.onEventsAdded(Collections.singletonList(e));
+        }
     }
 
     public static void fetchEvents() {
+        events.clear();
         try {
             String spec = "https://api.meetup.com/find/upcoming_events?" +
                     "key=7e6810756824521576265de5f124652&fields=group_category,+event_hosts,+plain_text_description";
@@ -51,14 +56,14 @@ public class Database {
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
 
-            MeetupEvents events = new MeetupEvents();
+            MeetupEvents meetupEvents = new MeetupEvents();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-                events = new Gson().fromJson(reader, MeetupEvents.class);
+                meetupEvents = new Gson().fromJson(reader, MeetupEvents.class);
                 reader.close();
             }
 
-            for (MeetupEvents.MeetupEvent event : events.getEvents()) {
+            for (MeetupEvents.MeetupEvent event : meetupEvents.getEvents()) {
                 String startString = event.getLocalDate() + " " + event.getLocalTime();
                 Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(startString);
                 Date endDate = new Date(startDate.getTime() + event.getDuration());
@@ -75,7 +80,7 @@ public class Database {
                         .setHost(event.getHost())
                         .setTags(event.getCategory())
                         .build();
-                Database.addEvent(e);
+                events.add(e);
             }
         } catch (IOException |ParseException e) {
             e.printStackTrace();
