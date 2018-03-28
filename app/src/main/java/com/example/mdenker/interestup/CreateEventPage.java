@@ -25,8 +25,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,6 +83,7 @@ public class CreateEventPage extends AppCompatActivity {
 
         //Inflating different view to grab correct buttons
         View generalTabView = getLayoutInflater().inflate(R.layout.create_event_general_tab, null);
+        View advancedTabView = getLayoutInflater().inflate(R.layout.create_event_advanced_tab, null);
 
         //Initializing buttons
         editTagButton = (ImageButton) generalTabView.findViewById(R.id.edit_tag_button);
@@ -92,7 +96,7 @@ public class CreateEventPage extends AppCompatActivity {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Grab all mandatory fields from view
+                //Grab all fields from view
                 EditText nameField = (EditText) findViewById(R.id.event_name_field);
                 String nameFieldText = nameField.getText().toString().trim();
 
@@ -105,8 +109,23 @@ public class CreateEventPage extends AppCompatActivity {
                 EditText endDateField = (EditText) findViewById(R.id.end_date_field);
                 String endDateFieldDate = (String) endDateField.getText().toString().trim();
 
+                EditText startTimeField = (EditText) findViewById(R.id.start_time_field);
+                String startTimeFieldTime = (String) startTimeField.getText().toString().trim();
+
+                EditText endTimeField = (EditText) findViewById(R.id.end_time_field);
+                String endTimeFieldTime = (String) endTimeField.getText().toString().trim();
+
+                Switch tentativeDatesSwitch = (Switch) findViewById(R.id.tentative_dates_toggle);
+                Boolean tentativeDatesSwitchValue = tentativeDatesSwitch.isChecked();
+
                 EditText locationField = (EditText) findViewById(R.id.location_field);
                 String locationFieldText = nameField.getText().toString().trim();
+
+                Spinner numberOfAttendeesSpinner = (Spinner) findViewById(R.id.number_of_attendees_field);
+                String numberOfAttendeesText = numberOfAttendeesSpinner.getSelectedItem().toString();
+
+                Spinner viewRestrictionSpinner = (Spinner) findViewById(R.id._view_restriction_field);
+                String viewRestrictionText = viewRestrictionSpinner.getSelectedItem().toString();
 
                 //Convert date strings to Java Date
                 @SuppressLint("SimpleDateFormat")
@@ -118,12 +137,6 @@ public class CreateEventPage extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                EditText startTimeField = (EditText) findViewById(R.id.start_time_field);
-                String startTimeFieldTime = (String) startTimeField.getText().toString().trim();
-
-                EditText endTimeField = (EditText) findViewById(R.id.end_time_field);
-                String endTimeFieldTime = (String) endTimeField.getText().toString().trim();
 
                 //Convert time strings to Java Time
                 Date startTimeFormat = null;
@@ -149,10 +162,10 @@ public class CreateEventPage extends AppCompatActivity {
                     } else if (descriptionFieldText.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Description field is mandatory!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
-                    } else if (startDateFormat.after(endDateFormat) || startDateFieldDate == null || startDateFieldDate.equals("") || endDateFieldDate == null || endDateFieldDate.equals("")) {//TODO do date validation
+                    } else if (startDateFormat.after(endDateFormat) || startDateFieldDate == null || startDateFieldDate.equals("") || endDateFieldDate == null || endDateFieldDate.equals("")) {
                         Toast.makeText(getApplicationContext(), "Description field is mandatory!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
-                    } else if (startTimeFormat.after(endTimeFormat) || startTimeFieldTime == null || startTimeFieldTime.equals("") || endTimeFieldTime == null || endTimeFieldTime.equals("")) {//TODO do time validation
+                    } else if (startTimeFormat.after(endTimeFormat) || startTimeFieldTime == null || startTimeFieldTime.equals("") || endTimeFieldTime == null || endTimeFieldTime.equals("")) {
                         Toast.makeText(getApplicationContext(), "Time fields must be valid!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
                     } else if (locationFieldText.isEmpty()) {
@@ -166,6 +179,21 @@ public class CreateEventPage extends AppCompatActivity {
                 if(errorHandler == 0) {
                     Toast.makeText(getApplicationContext(), "Event created!", Toast.LENGTH_SHORT).show();
                     System.out.println("Do something here to create event.");
+                    System.out.println(nameFieldText);
+                    System.out.println(descriptionFieldText);
+                    System.out.println(startDateFieldDate);
+                    System.out.println(endDateFieldDate);
+                    System.out.println(startTimeFieldTime);
+                    System.out.println(endTimeFieldTime);
+                    System.out.println(tentativeDatesSwitchValue);
+                    System.out.println(locationFieldText);
+
+                    //TODO grab arraylist and print it
+
+                    System.out.println(numberOfAttendeesText);
+                    System.out.println(viewRestrictionText);
+
+                    //TODO grab arraylist and print it
                     OnBackClick(view);
                 }
             }

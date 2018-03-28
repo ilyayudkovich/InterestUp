@@ -56,7 +56,7 @@ public class CreateEventPage_AdvancedTab extends Fragment {
         String [] FriendRestrictionValues =
                 {"View Restriction","Public", "Friends","Friends of Friends"};
 
-        Spinner FriendRestrictionSpinner = (Spinner) rootView.findViewById(R.id.spinner1);
+        Spinner FriendRestrictionSpinner = (Spinner) rootView.findViewById(R.id._view_restriction_field);
         ArrayAdapter<String> FriendRestrictionAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, FriendRestrictionValues);
         FriendRestrictionAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         FriendRestrictionSpinner.setAdapter(FriendRestrictionAdapter);
@@ -66,7 +66,7 @@ public class CreateEventPage_AdvancedTab extends Fragment {
 
         String [] AttendeeValues =
                 {"Number of attendees","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"};
-        Spinner AttendeeSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
+        Spinner AttendeeSpinner = (Spinner) rootView.findViewById(R.id.number_of_attendees_field);
         ArrayAdapter<String> AttendeeAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, AttendeeValues);
         AttendeeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         AttendeeSpinner.setAdapter(AttendeeAdapter);

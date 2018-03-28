@@ -8,7 +8,7 @@
     tools:context="com.example.mdenker.interestup.CreateEventPage$PlaceholderFragment">
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/_view_restriction_field"
         style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="260dp"
         android:layout_height="60dp"
@@ -18,7 +18,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/number_of_attendees_field"
         style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="260dp"
         android:layout_height="60dp"
