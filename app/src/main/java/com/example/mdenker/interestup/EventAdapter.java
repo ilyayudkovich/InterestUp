@@ -1,12 +1,10 @@
 package com.example.mdenker.interestup;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,22 +12,52 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-
-/**
- * Created by micha on 3/1/2018.
- */
+import java.util.Set;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> implements TabLayout.OnTabSelectedListener {
     private Activity activity;
+    private TabLayout tabLayout;
+    private Set<String> tabNames;
     private List<Event> events;
     private List<Event> filtered;
 
-    EventAdapter(Activity activity, List<Event> events) {
+    EventAdapter(Activity activity, TabLayout tabLayout) {
         this.activity = activity;
-        this.events = events;
+        this.tabLayout = tabLayout;
+        this.events = new ArrayList<>();
         this.filtered = new ArrayList<>();
+
+        this.tabNames = new LinkedHashSet<>(Arrays.asList("All", "Going", "Interested"));
+        for (String tabName : tabNames) {
+            TabLayout.Tab t = tabLayout.newTab();
+            t.setText(tabName);
+            tabLayout.addTab(t);
+        }
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events.clear();
+        this.addEvents(events);
+        int selectedTab = tabLayout.getSelectedTabPosition();
+        this.onTabSelected(tabLayout.getTabAt(selectedTab));
+    }
+
+    public void addEvents(List<Event> events) {
+        this.events.addAll(events);
+        for (Event event : events) {
+            for (String interest : event.getInterests()) {
+                if (!tabNames.contains(interest)) {
+                    tabNames.add(interest);
+                    TabLayout.Tab t = tabLayout.newTab();
+                    t.setText(interest);
+                    tabLayout.addTab(t);
+                }
+            }
+        }
     }
 
     @Override
@@ -44,10 +72,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         final Event e = filtered.get(position);
         ((TextView) holder.itemView.findViewById(R.id.eventName)).setText(e.getName());
 
-        StringBuilder interests = new StringBuilder(e.getInterests().get(0));
-        for (int i = 1; i < e.getInterests().size(); i++) {
-            interests.append(", ");
+        StringBuilder interests = new StringBuilder();
+        for (int i = 0; i < e.getInterests().size(); i++) {
             interests.append(e.getInterests().get(i));
+            if (i != e.getInterests().size()) {
+                interests.append(", ");
+            }
         }
         ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(interests.toString());
 
@@ -98,7 +128,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         String interest = tab.getText() == null ? "" : tab.getText().toString().toLowerCase();
-        filtered = new ArrayList<>();
+        filtered.clear();
         switch (interest) {
             case "all":
                 filtered.addAll(events);
