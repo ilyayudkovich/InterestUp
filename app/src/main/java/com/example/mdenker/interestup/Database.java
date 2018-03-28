@@ -17,6 +17,17 @@ import java.util.Locale;
 public class Database {
     public static final String user = "Jordan You";
     public static List<Event> events = new ArrayList<>();
+    private static List<EventsListener> listeners = new ArrayList<>();
+
+    public static void addEventListener(EventsListener listener) {
+        listeners.add(listener);
+    }
+    
+    public static void notifyListeners() {
+        for (EventsListener listener : listeners) {
+            listener.onEventsAdded();
+        }
+    }
 
     public static Event getEvent(int id) {
         for (Event e : events) {
