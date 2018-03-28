@@ -27,6 +27,8 @@ import java.util.Collections;
 
 public class CreateEventPage_GeneralTab extends Fragment {
 
+    int tagLimit = 5;
+
     public static ArrayList<String> tags = new ArrayList<String>();
 
     ArrayAdapter<String> tagArrayAdapter;
@@ -116,8 +118,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
             public void onClick(View v)
             {
                 if (addTag.getText().length() > 2) {
-                    tagArrayAdapter.add(addTag.getText().toString());
-                    addTag.setText("");
+                    if(tags.size() < tagLimit) {
+                        tagArrayAdapter.add(addTag.getText().toString());
+                        addTag.setText("");
+                    } else {
+                        Toast.makeText(getActivity(), "Only 5 tags are allowed per event.", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(), "Not long enough to be a valid tag",

@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class CreateEventPage_AdvancedTab extends Fragment {
 
+    int exclusionLimit = 5;
+
     public static ArrayList<String> exclusions = new ArrayList<String>();
 
     ArrayAdapter<String> excludePeopleArrayAdapter;
@@ -138,8 +140,12 @@ public class CreateEventPage_AdvancedTab extends Fragment {
             public void onClick(View v)
             {
                 if (addExcludePeople.getText().length() > 2) {
-                    excludePeopleArrayAdapter.add(addExcludePeople.getText().toString());
-                    addExcludePeople.setText("");
+                    if(exclusions.size() < exclusionLimit) {
+                        excludePeopleArrayAdapter.add(addExcludePeople.getText().toString());
+                        addExcludePeople.setText("");
+                    } else {
+                        Toast.makeText(getActivity(), "Only 5 exclusions are allowed per event.", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(), "Not long enough to be a valid person",
