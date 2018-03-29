@@ -46,8 +46,8 @@ public class CreateEventPage extends AppCompatActivity {
     private boolean enabled = true;
 
     ImageButton editTagButton;
-    Button cancelTagEditButton;
-    Button doneTagEditButton;
+    ImageButton cancelTagEditButton;
+    ImageButton doneTagEditButton;
     TextView addTagButton;
 
     @Override
@@ -79,8 +79,8 @@ public class CreateEventPage extends AppCompatActivity {
 
         //Initializing buttons
         editTagButton = (ImageButton) generalTabView.findViewById(R.id.edit_tag_button);
-        cancelTagEditButton = (Button) generalTabView.findViewById(R.id.cancel_edit_button);
-        doneTagEditButton = (Button) generalTabView.findViewById(R.id.done_edit_button);
+        cancelTagEditButton = (ImageButton) generalTabView.findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (ImageButton) generalTabView.findViewById(R.id.done_edit_button);
         addTagButton = (TextView) generalTabView.findViewById(R.id.add_tag_button);
 
         //Grab entries
@@ -279,19 +279,19 @@ public class CreateEventPage extends AppCompatActivity {
         enabled = !enabled;
 
         if (!enabled) {
+            editTagButton.setVisibility(View.GONE);
+            addTagButton.setVisibility(View.GONE);
+
+            doneTagEditButton.setVisibility(View.VISIBLE);
+            cancelTagEditButton.setVisibility(View.VISIBLE);
+
+        } else {
             editTagButton.setVisibility(View.VISIBLE);
             addTagButton.setVisibility(View.VISIBLE);
 
             doneTagEditButton.setVisibility(View.GONE);
             cancelTagEditButton.setVisibility(View.GONE);
 
-        }
-        else {
-            doneTagEditButton.setVisibility(View.VISIBLE);
-            cancelTagEditButton.setVisibility(View.VISIBLE);
-
-            editTagButton.setVisibility(View.GONE);
-            addTagButton.setVisibility(View.GONE);
         }
         EnableDisableView(mViewPager);
     }
