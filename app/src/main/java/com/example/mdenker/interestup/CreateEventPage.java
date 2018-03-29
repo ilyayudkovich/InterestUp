@@ -2,6 +2,7 @@ package com.example.mdenker.interestup;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -191,7 +192,10 @@ public class CreateEventPage extends AppCompatActivity {
                             .setEndDateTime(endDateCalendar).setTentativeDates(tentativeDatesSwitchValue).setLocation(locationFieldText)
                             .setTags(tagsToAdd).setNumberOfAttendees(numberOfAttendees).setViewRestrictions(viewRestrictionText).setExclusions(CreateEventPage_AdvancedTab.exclusions).build();
                     Database.addEvent(event);
-                    OnBackClick(view);
+
+                    Intent i = new Intent(view.getContext(), EventDisplay.class);
+                    i.putExtra("event", event.getID());
+                    startActivity(i);
                 }
             }
 
