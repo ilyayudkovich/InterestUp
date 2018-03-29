@@ -8,12 +8,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +24,8 @@ import java.util.Collections;
 
 public class Profile_InterestsTab extends Fragment {
 
-    private ArrayList<String> interests = new ArrayList<String>();
-    //private String[] interests = {"Music Performance", "Hiking", "Improv", "Writing",
-    //        "Frisbee", "Twilight"};
-
+    private ArrayList<Integer> interestsIndexesRemoved = new ArrayList<Integer>();
+    private String[] preservedInterests;
     ArrayAdapter<String> interestArrayAdapter;
     ArrayAdapter<String> editInterestArrayAdapter;
 
@@ -38,10 +34,6 @@ public class Profile_InterestsTab extends Fragment {
     GridView gridViewEdit;
 
     TextView plusButton;
-
-    Button editButton;
-    Button cancelButton;
-    Button doneButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +47,8 @@ public class Profile_InterestsTab extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        Collections.addAll(interests,"Music Performance", "Hiking", "Improv", "Writing",
-             "Frisbee", "Twilight");
-
-        interestArrayAdapter = new InterestAdapter(getActivity(), interests, this);
-        editInterestArrayAdapter = new EditableInterestAdapter(getActivity(), interests, this);
+        interestArrayAdapter = new InterestAdapter(getActivity(), User.getInterests(), this);
+        editInterestArrayAdapter = new EditableInterestAdapter(getActivity(), User.getInterests(), this);
 
         gridView = (GridView) view.findViewById(R.id.gridView1);
         gridView.setAdapter(interestArrayAdapter);
@@ -67,47 +56,7 @@ public class Profile_InterestsTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.gridView1Edit);
         gridViewEdit.setAdapter(editInterestArrayAdapter);
 
-        editButton = (Button) getActivity().findViewById(R.id.editButton);
-        cancelButton = (Button) getActivity().findViewById(R.id.cancelButton);
-        doneButton = (Button) getActivity().findViewById(R.id.doneButton);
-
-        editButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridView.setVisibility(View.GONE);
-                gridViewEdit.setVisibility(View.VISIBLE);
-                Profile profileActivity = (Profile) getActivity();
-                profileActivity.OnEditClick(v);
-            }
-        });
-        cancelButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridViewEdit.setVisibility(View.GONE);
-                gridView.setVisibility(View.VISIBLE);
-                Profile profileActivity = (Profile) getActivity();
-                profileActivity.OnEditClick(v);
-            }
-        });
-        doneButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridViewEdit.setVisibility(View.GONE);
-                gridView.setVisibility(View.VISIBLE);
-                Profile profileActivity = (Profile) getActivity();
-                profileActivity.OnEditClick(v);
-            }
-        });
-
-
         addInterest = view.findViewById(R.id.AddInterest);
-
 
         plusButton.setOnClickListener(new View.OnClickListener()
         {
@@ -115,7 +64,7 @@ public class Profile_InterestsTab extends Fragment {
             public void onClick(View v)
             {
                 if (addInterest.getText().length() > 2) {
-                    interestArrayAdapter.add(addInterest.getText().toString());
+                    User.addInterest(addInterest.getText().toString());
                     addInterest.setText("");
                 }
                 else {
@@ -144,7 +93,8 @@ public class Profile_InterestsTab extends Fragment {
                             Toast.makeText(getActivity(), "Too many characters in potential interest",
                                     Toast.LENGTH_LONG).show();
                         } else {
-                            interestArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
+                            //interestArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
+                            User.addInterest(s.subSequence(0, s.length() - 1).toString());
                             addInterest.setText("");
                         }
                     }
@@ -158,8 +108,59 @@ public class Profile_InterestsTab extends Fragment {
         });
     }
 
+    private int ArrayFind(String[] array, String element) {
+        int index = 0;
+        for(String s: array){
+            if(s.equals(element)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
     public void OnEditXClicked(String element) {
+
+        int indexRemoved = ArrayFind(preservedInterests, element);
+        interestsIndexesRemoved.add(indexRemoved);
+
         editInterestArrayAdapter.remove(element);
-        interestArrayAdapter.remove(element);
+        interestArrayAdapter.remove(element); // I removing it from here also removes it from the user
+    }
+
+    public void toggledEdit(boolean enabled) {//, boolean canceled) {
+        if (!enabled) {
+            gridViewEdit.setVisibility(View.GONE);
+            gridView.setVisibility(View.VISIBLE);
+            if (Profile.canceled) { // undoes interest changes
+
+                Collections.sort(interestsIndexesRemoved);
+
+                for(int i = 0; i < interestsIndexesRemoved.size(); i++) {
+                    int insertionIndex = interestsIndexesRemoved.get(i);
+                    String interest = preservedInterests[insertionIndex];
+                    User.addInterest(interest, insertionIndex);
+                }
+                editInterestArrayAdapter.notifyDataSetChanged();
+                interestArrayAdapter.notifyDataSetChanged();
+
+                Profile.canceled = false;
+            }
+            else { // updates changes in user to make permanent
+                /* doesn't seem to be needed, already being removed
+                for(String interest : interestsToRemove) {
+                    User.removeInterest(interest);
+                }
+                */
+            }
+            interestsIndexesRemoved.clear();
+        }
+        else {
+            preservedInterests = new String[User.getInterests().size()];
+            User.getInterests().toArray(preservedInterests); // TODO bug where adding interest while in edit mode and then deleting it causes crash
+
+            gridView.setVisibility(View.GONE);
+            gridViewEdit.setVisibility(View.VISIBLE);
+        }
     }
 }

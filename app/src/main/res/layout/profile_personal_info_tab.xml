@@ -7,15 +7,17 @@
     android:onClick="OnScreenTapped">
 
     <EditText
-        android:id="@+id/add_tag_field"
-        android:layout_width="wrap_content"
+        android:id="@+id/aboutMeField"
+        android:layout_width="0dp"
         android:layout_height="81dp"
-        android:focusableInTouchMode="false"
+        android:layout_marginEnd="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:inputType="textMultiLine"
         android:tag="touchableFields"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="parent"
         tools:focusableInTouchMode="true" />
@@ -38,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:text="Email:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/add_exclude_people_field" />
+        app:layout_constraintTop_toTopOf="@+id/emailField" />
 
     <TextView
         android:id="@+id/textView10"
@@ -48,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:text="Phone:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/phoneField" />
 
     <TextView
         android:id="@+id/textView11"
@@ -58,7 +60,7 @@
         android:layout_marginTop="8dp"
         android:text="Birthday"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText5" />
+        app:layout_constraintTop_toTopOf="@+id/birthdayField" />
 
     <TextView
         android:id="@+id/textView12"
@@ -68,55 +70,62 @@
         android:layout_marginTop="8dp"
         android:text="Gender"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+        app:layout_constraintTop_toTopOf="@+id/genderRadioField" />
 
     <EditText
-        android:id="@+id/add_exclude_people_field"
-        android:layout_width="wrap_content"
+        android:id="@+id/emailField"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="false"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="7dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:inputType="textEmailAddress"
         android:tag="touchableFields"
-        app:layout_constraintStart_toStartOf="@+id/add_tag_field"
-        app:layout_constraintTop_toBottomOf="@+id/add_tag_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/aboutMeField"
+        app:layout_constraintTop_toBottomOf="@+id/aboutMeField"
         tools:focusableInTouchMode="true" />
 
     <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
+        android:id="@+id/phoneField"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="false"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="9dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:inputType="phone"
         android:tag="touchableFields"
-        app:layout_constraintStart_toStartOf="@+id/add_exclude_people_field"
-        app:layout_constraintTop_toBottomOf="@+id/add_exclude_people_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/emailField"
+        app:layout_constraintTop_toBottomOf="@+id/emailField"
         tools:focusableInTouchMode="true" />
 
     <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
+        android:id="@+id/birthdayField"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:focusableInTouchMode="false"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="17dp"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:inputType="date"
         android:tag="touchableFields"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/phoneField"
+        app:layout_constraintTop_toBottomOf="@+id/phoneField"
         tools:focusableInTouchMode="true" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/genderRadioField"
         android:layout_width="wrap_content"
         android:layout_height="97dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/editText5"
-        app:layout_constraintTop_toBottomOf="@+id/editText5">
+        app:layout_constraintStart_toStartOf="@+id/birthdayField"
+        app:layout_constraintTop_toBottomOf="@+id/birthdayField">
 
         <RadioButton
             android:id="@+id/RadioButton1"
