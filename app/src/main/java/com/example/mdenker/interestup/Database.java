@@ -30,6 +30,12 @@ public class Database {
         }
     }
 
+    public static void notifyEventChanged(Event event) {
+        for (EventsListener listener : listeners) {
+            listener.onEventChanged(event);
+        }
+    }
+
     public static Event getEvent(int id) {
         for (Event e : events) {
             if (e.getID() == id) {

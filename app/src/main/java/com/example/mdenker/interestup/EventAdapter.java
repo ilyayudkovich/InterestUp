@@ -60,6 +60,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         this.onTabSelected(tabLayout.getTabAt(selectedTab));
     }
 
+    public void onEventChanged(Event e) {
+        this.notifyItemChanged(filtered.indexOf(e));
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
