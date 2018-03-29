@@ -78,7 +78,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onInterestedClick(View view) {
-        int id = (int) ((View) view.getParent().getParent()).getTag();
+        int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
         if (e.getInterested().contains(Database.user)) {
@@ -91,7 +91,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onGoingClick(View view) {
-        int id = (int) ((View) view.getParent().getParent()).getTag();
+        int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(Database.user)) {

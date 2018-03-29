@@ -4,27 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="2dp"
     android:onClick="onEventClick"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cardConstraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/eventName"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/nameConstraint"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Event Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/eventName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Event Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toStartOf="@+id/home_going_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/home_going_button"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:onClick="onGoingClick"
+                app:layout_constraintEnd_toStartOf="@+id/home_interest_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_check_green_36dp" />
+
+            <ImageButton
+                android:id="@+id/home_interest_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:onClick="onInterestedClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_star_border_yellow_36dp" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
             android:id="@+id/eventInterests"
@@ -36,7 +74,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventName" />
+            app:layout_constraintTop_toBottomOf="@+id/nameConstraint" />
 
         <TextView
             android:id="@+id/eventDate"
@@ -52,7 +90,7 @@
         <TextView
             android:id="@+id/eventTime"
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Time"
@@ -83,30 +121,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventLocation" />
-
-        <ImageButton
-            android:id="@+id/home_going_button"
-            android:layout_width="36dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:onClick="onGoingClick"
-            app:layout_constraintEnd_toStartOf="@+id/home_interest_button"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_check_green_36dp" />
-
-        <ImageButton
-            android:id="@+id/home_interest_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:onClick="onInterestedClick"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_star_border_yellow_36dp" />
 
     </android.support.constraint.ConstraintLayout>
 
