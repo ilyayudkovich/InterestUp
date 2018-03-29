@@ -42,8 +42,8 @@ public class CreateEventPage_AdvancedTab extends Fragment {
 
     TextView addExcludePeopleButton;
     ImageButton editExcludePeopleButton;
-    Button cancelExcludePeopleEditButton;
-    Button doneExcludePeopleEditButton;
+    ImageButton cancelExcludePeopleEditButton;
+    ImageButton doneExcludePeopleEditButton;
 
     String eventName;
     EditText eventNameInput;
@@ -96,8 +96,8 @@ public class CreateEventPage_AdvancedTab extends Fragment {
 
         addExcludePeopleButton = (TextView) view.findViewById(R.id.add_people_exclude_button);
         editExcludePeopleButton = (ImageButton) view.findViewById(R.id.edit_people_exclude_button);
-        cancelExcludePeopleEditButton = (Button) view.findViewById(R.id.cancel_people_exclude_edit_button);
-        doneExcludePeopleEditButton = (Button) view.findViewById(R.id.done_people_exclude_edit_button);
+        cancelExcludePeopleEditButton = (ImageButton) view.findViewById(R.id.cancel_people_exclude_edit_button);
+        doneExcludePeopleEditButton = (ImageButton) view.findViewById(R.id.done_people_exclude_edit_button);
 
         editExcludePeopleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +105,12 @@ public class CreateEventPage_AdvancedTab extends Fragment {
             {
                 gridView.setVisibility(View.GONE);
                 gridViewEdit.setVisibility(View.VISIBLE);
+
+                addExcludePeopleButton.setVisibility(View.GONE);
+                editExcludePeopleButton.setVisibility(View.GONE);
+                cancelExcludePeopleEditButton.setVisibility(View.VISIBLE);
+                doneExcludePeopleEditButton.setVisibility(View.VISIBLE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }
@@ -117,6 +123,12 @@ public class CreateEventPage_AdvancedTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+
+                addExcludePeopleButton.setVisibility(View.VISIBLE);
+                editExcludePeopleButton.setVisibility(View.VISIBLE);
+                cancelExcludePeopleEditButton.setVisibility(View.GONE);
+                doneExcludePeopleEditButton.setVisibility(View.GONE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }
@@ -127,6 +139,12 @@ public class CreateEventPage_AdvancedTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+
+                addExcludePeopleButton.setVisibility(View.VISIBLE);
+                editExcludePeopleButton.setVisibility(View.VISIBLE);
+                cancelExcludePeopleEditButton.setVisibility(View.GONE);
+                doneExcludePeopleEditButton.setVisibility(View.GONE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }

@@ -40,8 +40,8 @@ public class CreateEventPage_GeneralTab extends Fragment {
 
     TextView addTagButton;
     ImageButton editTagButton;
-    Button cancelTagEditButton;
-    Button doneTagEditButton;
+    ImageButton cancelTagEditButton;
+    ImageButton doneTagEditButton;
 
 
     @Override
@@ -70,8 +70,8 @@ public class CreateEventPage_GeneralTab extends Fragment {
 
         addTagButton = (TextView) view.findViewById(R.id.add_tag_button);
         editTagButton = (ImageButton) view.findViewById(R.id.edit_tag_button);
-        cancelTagEditButton = (Button) view.findViewById(R.id.cancel_edit_button);
-        doneTagEditButton = (Button) view.findViewById(R.id.done_edit_button);
+        cancelTagEditButton = (ImageButton) view.findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (ImageButton) view.findViewById(R.id.done_edit_button);
 
         editTagButton.setOnClickListener(new View.OnClickListener()
         {
@@ -80,6 +80,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
             {
                 gridView.setVisibility(View.GONE);
                 gridViewEdit.setVisibility(View.VISIBLE);
+
+                addTagButton.setVisibility(View.GONE);
+                editTagButton.setVisibility(View.GONE);
+                cancelTagEditButton.setVisibility(View.VISIBLE);
+                doneTagEditButton.setVisibility(View.VISIBLE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }
@@ -92,6 +98,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+
+                addTagButton.setVisibility(View.VISIBLE);
+                editTagButton.setVisibility(View.VISIBLE);
+                cancelTagEditButton.setVisibility(View.GONE);
+                doneTagEditButton.setVisibility(View.GONE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }
@@ -104,6 +116,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
             {
                 gridViewEdit.setVisibility(View.GONE);
                 gridView.setVisibility(View.VISIBLE);
+
+                addTagButton.setVisibility(View.VISIBLE);
+                editTagButton.setVisibility(View.VISIBLE);
+                cancelTagEditButton.setVisibility(View.GONE);
+                doneTagEditButton.setVisibility(View.GONE);
+
                 CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
                 CreateEventActivity.OnTagEditClick(v);
             }

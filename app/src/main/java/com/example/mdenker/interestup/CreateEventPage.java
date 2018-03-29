@@ -2,25 +2,17 @@ package com.example.mdenker.interestup;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.text.format.Time;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +21,9 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,8 +46,8 @@ public class CreateEventPage extends AppCompatActivity {
     private boolean enabled = true;
 
     ImageButton editTagButton;
-    Button cancelTagEditButton;
-    Button doneTagEditButton;
+    ImageButton cancelTagEditButton;
+    ImageButton doneTagEditButton;
     TextView addTagButton;
 
     @Override
@@ -90,8 +79,8 @@ public class CreateEventPage extends AppCompatActivity {
 
         //Initializing buttons
         editTagButton = (ImageButton) generalTabView.findViewById(R.id.edit_tag_button);
-        cancelTagEditButton = (Button) generalTabView.findViewById(R.id.cancel_edit_button);
-        doneTagEditButton = (Button) generalTabView.findViewById(R.id.done_edit_button);
+        cancelTagEditButton = (ImageButton) generalTabView.findViewById(R.id.cancel_edit_button);
+        doneTagEditButton = (ImageButton) generalTabView.findViewById(R.id.done_edit_button);
         addTagButton = (TextView) generalTabView.findViewById(R.id.add_tag_button);
 
         //Grab entries
@@ -122,10 +111,13 @@ public class CreateEventPage extends AppCompatActivity {
                 Boolean tentativeDatesSwitchValue = tentativeDatesSwitch.isChecked();
 
                 EditText locationField = (EditText) findViewById(R.id.location_field);
-                String locationFieldText = nameField.getText().toString().trim();
+                String locationFieldText = locationField.getText().toString().trim();
 
                 Spinner numberOfAttendeesSpinner = (Spinner) findViewById(R.id.number_of_attendees_field);
-                String numberOfAttendeesText = numberOfAttendeesSpinner.getSelectedItem().toString();
+                int numberOfAttendees = 30;
+                try {
+                    numberOfAttendees = Integer.parseInt(numberOfAttendeesSpinner.getSelectedItem().toString());
+                } catch (Exception e) {}
 
                 Spinner viewRestrictionSpinner = (Spinner) findViewById(R.id._view_restriction_field);
                 String viewRestrictionText = viewRestrictionSpinner.getSelectedItem().toString();
@@ -197,7 +189,7 @@ public class CreateEventPage extends AppCompatActivity {
 
                     Event event = EventFactory.create().setName(nameFieldText).setDescription(descriptionFieldText).setStartDateTime(startDateCalendar)
                             .setEndDateTime(endDateCalendar).setTentativeDates(tentativeDatesSwitchValue).setLocation(locationFieldText)
-                            .setTags(tagsToAdd).setNumberOfAttendees(Integer.parseInt(numberOfAttendeesText)).setViewRestrictions(viewRestrictionText).setExclusions(CreateEventPage_AdvancedTab.exclusions).build();
+                            .setTags(tagsToAdd).setNumberOfAttendees(numberOfAttendees).setViewRestrictions(viewRestrictionText).setExclusions(CreateEventPage_AdvancedTab.exclusions).build();
                     Database.addEvent(event);
                     OnBackClick(view);
                 }
@@ -287,19 +279,19 @@ public class CreateEventPage extends AppCompatActivity {
         enabled = !enabled;
 
         if (!enabled) {
+            editTagButton.setVisibility(View.GONE);
+            addTagButton.setVisibility(View.GONE);
+
+            doneTagEditButton.setVisibility(View.VISIBLE);
+            cancelTagEditButton.setVisibility(View.VISIBLE);
+
+        } else {
             editTagButton.setVisibility(View.VISIBLE);
             addTagButton.setVisibility(View.VISIBLE);
 
             doneTagEditButton.setVisibility(View.GONE);
             cancelTagEditButton.setVisibility(View.GONE);
 
-        }
-        else {
-            doneTagEditButton.setVisibility(View.VISIBLE);
-            cancelTagEditButton.setVisibility(View.VISIBLE);
-
-            editTagButton.setVisibility(View.GONE);
-            addTagButton.setVisibility(View.GONE);
         }
         EnableDisableView(mViewPager);
     }
