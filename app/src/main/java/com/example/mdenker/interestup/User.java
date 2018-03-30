@@ -11,6 +11,7 @@ import java.util.Date;
 public class User {
     private static String firstName = "Bob"; // not being used in profile yet
     private static String lastName = "Sagat";
+    private static String location = "Boston";
     private static ArrayList<String> interests = new ArrayList<String>();
 
     public static boolean initialized = false;
@@ -48,13 +49,19 @@ public class User {
     public static String getFullName() { return String.format("%s %s", firstName, lastName); }
     public static void setFirstName(String name) { firstName = name; }
     public static void setLastName(String name) { lastName = name; }
+    public static void setFullName(String name) { //just store in first name for now, not using it for anything
+        firstName = name;
+        lastName = "";
+    }
 
+    public static String getLocation() {return location;}
     public static String getAboutMe() { return aboutMe; }
     public static String getEmail() { return email; }
     public static String getPhone() { return phone; }
     public static String  getBirthday() { return birthday; }
     public static int getGender() { return gender; }
 
+    public static void setLocation(String newLocation) { location = newLocation;}
     public static void setAboutMe(String newAboutMe) { aboutMe = newAboutMe; }
     public static void setEmail(String newEmail) { email = newEmail; }
     public static void setPhone(String newPhone) { phone = newPhone; }
