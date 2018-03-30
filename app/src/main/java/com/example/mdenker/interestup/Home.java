@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -78,6 +79,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onInterestedClick(View view) {
+        Toast.makeText(this, "Selected Interested", Toast.LENGTH_SHORT).show();
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
@@ -91,6 +93,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onGoingClick(View view) {
+        Toast.makeText(this, "Selected Going", Toast.LENGTH_SHORT).show();
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
