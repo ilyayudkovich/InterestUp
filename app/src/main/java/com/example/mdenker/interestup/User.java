@@ -45,6 +45,7 @@ public class User {
 
     public static String getFirstName() { return firstName; }
     public static String getLastName() { return lastName; }
+    public static String getFullName() { return String.format("%s %s", firstName, lastName); }
     public static void setFirstName(String name) { firstName = name; }
     public static void setLastName(String name) { lastName = name; }
 

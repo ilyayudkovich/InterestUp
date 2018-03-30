@@ -70,13 +70,13 @@ public class EventDisplayInfo extends Fragment {
         totalGoing.setText(Integer.toString(event.getNumberOfAttendees()));
         toBring.setText("Shoes, boots, chapstick, rainjacket");
 
-        if (event.getInterested().contains(Database.user)) {
+        if (event.getInterested().contains(User.getFullName())) {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         } else {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         }
 
-        if (event.getGoing().contains(Database.user)) {
+        if (event.getGoing().contains(User.getFullName())) {
             goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         } else {
             goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_green_36dp));
@@ -85,22 +85,22 @@ public class EventDisplayInfo extends Fragment {
 
     public void onInterestedClick(View view) {
         interestedButton = view.findViewById(R.id.eventInterestedButton);
-        if (event.getInterested().contains(Database.user)) {
-            event.removeInterested(Database.user);
+        if (event.getInterested().contains(User.getFullName())) {
+            event.removeInterested(User.getFullName());
             interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         } else {
-            event.addInterested(Database.user);
+            event.addInterested(User.getFullName());
             interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         }
     }
 
     public void onGoingClick(View view) {
         goingButton = view.findViewById(R.id.eventGoingButton);
-        if (event.getGoing().contains(Database.user)) {
-            event.removeGoing(Database.user);
+        if (event.getGoing().contains(User.getFullName())) {
+            event.removeGoing(User.getFullName());
             goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_green_36dp));
         } else {
-            event.addGoing(Database.user);
+            event.addGoing(User.getFullName());
             goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         }
     }

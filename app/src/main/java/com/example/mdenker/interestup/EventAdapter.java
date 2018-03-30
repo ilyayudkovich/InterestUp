@@ -86,14 +86,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(interests.toString());
 
         ImageButton interestButton = holder.itemView.findViewById(R.id.home_interest_button);
-        if (e.getInterested().contains(Database.user)) {
+        if (e.getInterested().contains(User.getFullName())) {
             interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         } else {
             interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         }
 
         ImageButton goingButton = holder.itemView.findViewById(R.id.home_going_button);
-        if (e.getGoing().contains(Database.user)) {
+        if (e.getGoing().contains(User.getFullName())) {
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         } else {
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
@@ -139,14 +139,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
             case "going":
                 for (Event e : events) {
-                    if (e.getGoing().contains(Database.user)) {
+                    if (e.getGoing().contains(User.getFullName())) {
                         filtered.add(e);
                     }
                 }
                 break;
             case "interested":
                 for (Event e : events) {
-                    if (e.getInterested().contains(Database.user)) {
+                    if (e.getInterested().contains(User.getFullName())) {
                         filtered.add(e);
                     }
                 }
