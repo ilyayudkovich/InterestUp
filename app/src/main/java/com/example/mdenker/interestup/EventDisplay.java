@@ -101,7 +101,7 @@ public class EventDisplay extends AppCompatActivity {
                 case 0:
                     return new EventDisplayInfo(EventDisplay.this, event);
                 case 1:
-                    return new EventDisplayDiscussion();
+                    return new DiscussionMessageFragment(EventDisplay.this);
                 default:
                     System.out.println("null returned.");
                     return null;
