@@ -101,11 +101,17 @@ public class Event implements Serializable {
     }
 
     public List<String> getGoing() {
-        return this.going;
+        List<String> allGoing = new ArrayList<>();
+        allGoing.add(this.host);
+        allGoing.addAll(this.going);
+        return allGoing;
     }
 
     public List<String> getInterested() {
-        return this.interested;
+        List<String> allInterested = new ArrayList<>();
+        allInterested.add(this.host);
+        allInterested.addAll(this.interested);
+        return allInterested;
     }
 
     public List<String> getItems() {

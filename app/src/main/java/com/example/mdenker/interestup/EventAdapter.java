@@ -105,13 +105,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         List<String> attendeeList = e.getGoing().size() > e.getInterested().size() ? e.getGoing() : e.getInterested();
         String suffix = e.getGoing().size() >= e.getInterested().size() ? "going" : "interested";
-        StringBuilder attendees = new StringBuilder(e.getHost());
-        for (int i = 0; i < Math.min(3, attendeeList.size()); i++) {
-            attendees.append(", ");
-            attendees.append(attendeeList.get(i));
-        }
-        attendees.append(" ").append(suffix);
-        ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees.toString());
+        int size = Math.min(4, attendeeList.size());
+        String attendees = String.format("%s %s", String.join(", ", attendeeList.subList(0, size)), suffix);
+        ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees);
 
         holder.itemView.setTag(e.getID());
     }

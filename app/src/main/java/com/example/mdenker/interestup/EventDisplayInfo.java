@@ -23,12 +23,13 @@ public class EventDisplayInfo extends Fragment {
 
     private TextView name;
     private TextView tags;
+    private TextView host;
     private TextView description;
     private TextView where;
     private TextView time;
     private TextView when;
-    private TextView totalGoing;
-    private TextView toBring;
+    private TextView friendsGoing;
+    private TextView friendsInterested;
     private ImageButton interestedButton;
     private ImageButton goingButton;
 
@@ -49,12 +50,13 @@ public class EventDisplayInfo extends Fragment {
         View view = inflater.inflate(R.layout.event_display_info, container, false);
         name = view.findViewById(R.id.name);
         tags = view.findViewById(R.id.eventTags);
+        host = view.findViewById(R.id.host);
         description = view.findViewById(R.id.description);
         where = view.findViewById(R.id.where);
         time = view.findViewById(R.id.time);
         when = view.findViewById(R.id.when);
-        totalGoing = view.findViewById(R.id.totalGoing);
-        toBring = view.findViewById(R.id.toBring);
+        friendsGoing = view.findViewById(R.id.going);
+        friendsInterested = view.findViewById(R.id.interested);
         interestedButton = view.findViewById(R.id.eventInterestedButton);
         goingButton = view.findViewById(R.id.eventGoingButton);
 
@@ -66,12 +68,13 @@ public class EventDisplayInfo extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         name.setText(event.getName());
         tags.setText(String.join(",", event.getInterests()));
+        host.setText(String.format("Hosted by %s", event.getHost()));
         description.setText(event.getDescription());
         where.setText(event.getLocation());
         time.setText(event.getStartDateTime().getTime().toString());
         when.setText(event.getStartDateTime().getTime().toString());
-        totalGoing.setText(Integer.toString(event.getNumberOfAttendees()));
-        toBring.setText("Shoes, boots, chapstick, rainjacket");
+        friendsGoing.setText(String.join(", ", event.getGoing()));
+        friendsInterested.setText(String.join(", ", event.getInterested()));
 
         if (event.getInterested().contains(User.getFullName())) {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));

@@ -11,7 +11,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -36,6 +36,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="eventHost"
+                    android:text="Host"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
+
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
@@ -43,7 +54,7 @@
                     android:layout_marginTop="8dp"
                     android:scaleX="-1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name"
+                    app:layout_constraintTop_toBottomOf="@+id/host"
                     app:srcCompat="@drawable/ic_local_offer_black_24dp" />
 
                 <TextView
@@ -55,7 +66,7 @@
                     android:text="Tags"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    app:layout_constraintTop_toBottomOf="@+id/host" />
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -69,7 +80,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+                app:layout_constraintTop_toBottomOf="@+id/interested" />
 
             <TextView
                 android:id="@+id/editText8"
@@ -82,12 +93,12 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description" />
+                app:layout_constraintTop_toBottomOf="@+id/time" />
 
             <TextView
                 android:id="@+id/editText9"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="eventWhen"
@@ -95,7 +106,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/where" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
             <TextView
                 android:id="@+id/editText10"
@@ -117,11 +128,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="eventGoing"
-                android:text="Total Going"
+                android:text="Friends Going"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
+                app:layout_constraintTop_toBottomOf="@+id/where" />
 
             <TextView
                 android:id="@+id/editText12"
@@ -130,11 +141,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="eventItems"
-                android:text="What to Bring"
+                android:text="Friends Interested"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalGoing" />
+                app:layout_constraintTop_toBottomOf="@+id/going" />
 
             <ImageButton
                 android:id="@+id/eventGoingButton"
@@ -163,9 +174,9 @@
                 app:srcCompat="@drawable/ic_star_border_yellow_36dp" />
 
             <TextView
-                android:id="@+id/totalGoing"
+                android:id="@+id/going"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="15dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
@@ -223,7 +234,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText14" />
 
             <TextView
-                android:id="@+id/toBring"
+                android:id="@+id/interested"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -241,7 +252,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Going"
-                app:layout_constraintEnd_toEndOf="@+id/eventGoingButton"
                 app:layout_constraintStart_toStartOf="@+id/eventGoingButton"
                 app:layout_constraintTop_toBottomOf="@+id/eventGoingButton" />
 
