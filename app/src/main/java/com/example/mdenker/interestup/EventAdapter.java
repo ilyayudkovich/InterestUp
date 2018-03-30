@@ -75,25 +75,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Event e = filtered.get(position);
         ((TextView) holder.itemView.findViewById(R.id.eventName)).setText(e.getName());
-
-        StringBuilder interests = new StringBuilder();
-        for (int i = 0; i < e.getInterests().size(); i++) {
-            interests.append(e.getInterests().get(i));
-            if (i != e.getInterests().size() - 1) {
-                interests.append(", ");
-            }
-        }
-        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(interests.toString());
+        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(String.join(",", e.getInterests()));
 
         ImageButton interestButton = holder.itemView.findViewById(R.id.home_interest_button);
-        if (e.getInterested().contains(Database.user)) {
+        if (e.getInterested().contains(User.getFullName())) {
             interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         } else {
             interestButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         }
 
         ImageButton goingButton = holder.itemView.findViewById(R.id.home_going_button);
-        if (e.getGoing().contains(Database.user)) {
+        if (e.getGoing().contains(User.getFullName())) {
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         } else {
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
@@ -113,13 +105,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         List<String> attendeeList = e.getGoing().size() > e.getInterested().size() ? e.getGoing() : e.getInterested();
         String suffix = e.getGoing().size() >= e.getInterested().size() ? "going" : "interested";
-        StringBuilder attendees = new StringBuilder(e.getHost());
-        for (int i = 0; i < Math.min(3, attendeeList.size()); i++) {
-            attendees.append(", ");
-            attendees.append(attendeeList.get(i));
-        }
-        attendees.append(" ").append(suffix);
-        ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees.toString());
+        int size = Math.min(4, attendeeList.size());
+        String attendees = String.format("%s %s", String.join(", ", attendeeList.subList(0, size)), suffix);
+        ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees);
 
         holder.itemView.setTag(e.getID());
     }
@@ -139,14 +127,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
             case "going":
                 for (Event e : events) {
-                    if (e.getGoing().contains(Database.user)) {
+                    if (e.getGoing().contains(User.getFullName())) {
                         filtered.add(e);
                     }
                 }
                 break;
             case "interested":
                 for (Event e : events) {
-                    if (e.getInterested().contains(Database.user)) {
+                    if (e.getInterested().contains(User.getFullName())) {
                         filtered.add(e);
                     }
                 }

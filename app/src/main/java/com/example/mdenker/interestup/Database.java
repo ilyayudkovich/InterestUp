@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class Database {
-    public static final String user = "Jordan You";
     public static List<Event> events = new ArrayList<>();
     private static List<EventsListener> listeners = new ArrayList<>();
 

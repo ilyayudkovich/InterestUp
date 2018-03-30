@@ -39,7 +39,7 @@ public class MeetupEvents {
 
         public String getVenue() {
             if (this.venue == null) {
-                return "Blackstone Grill";
+                return "To be determined";
             }
             return this.venue.name;
         }

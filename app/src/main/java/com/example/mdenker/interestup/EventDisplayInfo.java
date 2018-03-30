@@ -22,12 +22,14 @@ public class EventDisplayInfo extends Fragment {
     private Event event;
 
     private TextView name;
+    private TextView tags;
+    private TextView host;
+    private TextView description;
     private TextView where;
-    private TextView address;
     private TextView time;
     private TextView when;
-    private TextView totalGoing;
-    private TextView toBring;
+    private TextView friendsGoing;
+    private TextView friendsInterested;
     private ImageButton interestedButton;
     private ImageButton goingButton;
 
@@ -46,13 +48,15 @@ public class EventDisplayInfo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.event_display_info, container, false);
-        name       = (TextView)view.findViewById(R.id.name);
-        where      = (TextView)view.findViewById(R.id.where);
-        address    = (TextView)view.findViewById(R.id.address);
-        time       = (TextView)view.findViewById(R.id.time);
-        when       = (TextView)view.findViewById(R.id.when);
-        totalGoing = (TextView)view.findViewById(R.id.totalGoing);
-        toBring    = (TextView)view.findViewById(R.id.toBring);
+        name = view.findViewById(R.id.name);
+        tags = view.findViewById(R.id.eventTags);
+        host = view.findViewById(R.id.host);
+        description = view.findViewById(R.id.description);
+        where = view.findViewById(R.id.where);
+        time = view.findViewById(R.id.time);
+        when = view.findViewById(R.id.when);
+        friendsGoing = view.findViewById(R.id.going);
+        friendsInterested = view.findViewById(R.id.interested);
         interestedButton = view.findViewById(R.id.eventInterestedButton);
         goingButton = view.findViewById(R.id.eventGoingButton);
 
@@ -63,20 +67,22 @@ public class EventDisplayInfo extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         name.setText(event.getName());
+        tags.setText(String.join(",", event.getInterests()));
+        host.setText(String.format("Hosted by %s", event.getHost()));
+        description.setText(event.getDescription());
         where.setText(event.getLocation());
-        address.setText(event.getLocation());
         time.setText(event.getStartDateTime().getTime().toString());
         when.setText(event.getStartDateTime().getTime().toString());
-        totalGoing.setText(Integer.toString(event.getNumberOfAttendees()));
-        toBring.setText("Shoes, boots, chapstick, rainjacket");
+        friendsGoing.setText(String.join(", ", event.getGoing()));
+        friendsInterested.setText(String.join(", ", event.getInterested()));
 
-        if (event.getInterested().contains(Database.user)) {
+        if (event.getInterested().contains(User.getFullName())) {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         } else {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         }
 
-        if (event.getGoing().contains(Database.user)) {
+        if (event.getGoing().contains(User.getFullName())) {
             goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         } else {
             goingButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_green_36dp));
@@ -85,22 +91,22 @@ public class EventDisplayInfo extends Fragment {
 
     public void onInterestedClick(View view) {
         interestedButton = view.findViewById(R.id.eventInterestedButton);
-        if (event.getInterested().contains(Database.user)) {
-            event.removeInterested(Database.user);
+        if (event.getInterested().contains(User.getFullName())) {
+            event.removeInterested(User.getFullName());
             interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         } else {
-            event.addInterested(Database.user);
+            event.addInterested(User.getFullName());
             interestedButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         }
     }
 
     public void onGoingClick(View view) {
         goingButton = view.findViewById(R.id.eventGoingButton);
-        if (event.getGoing().contains(Database.user)) {
-            event.removeGoing(Database.user);
+        if (event.getGoing().contains(User.getFullName())) {
+            event.removeGoing(User.getFullName());
             goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_green_36dp));
         } else {
-            event.addGoing(Database.user);
+            event.addGoing(User.getFullName());
             goingButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         }
     }

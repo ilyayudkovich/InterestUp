@@ -83,11 +83,11 @@ public class Home extends AppCompatActivity implements EventsListener {
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
-        if (e.getInterested().contains(Database.user)) {
-            e.removeInterested(Database.user);
+        if (e.getInterested().contains(User.getFullName())) {
+            e.removeInterested(User.getFullName());
             b.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_yellow_36dp));
         } else {
-            e.addInterested(Database.user);
+            e.addInterested(User.getFullName());
             b.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
         }
     }
@@ -97,11 +97,11 @@ public class Home extends AppCompatActivity implements EventsListener {
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
-        if (e.getGoing().contains(Database.user)) {
-            e.removeGoing(Database.user);
+        if (e.getGoing().contains(User.getFullName())) {
+            e.removeGoing(User.getFullName());
             b.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_green_36dp));
         } else {
-            e.addGoing(Database.user);
+            e.addGoing(User.getFullName());
             b.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle_green_36dp));
         }
     }
