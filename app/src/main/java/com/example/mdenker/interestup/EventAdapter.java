@@ -75,15 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Event e = filtered.get(position);
         ((TextView) holder.itemView.findViewById(R.id.eventName)).setText(e.getName());
-
-        StringBuilder interests = new StringBuilder();
-        for (int i = 0; i < e.getInterests().size(); i++) {
-            interests.append(e.getInterests().get(i));
-            if (i != e.getInterests().size() - 1) {
-                interests.append(", ");
-            }
-        }
-        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(interests.toString());
+        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(String.join(",", e.getInterests()));
 
         ImageButton interestButton = holder.itemView.findViewById(R.id.home_interest_button);
         if (e.getInterested().contains(User.getFullName())) {
