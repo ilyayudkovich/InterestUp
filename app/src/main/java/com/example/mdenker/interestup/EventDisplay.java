@@ -54,9 +54,9 @@ public class EventDisplay extends AppCompatActivity {
 
     //Functionality for back button
     public void OnBackClick(View view) {
+        Database.notifyEventChanged(this.event);
         this.finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

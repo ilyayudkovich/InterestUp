@@ -41,6 +41,8 @@ public class Profile extends AppCompatActivity {
     private ViewPager mViewPager;
     private boolean enabled = true;
 
+    public static boolean canceled = false;  // this is easier than making custom listener
+
     ImageButton backButton;
     Button editButton;
     Button cancelButton;
@@ -50,6 +52,8 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        User user = new User(); // initializes the user
 
         mSectionsPagerAdapter = new ProfileTabAdapter(getSupportFragmentManager(), "INTERESTS", "PERSONAL INFO");
 
@@ -66,6 +70,33 @@ public class Profile extends AppCompatActivity {
         editButton = (Button) findViewById(R.id.editButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         doneButton = (Button) findViewById(R.id.doneButton);
+
+        editButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OnEditClick(v);
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                canceled = true;
+                OnEditClick(v);
+            }
+        });
+        doneButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+               OnEditClick(v);
+            }
+        });
+
     }
 
     @Override
@@ -127,6 +158,16 @@ public class Profile extends AppCompatActivity {
             backButton.setVisibility(View.GONE);
         }
         EnableDisableView(mViewPager);
+
+        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + mViewPager.getId() + ":" + mViewPager.getCurrentItem());
+        // based on the current position you can then cast the page to the correct
+        // class and call the method:
+        if (mViewPager.getCurrentItem() == 0 && page != null) {
+            ((Profile_InterestsTab)page).toggledEdit(enabled);
+        }
+        else if (mViewPager.getCurrentItem() == 1 && page != null) {
+            ((Profile_PersonalInfoTab)page).toggledEdit(enabled);
+        }
     }
 
     public class ProfileTabAdapter extends SectionsPagerAdapter {

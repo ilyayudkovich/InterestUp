@@ -113,6 +113,11 @@ public class Home extends AppCompatActivity implements EventsListener {
         adapter.setEvents(events);
     }
 
+    @Override
+    public void onEventChanged(Event event) {
+        adapter.onEventChanged(event);
+    }
+
     private static class GetEventsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
