@@ -29,6 +29,8 @@ public class Profile extends AppCompatActivity {
     private ViewPager mViewPager;
     private boolean enabled = true;
 
+    public boolean getEnabled() {return enabled;}
+
     public static boolean canceled = false;  // this is easier than making custom listener
 
     TextView userName;

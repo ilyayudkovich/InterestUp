@@ -1,5 +1,8 @@
 package com.example.mdenker.interestup;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -24,6 +28,11 @@ public class Profile_PersonalInfoTab extends Fragment {
     TextView phone;
     TextView birthday;
     RadioGroup gender;
+
+    Drawable backgroundAboutMe;
+    Drawable backgroundEmail;
+    Drawable backgroundPhone;
+    Drawable backgroundBirthday;
 
     Button editButton;
     Button cancelButton;
@@ -46,6 +55,28 @@ public class Profile_PersonalInfoTab extends Fragment {
 
         // grab from user
         setFieldsFromUser();
+
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Profile profile_activity = (Profile) getActivity();
+                if (!profile_activity.getEnabled() && group.getCheckedRadioButtonId() != -1) { // can't change unless in edit mode
+                    group.check(User.getGender());
+                }
+            }
+        });
+
+
+        backgroundAboutMe = aboutMe.getBackground();
+        backgroundEmail = email.getBackground();
+        backgroundPhone = phone.getBackground();
+        backgroundBirthday = birthday.getBackground();
+
+        aboutMe.setBackground(new ColorDrawable(Color.TRANSPARENT));
+        email.setBackground(new ColorDrawable(Color.TRANSPARENT));
+        phone.setBackground(new ColorDrawable(Color.TRANSPARENT));
+        birthday.setBackground(new ColorDrawable(Color.TRANSPARENT));
     }
 
     private void setFieldsFromUser() {
@@ -57,8 +88,13 @@ public class Profile_PersonalInfoTab extends Fragment {
     }
 
 
-    public void toggledEdit(boolean enabled) {//, boolean canceled) {
-        if (!enabled) { //&& canceled) { // finished editing, so save info
+    public void toggledEdit(boolean enabled) {
+        if (!enabled) {
+            aboutMe.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            email.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            phone.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            birthday.setBackground(new ColorDrawable(Color.TRANSPARENT));
+            //gender.setBackground(new ColorDrawable(Color.TRANSPARENT));
             if (Profile.canceled) { // undoes changes
                 setFieldsFromUser();
             }
@@ -69,6 +105,13 @@ public class Profile_PersonalInfoTab extends Fragment {
                 User.setBirthday(birthday.getText().toString());
                 User.setGender(gender.getCheckedRadioButtonId());
             }
+        }
+        else {
+            aboutMe.setBackground(backgroundAboutMe);
+            email.setBackground(backgroundEmail);
+            phone.setBackground(backgroundPhone);
+            birthday.setBackground(backgroundBirthday);
+            //gender.setBackground(null);
         }
     }
 }

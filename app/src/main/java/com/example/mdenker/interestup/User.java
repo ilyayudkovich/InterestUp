@@ -16,7 +16,7 @@ public class User {
 
     public static boolean initialized = false;
 
-    private static String aboutMe = "MY BOBSIDFSFO";
+    private static String aboutMe = "My Bob is better than you";
     private static String email;
     private static String phone;
     private static String birthday = "01/01/1990"; //new Date(1990, 1, 1);
