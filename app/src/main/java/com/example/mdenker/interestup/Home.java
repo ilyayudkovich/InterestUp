@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class Home extends AppCompatActivity implements EventsListener {
     private EventAdapter adapter;
+    private static boolean loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,29 @@ public class Home extends AppCompatActivity implements EventsListener {
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
         adapter = new EventAdapter(this, tabs);
         tabs.addOnTabSelectedListener(adapter);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    int allItems = layoutManager.getItemCount();
+                    int currentIndex = layoutManager.findFirstVisibleItemPosition();
+
+                    if (!loading) {
+                        if (allItems - currentIndex <= 10) {
+                            new GetEventsTask().execute();
+                        }
+                    }
+                }
+            }
+        });
 
         Database.addEventListener(this);
 
@@ -79,7 +98,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onInterestedClick(View view) {
-        Toast.makeText(this, "Selected Interested", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Selected Interested", Toast.LENGTH_SHORT).show();
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
@@ -93,7 +112,7 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     public void onGoingClick(View view) {
-        Toast.makeText(this, "Selected Going", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Selected Going", Toast.LENGTH_SHORT).show();
         int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
@@ -112,25 +131,25 @@ public class Home extends AppCompatActivity implements EventsListener {
     }
 
     @Override
-    public void onEventsFetched(List<Event> events) {
-        adapter.setEvents(events);
-    }
-
-    @Override
     public void onEventChanged(Event event) {
         adapter.onEventChanged(event);
     }
 
-    private static class GetEventsTask extends AsyncTask<Void, Void, Void> {
+    private static class GetEventsTask extends AsyncTask<Void, Void, List<Event>> {
+        private static Calendar start = Calendar.getInstance();
+        private static long duration = 604800000;
+
         @Override
-        protected Void doInBackground(Void... voids) {
-            Database.fetchEvents();
-            return null;
+        protected List<Event> doInBackground(Void... voids) {
+            loading = true;
+            return Database.fetchEvents(start.getTime(), duration);
         }
 
         @Override
-        protected void onPostExecute(Void v) {
-            Database.notifyEventsFetched();
+        protected void onPostExecute(List<Event> events) {
+            loading = false;
+            start.setTimeInMillis(start.getTimeInMillis() + duration);
+            Database.notifyEventsAdded(events);
         }
     }
 }

@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Created by Ilya Yudkovich on 2/28/2018.
  */
@@ -26,8 +30,8 @@ public class EventDisplayInfo extends Fragment {
     private TextView host;
     private TextView description;
     private TextView where;
-    private TextView time;
-    private TextView when;
+    private TextView start;
+    private TextView end;
     private TextView friendsGoing;
     private TextView friendsInterested;
     private ImageButton interestedButton;
@@ -53,8 +57,8 @@ public class EventDisplayInfo extends Fragment {
         host = view.findViewById(R.id.host);
         description = view.findViewById(R.id.description);
         where = view.findViewById(R.id.where);
-        time = view.findViewById(R.id.time);
-        when = view.findViewById(R.id.when);
+        start = view.findViewById(R.id.start);
+        end = view.findViewById(R.id.end);
         friendsGoing = view.findViewById(R.id.going);
         friendsInterested = view.findViewById(R.id.interested);
         interestedButton = view.findViewById(R.id.eventInterestedButton);
@@ -69,12 +73,15 @@ public class EventDisplayInfo extends Fragment {
         name.setText(event.getName());
         tags.setText(String.join(",", event.getInterests()));
         host.setText(String.format("Hosted by %s", event.getHost()));
-        description.setText(event.getDescription());
+
+        DateFormat format = new SimpleDateFormat("EEEE, MMMM d h:mm:a", Locale.US);
+        start.setText(format.format(event.getStartDateTime().getTime()));
+        end.setText(format.format(event.getEndDateTime().getTime()));
+
         where.setText(event.getLocation());
-        time.setText(event.getStartDateTime().getTime().toString());
-        when.setText(event.getStartDateTime().getTime().toString());
         friendsGoing.setText(String.join(", ", event.getGoing()));
         friendsInterested.setText(String.join(", ", event.getInterested()));
+        description.setText(event.getDescription());
 
         if (event.getInterested().contains(User.getFullName())) {
             interestedButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));

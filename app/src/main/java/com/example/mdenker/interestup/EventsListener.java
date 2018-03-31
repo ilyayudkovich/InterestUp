@@ -11,12 +11,6 @@ public interface EventsListener {
     void onEventsAdded(List<Event> events);
 
     /**
-     * Notifies listeners when events have been fetched.
-     * @param events The list of fetched events.
-     */
-    void onEventsFetched(List<Event> events);
-
-    /**
      * Notifies listeners when the given event was changed.
      * @param e The changed event.
      */

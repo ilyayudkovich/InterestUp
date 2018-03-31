@@ -91,15 +91,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
         }
 
-        DateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM d", Locale.US);
-        String date = dateFormat.format(e.getStartDateTime().getTime()) + " - " +
-                dateFormat.format(e.getEndDateTime().getTime());
-        ((TextView) holder.itemView.findViewById(R.id.eventDate)).setText(date);
+        DateFormat format = new SimpleDateFormat("EEEE, MMMM d h:mm:a", Locale.US);
+        String date = format.format(e.getStartDateTime().getTime()) + " - ";
+        ((TextView) holder.itemView.findViewById(R.id.eventStart)).setText(date);
 
-        DateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.US);
-        String time = timeFormat.format(e.getStartDateTime().getTime()) + " - " +
-                timeFormat.format(e.getEndDateTime().getTime());
-        ((TextView) holder.itemView.findViewById(R.id.eventTime)).setText(time);
+        String time = format.format(e.getEndDateTime().getTime());
+        ((TextView) holder.itemView.findViewById(R.id.eventEnd)).setText(time);
 
         ((TextView) holder.itemView.findViewById(R.id.eventLocation)).setText(e.getLocation());
 
