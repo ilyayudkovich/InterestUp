@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class EventDisplay extends AppCompatActivity {
 
@@ -82,10 +83,12 @@ public class EventDisplay extends AppCompatActivity {
     }
 
     public void onEventInterestedClick(View view) {
+        Toast.makeText(this, "Selected Interested", Toast.LENGTH_SHORT).show();
         ((EventDisplayInfo) mSectionsPagerAdapter.getItem(0)).onInterestedClick(view);
     }
 
     public void onEventGoingClick(View view) {
+        Toast.makeText(this, "Selected Going", Toast.LENGTH_SHORT).show();
         ((EventDisplayInfo) mSectionsPagerAdapter.getItem(0)).onGoingClick(view);
     }
 
