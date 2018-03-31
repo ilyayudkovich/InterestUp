@@ -188,12 +188,22 @@ public class CreateEventPage extends AppCompatActivity {
                     
                     String[] tagsToAdd = CreateEventPage_GeneralTab.tags.toArray(new String[CreateEventPage_GeneralTab.tags.size()]);
 
-                    Event event = EventFactory.create().setName(nameFieldText).setDescription(descriptionFieldText).setStartDateTime(startDateCalendar)
-                            .setEndDateTime(endDateCalendar).setTentativeDates(tentativeDatesSwitchValue).setLocation(locationFieldText)
-                            .setTags(tagsToAdd).setNumberOfAttendees(numberOfAttendees).setViewRestrictions(viewRestrictionText).setExclusions(CreateEventPage_AdvancedTab.exclusions).build();
+                    Event event = EventFactory.create()
+                            .setName(nameFieldText)
+                            .setHost(User.getFullName())
+                            .setDescription(descriptionFieldText)
+                            .setStartDateTime(startDateCalendar)
+                            .setEndDateTime(endDateCalendar)
+                            .setTentativeDates(tentativeDatesSwitchValue)
+                            .setLocation(locationFieldText)
+                            .setTags(tagsToAdd)
+                            .setNumberOfAttendees(numberOfAttendees)
+                            .setViewRestrictions(viewRestrictionText)
+                            .setExclusions(CreateEventPage_AdvancedTab.exclusions)
+                            .build();
                     Database.addEvent(event);
 
-                    Intent i = new Intent(view.getContext(), EventDisplay.class);
+                    Intent i = new Intent(CreateEventPage.this, EventDisplay.class);
                     i.putExtra("event", event.getID());
                     startActivity(i);
                 }

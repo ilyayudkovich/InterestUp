@@ -1,5 +1,9 @@
 package com.example.mdenker.interestup;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MeetupEvents {
     private MeetupEvent[] events;
 
@@ -30,29 +34,44 @@ public class MeetupEvents {
         }
 
         public String getLocalDate() {
+            if (this.local_date == null) {
+                return new SimpleDateFormat("yyy-MM-dd", Locale.US).format(Calendar.getInstance().getTime());
+            }
             return this.local_date;
         }
 
         public String getLocalTime() {
+            if (this.local_time == null) {
+                return new SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().getTime());
+            }
             return this.local_time;
         }
 
         public String getVenue() {
             if (this.venue == null) {
-                return "Blackstone Grill";
+                return "To be determined";
             }
             return this.venue.name;
         }
 
         public String getDescription() {
+            if (this.plain_text_description == null) {
+                return "";
+            }
             return this.plain_text_description;
         }
 
         public String getCategory() {
+            if (this.group == null) {
+                return "Misc";
+            }
             return this.group.category.shortname;
         }
 
         public String getHost() {
+            if (this.event_hosts == null) {
+                return "Monica Smith";
+            }
             return this.event_hosts[0].name;
         }
 

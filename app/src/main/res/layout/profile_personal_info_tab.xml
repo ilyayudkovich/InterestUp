@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Male"
+            android:textSize="12sp"
             tools:layout_editor_absoluteX="92dp"
             tools:layout_editor_absoluteY="297dp" />
 
@@ -142,6 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Female"
+            android:textSize="12sp"
             tools:layout_editor_absoluteX="214dp"
             tools:layout_editor_absoluteY="297dp" />
 
@@ -150,6 +152,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Non-Binary" />
+            android:text="Non-Binary"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Other"
+            android:textSize="12sp" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

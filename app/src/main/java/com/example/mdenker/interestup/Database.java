@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class Database {
-    public static final String user = "Jordan You";
     public static List<Event> events = new ArrayList<>();
     private static List<EventsListener> listeners = new ArrayList<>();
 
@@ -24,9 +23,9 @@ public class Database {
         listeners.add(listener);
     }
 
-    public static void notifyEventsFetched() {
+    public static void notifyEventsAdded(List<Event> events) {
         for (EventsListener listener : listeners) {
-            listener.onEventsFetched(events);
+            listener.onEventsAdded(events);
         }
     }
 
@@ -52,11 +51,22 @@ public class Database {
         }
     }
 
-    public static void fetchEvents() {
-        events.clear();
+    public static List<Event> fetchEvents(Date startRange, long duration) {
+        String spec = "https://api.meetup.com/find/upcoming_events?" +
+                "key=7e6810756824521576265de5f124652" +
+                "&order=time" +
+                "&fields=group_category,+event_hosts,+plain_text_description";
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss", Locale.US);
+        String formStartRange = format.format(startRange);
+        spec += "&start_date_range=" + formStartRange;
+
+        startRange.setTime(startRange.getTime() + duration);
+        String formEndRange = format.format(startRange);
+        spec += "&end_date_range=" + formEndRange;
+
+        List<Event> added = new ArrayList<>();
         try {
-            String spec = "https://api.meetup.com/find/upcoming_events?" +
-                    "key=7e6810756824521576265de5f124652&fields=group_category,+event_hosts,+plain_text_description";
             URL url = new URL(spec);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -86,10 +96,12 @@ public class Database {
                         .setHost(event.getHost())
                         .setTags(event.getCategory())
                         .build();
+                added.add(e);
                 events.add(e);
             }
         } catch (IOException |ParseException e) {
             e.printStackTrace();
         }
+        return added;
     }
 }

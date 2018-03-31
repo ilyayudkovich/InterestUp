@@ -1,30 +1,18 @@
 package com.example.mdenker.interestup;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**
@@ -41,7 +29,12 @@ public class Profile extends AppCompatActivity {
     private ViewPager mViewPager;
     private boolean enabled = true;
 
+    public boolean getEnabled() {return enabled;}
+
     public static boolean canceled = false;  // this is easier than making custom listener
+
+    TextView userName;
+    TextView userLocation;
 
     ImageButton backButton;
     Button editButton;
@@ -65,6 +58,12 @@ public class Profile extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        userName = (TextView) findViewById(R.id.profileName);
+        userLocation = (TextView) findViewById(R.id.profileLocation);
+
+        userName.setText(User.getFullName());
+        userLocation.setText(User.getLocation());
 
         backButton = (ImageButton) findViewById(R.id.backButton);
         editButton = (Button) findViewById(R.id.editButton);
@@ -149,6 +148,15 @@ public class Profile extends AppCompatActivity {
 
             editButton.setVisibility(View.VISIBLE);
             backButton.setVisibility(View.VISIBLE);
+
+            if (canceled) {
+                userName.setText(User.getFullName());
+                userLocation.setText(User.getLocation());
+            }
+            else {
+                User.setFullName(userName.getText().toString());
+                User.setLocation(userLocation.getText().toString());
+            }
         }
         else {
             doneButton.setVisibility(View.VISIBLE);
@@ -158,6 +166,7 @@ public class Profile extends AppCompatActivity {
             backButton.setVisibility(View.GONE);
         }
         EnableDisableView(mViewPager);
+        EnableDisableView(findViewById(R.id.profileTopInfo));
 
         Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + mViewPager.getId() + ":" + mViewPager.getCurrentItem());
         // based on the current position you can then cast the page to the correct
