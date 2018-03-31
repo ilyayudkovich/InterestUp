@@ -32,7 +32,7 @@ public class DiscussionMessageAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         DiscussionMessage message = (DiscussionMessage) messageList.get(position);
 
-        if (message.sender == "") {
+        if (message.sender == "You") {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -49,26 +49,52 @@ public class DiscussionMessageAdapter extends RecyclerView.Adapter {
         if (viewType == VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.discussion_message_sent, parent, false);
-        } else {
+            return new SentMessageHolder(view);
+        } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.discussion_message_received, parent, false);
+            return new ReceivedMessageHolder(view);
         }
 
-        return new MessageHolder(view);
+        return null;
     }
 
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         DiscussionMessage message = (DiscussionMessage) messageList.get(position);
-        ((MessageHolder) holder).bind(message);
+
+        switch (holder.getItemViewType()) {
+            case VIEW_TYPE_MESSAGE_SENT:
+                ((SentMessageHolder) holder).bind(message);
+                break;
+            case VIEW_TYPE_MESSAGE_RECEIVED:
+                ((ReceivedMessageHolder) holder).bind(message);
+        }
     }
 
-    private class MessageHolder extends RecyclerView.ViewHolder {
+    private class SentMessageHolder extends RecyclerView.ViewHolder {
+        TextView messageText, timeText;
+
+        SentMessageHolder(View itemView) {
+            super(itemView);
+
+            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
+            timeText = (TextView) itemView.findViewById(R.id.text_message_time);
+        }
+
+        void bind(DiscussionMessage message) {
+            messageText.setText(message.message);
+            timeText.setText(message.createdAt);
+        }
+    }
+
+    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText;
 
-        MessageHolder(View itemView) {
+        ReceivedMessageHolder(View itemView) {
             super(itemView);
+
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.text_message_time);
             nameText = (TextView) itemView.findViewById(R.id.text_message_name);

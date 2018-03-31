@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,6 +107,22 @@ public class EventDisplay extends AppCompatActivity {
                     System.out.println("null returned.");
                     return null;
             }
+        }
+    }
+
+    public void onDiscussionSendClick(View view) {
+        ((DiscussionMessageFragment) mSectionsPagerAdapter.getItem(1)).onClick(view);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        System.out.println(keyCode);
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_ENTER:
+                onDiscussionSendClick(this.mViewPager);
+                return true;
+            default:
+                return false;
         }
     }
 }
