@@ -116,16 +116,4 @@ public class EventDisplay extends AppCompatActivity {
     public void onDiscussionSendClick(View view) {
         ((DiscussionMessageFragment) mSectionsPagerAdapter.getItem(1)).onClick(view);
     }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        System.out.println(keyCode);
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_ENTER:
-                onDiscussionSendClick(this.mViewPager);
-                return true;
-            default:
-                return false;
-        }
-    }
 }

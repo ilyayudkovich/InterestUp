@@ -205,4 +205,25 @@ public class Event implements Serializable {
     public void removeInterested(String interested) {
         this.interested.remove(interested);
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", host='" + host + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", tentativeDates=" + tentativeDates +
+                ", location='" + location + '\'' +
+                ", interests=" + interests +
+                ", going=" + going +
+                ", interested=" + interested +
+                ", items=" + items +
+                ", numberOfAttendees=" + numberOfAttendees +
+                ", viewRestrictions='" + viewRestrictions + '\'' +
+                ", exclusions=" + exclusions +
+                '}';
+    }
 }

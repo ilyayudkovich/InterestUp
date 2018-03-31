@@ -44,7 +44,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(Search.this, EventDisplay.class);
-                intent.putExtra("event", eventResult.get(i));
+                intent.putExtra("event", eventResult.get(i).getID());
                 startActivity(intent);
             }
         });
@@ -67,11 +67,11 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
         eventResult = new ArrayList<>();
 
         for (int i = 0; i < Database.events.size(); i++) {
-            if (Database.events.get(i).getName().toLowerCase().contains(search.toLowerCase())) {
-                eventResult.add(Database.events.get(i));
+            Event event = Database.events.get(i);
+            if (event.getName().toLowerCase().contains(search.toLowerCase())) {
+                eventResult.add(event);
             }
         }
-
 
         adapter = new EventAdapter(this, R.layout.activity_list_view, eventResult);
         listView.setAdapter(adapter);
