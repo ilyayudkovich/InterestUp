@@ -32,7 +32,9 @@
             android:label="@string/title_activity_create_event_page"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
         <activity
             android:name=".EventDisplay"
             android:label="@string/title_activity_event_display"

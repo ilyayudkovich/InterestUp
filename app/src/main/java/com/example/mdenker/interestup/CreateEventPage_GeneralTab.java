@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +46,67 @@ public class CreateEventPage_GeneralTab extends Fragment {
     ImageButton cancelTagEditButton;
     ImageButton doneTagEditButton;
 
+    TextView nameTextView;
+    EditText nameEntryField;
+    TextView descriptionTextView;
+    EditText descriptionEntryField;
+    TextView startDateTextView;
+    EditText startDateEntryField;
+    TextView endDateTextView;
+    EditText endDateEntryField;
+    TextView startTimeTextView;
+    EditText startTimeEntryField;
+    TextView endTimeTextView;
+    EditText endTimeEntryField;
+    Switch tentativeDatesToggle;
+    TextView locationTextView;
+    EditText locationEntryField;
+    TextView tagsTextView;
+    EditText tagsEntryField;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_event_general_tab, container, false);
 
         addTagButton = (TextView) rootView.findViewById(R.id.add_tag_button);
+
+        nameTextView = (TextView) rootView.findViewById(R.id.event_name_text_view);
+        nameEntryField = (EditText) rootView.findViewById(R.id.event_name_field);
+        descriptionTextView = (TextView) rootView.findViewById(R.id.description_text_view);
+        descriptionEntryField = (EditText) rootView.findViewById(R.id.description_field);
+        startDateTextView = (TextView) rootView.findViewById(R.id.start_date_text_view);
+        startDateEntryField = (EditText) rootView.findViewById(R.id.start_date_field);
+        endDateTextView = (TextView) rootView.findViewById(R.id.end_date_text_view);
+        endDateEntryField = (EditText) rootView.findViewById(R.id.end_date_field);
+
+        startTimeTextView = (TextView) rootView.findViewById(R.id.start_time_text_view);
+        startTimeEntryField = (EditText) rootView.findViewById(R.id.start_time_field);
+        endTimeTextView = (TextView) rootView.findViewById(R.id.end_time_text_view);
+        endTimeEntryField = (EditText) rootView.findViewById(R.id.end_time_field);
+        tentativeDatesToggle = (Switch) rootView.findViewById(R.id.tentative_dates_toggle);
+        locationTextView = (TextView) rootView.findViewById(R.id.location_text_view);
+        locationEntryField = (EditText) rootView.findViewById(R.id.location_field);
+        tagsTextView = (TextView) rootView.findViewById(R.id.tags_text_view);
+        tagsEntryField = (EditText) rootView.findViewById(R.id.add_tag_field);
+
+        addTagButton = (TextView) rootView.findViewById(R.id.add_tag_button);
+        editTagButton = (ImageButton) rootView.findViewById(R.id.edit_tag_button);
+
+        startTimeEntryField.setVisibility(View.GONE);
+        startTimeTextView.setVisibility(View.GONE);
+        endTimeEntryField.setVisibility(View.GONE);
+        endTimeTextView.setVisibility(View.GONE);
+        tentativeDatesToggle.setVisibility(View.GONE);
+        locationEntryField.setVisibility(View.GONE);
+        locationTextView.setVisibility(View.GONE);
+        tagsEntryField.setVisibility(View.GONE);
+        tagsTextView.setVisibility(View.GONE);
+
+        addTagButton.setVisibility(View.GONE);
+        editTagButton.setVisibility(View.GONE);
+
 
         return rootView;
     }
@@ -72,6 +130,26 @@ public class CreateEventPage_GeneralTab extends Fragment {
         editTagButton = (ImageButton) view.findViewById(R.id.edit_tag_button);
         cancelTagEditButton = (ImageButton) view.findViewById(R.id.cancel_edit_button);
         doneTagEditButton = (ImageButton) view.findViewById(R.id.done_edit_button);
+
+
+        endDateEntryField.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                startTimeEntryField.setVisibility(View.VISIBLE);
+                startTimeTextView.setVisibility(View.VISIBLE);
+                endTimeEntryField.setVisibility(View.VISIBLE);
+                endTimeTextView.setVisibility(View.VISIBLE);
+                tentativeDatesToggle.setVisibility(View.VISIBLE);
+                locationEntryField.setVisibility(View.VISIBLE);
+                locationTextView.setVisibility(View.VISIBLE);
+                tagsEntryField.setVisibility(View.VISIBLE);
+                tagsTextView.setVisibility(View.VISIBLE);
+                addTagButton.setVisibility(View.VISIBLE);
+                editTagButton.setVisibility(View.VISIBLE);
+                return false;
+            }
+
+        });
 
         editTagButton.setOnClickListener(new View.OnClickListener()
         {
