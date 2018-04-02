@@ -71,7 +71,7 @@ public class EventDisplayInfo extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         name.setText(event.getName());
-        tags.setText(String.join(",", event.getInterests()));
+        tags.setText(Util.join(",", event.getInterests()));
         host.setText(String.format("Hosted by %s", event.getHost()));
 
         DateFormat format = new SimpleDateFormat("EEEE, MMMM d h:mm:a", Locale.US);
@@ -79,8 +79,8 @@ public class EventDisplayInfo extends Fragment {
         end.setText(format.format(event.getEndDateTime().getTime()));
 
         where.setText(event.getLocation());
-        friendsGoing.setText(String.join(", ", event.getGoing()));
-        friendsInterested.setText(String.join(", ", event.getInterested()));
+        friendsGoing.setText(Util.join(", ", event.getGoing()));
+        friendsInterested.setText(Util.join(", ", event.getInterested()));
         description.setText(event.getDescription());
 
         if (event.getInterested().contains(User.getFullName())) {

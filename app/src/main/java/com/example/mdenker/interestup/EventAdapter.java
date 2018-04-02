@@ -75,7 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Event e = filtered.get(position);
         ((TextView) holder.itemView.findViewById(R.id.eventName)).setText(e.getName());
-        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(String.join(",", e.getInterests()));
+        ((TextView) holder.itemView.findViewById(R.id.eventInterests)).setText(Util.join(",", e.getInterests()));
 
         ImageButton interestButton = holder.itemView.findViewById(R.id.home_interest_button);
         if (e.getInterested().contains(User.getFullName())) {
@@ -103,7 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         List<String> attendeeList = e.getGoing().size() > e.getInterested().size() ? e.getGoing() : e.getInterested();
         String suffix = e.getGoing().size() >= e.getInterested().size() ? "going" : "interested";
         int size = Math.min(4, attendeeList.size());
-        String attendees = String.format("%s %s", String.join(", ", attendeeList.subList(0, size)), suffix);
+        String attendees = String.format("%s %s", Util.join(", ", attendeeList.subList(0, size)), suffix);
         ((TextView) holder.itemView.findViewById(R.id.eventAttendees)).setText(attendees);
 
         holder.itemView.setTag(e.getID());
