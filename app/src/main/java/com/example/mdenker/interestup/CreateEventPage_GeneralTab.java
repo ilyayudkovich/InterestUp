@@ -94,18 +94,18 @@ public class CreateEventPage_GeneralTab extends Fragment {
         addTagButton = (TextView) rootView.findViewById(R.id.add_tag_button);
         editTagButton = (ImageButton) rootView.findViewById(R.id.edit_tag_button);
 
-        startTimeEntryField.setVisibility(View.GONE);
-        startTimeTextView.setVisibility(View.GONE);
-        endTimeEntryField.setVisibility(View.GONE);
-        endTimeTextView.setVisibility(View.GONE);
-        tentativeDatesToggle.setVisibility(View.GONE);
-        locationEntryField.setVisibility(View.GONE);
-        locationTextView.setVisibility(View.GONE);
-        tagsEntryField.setVisibility(View.GONE);
-        tagsTextView.setVisibility(View.GONE);
+        //startTimeEntryField.setVisibility(View.GONE);
+        //startTimeTextView.setVisibility(View.GONE);
+        //endTimeEntryField.setVisibility(View.GONE);
+        //endTimeTextView.setVisibility(View.GONE);
+        //tentativeDatesToggle.setVisibility(View.GONE);
+        //locationEntryField.setVisibility(View.GONE);
+        //locationTextView.setVisibility(View.GONE);
+        //tagsEntryField.setVisibility(View.GONE);
+        //tagsTextView.setVisibility(View.GONE);
 
-        addTagButton.setVisibility(View.GONE);
-        editTagButton.setVisibility(View.GONE);
+        //addTagButton.setVisibility(View.GONE);
+        //editTagButton.setVisibility(View.GONE);
 
 
         return rootView;
