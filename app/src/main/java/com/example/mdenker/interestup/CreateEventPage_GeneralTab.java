@@ -1,10 +1,13 @@
 package com.example.mdenker.interestup;
 
+import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,10 @@ public class CreateEventPage_GeneralTab extends Fragment {
     ImageButton cancelTagEditButton;
     ImageButton doneTagEditButton;
 
+    ScrollView scrollView;
+
+    ConstraintLayout scrollableConstraint;
+
     TextView nameTextView;
     EditText nameEntryField;
     TextView descriptionTextView;
@@ -65,12 +73,22 @@ public class CreateEventPage_GeneralTab extends Fragment {
     EditText tagsEntryField;
 
 
+    int screenHeight;
+    int desiredHeight;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_event_general_tab, container, false);
 
         addTagButton = (TextView) rootView.findViewById(R.id.add_tag_button);
+
+        scrollView = (ScrollView) rootView.findViewById(R.id.CreateEventScroll);
+        scrollableConstraint = (ConstraintLayout) rootView.findViewById(R.id.ScrollableConstraint);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenHeight = displayMetrics.heightPixels;
+        desiredHeight = screenHeight;
 
         nameTextView = (TextView) rootView.findViewById(R.id.event_name_text_view);
         nameEntryField = (EditText) rootView.findViewById(R.id.event_name_field);
@@ -121,9 +139,11 @@ public class CreateEventPage_GeneralTab extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                nameTextView.setVisibility(View.GONE);
-                nameEntryField.setVisibility(View.GONE);
-
+                //nameTextView.setVisibility(View.GONE);
+                //nameEntryField.setVisibility(View.GONE);
+                if (scrollView.getScrollY() < 100) {
+                    scrollView.smoothScrollTo(0, 100);
+                }
                 return false;
             }
 
@@ -132,18 +152,68 @@ public class CreateEventPage_GeneralTab extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
+                    /*
                     nameTextView.setVisibility(View.VISIBLE);
                     nameEntryField.setVisibility(View.VISIBLE);
                     descriptionTextView.setVisibility(View.VISIBLE);
                     descriptionEntryField.setVisibility(View.VISIBLE);
+                    */
                 }
             }
         });
 
 
+        endTimeEntryField.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (scrollView.getScrollY() < 100) {
+                scrollView.smoothScrollTo(0, 100);
+            }
+            return false;
+        }
 
+    });
 
+        tentativeDatesToggle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+                //nameTextView.setVisibility(View.GONE);
+                //nameEntryField.setVisibility(View.GONE);
+                if (scrollView.getScrollY() < 150) {
+                    scrollView.smoothScrollTo(0, 150);
+                }
+                return false;
+            }
+
+        });
+
+        locationEntryField.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                //nameTextView.setVisibility(View.GONE);
+                //nameEntryField.setVisibility(View.GONE);
+                if (scrollView.getScrollY() < 220) {
+                    scrollView.smoothScrollTo(0, 220);
+                }
+                return false;
+            }
+
+        });
+
+        tagsEntryField.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                //nameTextView.setVisibility(View.GONE);
+                //nameEntryField.setVisibility(View.GONE);
+                if (scrollView.getScrollY() < 300) {
+                    scrollView.smoothScrollTo(0, 300);
+                }
+                return false;
+            }
+        });
 
 
         editTagButton.setOnClickListener(new View.OnClickListener()
@@ -212,6 +282,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
                     if(tags.size() < tagLimit) {
                         tagArrayAdapter.add(addTag.getText().toString());
                         addTag.setText("");
+
+                        if (tags.size() % 2 ==0) {
+                            desiredHeight += 75;
+                            scrollableConstraint.setMinHeight(desiredHeight);
+                        }
+
                     } else {
                         Toast.makeText(getActivity(), "Only 5 tags are allowed per event.", Toast.LENGTH_LONG).show();
                     }
@@ -244,6 +320,11 @@ public class CreateEventPage_GeneralTab extends Fragment {
                         } else {
                             tagArrayAdapter.add(s.subSequence(0, s.length() - 1).toString());
                             addTag.setText("");
+
+                            if (tags.size() % 2 ==0) {
+                                desiredHeight += 75;
+                                scrollableConstraint.setMinHeight(desiredHeight);
+                            }
                         }
                     }
                 }
@@ -263,5 +344,10 @@ public class CreateEventPage_GeneralTab extends Fragment {
     public void OnEditXClicked(String element) {
         editTagArrayAdapter.remove(element);
         tagArrayAdapter.remove(element);
+
+        if (tags.size() % 2 ==0) {
+            desiredHeight -= 75;
+            scrollableConstraint.setMinHeight(desiredHeight);
+        }
     }
 }
