@@ -53,6 +53,8 @@ public class CreateEventPage_AdvancedTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.create_event_advanced_tab, container, false);
 
+        exclusions.clear();
+
         addExcludePeopleButton = (TextView) rootView.findViewById(R.id.add_people_exclude_button);
 
         String [] FriendRestrictionValues =
@@ -98,6 +100,9 @@ public class CreateEventPage_AdvancedTab extends Fragment {
         editExcludePeopleButton = (ImageButton) view.findViewById(R.id.edit_people_exclude_button);
         cancelExcludePeopleEditButton = (ImageButton) view.findViewById(R.id.cancel_people_exclude_edit_button);
         doneExcludePeopleEditButton = (ImageButton) view.findViewById(R.id.done_people_exclude_edit_button);
+
+        gridView.setVisibility(View.GONE);
+        gridViewEdit.setVisibility(View.VISIBLE);
 
         editExcludePeopleButton.setOnClickListener(new View.OnClickListener() {
             @Override

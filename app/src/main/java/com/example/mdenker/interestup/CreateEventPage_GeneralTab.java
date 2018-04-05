@@ -1,6 +1,8 @@
 package com.example.mdenker.interestup;
 
 import android.app.Activity;
+import android.content.Context;
+import android.opengl.Visibility;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -120,6 +123,12 @@ public class CreateEventPage_GeneralTab extends Fragment {
 
         //Collections.addAll(tags,"j");
 
+        nameEntryField.clearFocus();
+
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(nameEntryField.getWindowToken(), 0);
+
+
         tagArrayAdapter = new TagAdapter(getActivity(), tags, this);
         editTagArrayAdapter = new EditableTagAdapter(getActivity(), tags, this);
 
@@ -129,144 +138,72 @@ public class CreateEventPage_GeneralTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.tag_grid_view_edit);
         gridViewEdit.setAdapter(editTagArrayAdapter);
 
+        gridView.setVisibility(View.GONE);
+        gridViewEdit.setVisibility(View.VISIBLE);
+
         addTagButton = (TextView) view.findViewById(R.id.add_tag_button);
         editTagButton = (ImageButton) view.findViewById(R.id.edit_tag_button);
         cancelTagEditButton = (ImageButton) view.findViewById(R.id.cancel_edit_button);
         doneTagEditButton = (ImageButton) view.findViewById(R.id.done_edit_button);
 
 
-        startTimeEntryField.setOnTouchListener(new View.OnTouchListener() {
+        //NOTE: these aren't doing anything - being overriden by scrollview
+        startTimeEntryField.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                //nameTextView.setVisibility(View.GONE);
-                //nameEntryField.setVisibility(View.GONE);
+            public void onClick(View v)
+            {
                 if (scrollView.getScrollY() < 100) {
                     scrollView.smoothScrollTo(0, 100);
                 }
-                return false;
-            }
-
-        });
-        startTimeEntryField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    /*
-                    nameTextView.setVisibility(View.VISIBLE);
-                    nameEntryField.setVisibility(View.VISIBLE);
-                    descriptionTextView.setVisibility(View.VISIBLE);
-                    descriptionEntryField.setVisibility(View.VISIBLE);
-                    */
-                }
             }
         });
 
 
-        endTimeEntryField.setOnTouchListener(new View.OnTouchListener() {
+        endTimeEntryField.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-        public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v)
+            {
             if (scrollView.getScrollY() < 100) {
                 scrollView.smoothScrollTo(0, 100);
             }
-            return false;
         }
 
     });
 
-        tentativeDatesToggle.setOnTouchListener(new View.OnTouchListener() {
+        tentativeDatesToggle.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                //nameTextView.setVisibility(View.GONE);
-                //nameEntryField.setVisibility(View.GONE);
+            public void onClick(View v)
+            {
                 if (scrollView.getScrollY() < 150) {
                     scrollView.smoothScrollTo(0, 150);
                 }
-                return false;
             }
 
         });
 
-        locationEntryField.setOnTouchListener(new View.OnTouchListener() {
+        locationEntryField.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                //nameTextView.setVisibility(View.GONE);
-                //nameEntryField.setVisibility(View.GONE);
-                if (scrollView.getScrollY() < 220) {
-                    scrollView.smoothScrollTo(0, 220);
+            public void onClick(View v)
+            {
+                if (scrollView.getScrollY() < 280) {
+                    scrollView.smoothScrollTo(0, 280);
                 }
-                return false;
             }
 
         });
 
-        tagsEntryField.setOnTouchListener(new View.OnTouchListener() {
+        tagsEntryField.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                //nameTextView.setVisibility(View.GONE);
-                //nameEntryField.setVisibility(View.GONE);
-                if (scrollView.getScrollY() < 300) {
-                    scrollView.smoothScrollTo(0, 300);
+            public void onClick(View v)
+            {
+                if (scrollView.getScrollY() < 350) {
+                    scrollView.smoothScrollTo(0, 350);
                 }
-                return false;
-            }
-        });
-
-
-        editTagButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridView.setVisibility(View.GONE);
-                gridViewEdit.setVisibility(View.VISIBLE);
-
-                addTagButton.setVisibility(View.GONE);
-                editTagButton.setVisibility(View.GONE);
-                cancelTagEditButton.setVisibility(View.VISIBLE);
-                doneTagEditButton.setVisibility(View.VISIBLE);
-
-                CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
-                CreateEventActivity.OnTagEditClick(v);
-            }
-        });
-
-        cancelTagEditButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridViewEdit.setVisibility(View.GONE);
-                gridView.setVisibility(View.VISIBLE);
-
-                addTagButton.setVisibility(View.VISIBLE);
-                editTagButton.setVisibility(View.VISIBLE);
-                cancelTagEditButton.setVisibility(View.GONE);
-                doneTagEditButton.setVisibility(View.GONE);
-
-                CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
-                CreateEventActivity.OnTagEditClick(v);
-            }
-        });
-
-        doneTagEditButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                gridViewEdit.setVisibility(View.GONE);
-                gridView.setVisibility(View.VISIBLE);
-
-                addTagButton.setVisibility(View.VISIBLE);
-                editTagButton.setVisibility(View.VISIBLE);
-                cancelTagEditButton.setVisibility(View.GONE);
-                doneTagEditButton.setVisibility(View.GONE);
-
-                CreateEventPage CreateEventActivity = (CreateEventPage) getActivity();
-                CreateEventActivity.OnTagEditClick(v);
             }
         });
 
