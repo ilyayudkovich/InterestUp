@@ -94,20 +94,6 @@ public class CreateEventPage_GeneralTab extends Fragment {
         addTagButton = (TextView) rootView.findViewById(R.id.add_tag_button);
         editTagButton = (ImageButton) rootView.findViewById(R.id.edit_tag_button);
 
-        //startTimeEntryField.setVisibility(View.GONE);
-        //startTimeTextView.setVisibility(View.GONE);
-        //endTimeEntryField.setVisibility(View.GONE);
-        //endTimeTextView.setVisibility(View.GONE);
-        //tentativeDatesToggle.setVisibility(View.GONE);
-        //locationEntryField.setVisibility(View.GONE);
-        //locationTextView.setVisibility(View.GONE);
-        //tagsEntryField.setVisibility(View.GONE);
-        //tagsTextView.setVisibility(View.GONE);
-
-        //addTagButton.setVisibility(View.GONE);
-        //editTagButton.setVisibility(View.GONE);
-
-
         return rootView;
     }
 
@@ -125,31 +111,40 @@ public class CreateEventPage_GeneralTab extends Fragment {
         gridViewEdit = (GridView) view.findViewById(R.id.tag_grid_view_edit);
         gridViewEdit.setAdapter(editTagArrayAdapter);
 
-
         addTagButton = (TextView) view.findViewById(R.id.add_tag_button);
         editTagButton = (ImageButton) view.findViewById(R.id.edit_tag_button);
         cancelTagEditButton = (ImageButton) view.findViewById(R.id.cancel_edit_button);
         doneTagEditButton = (ImageButton) view.findViewById(R.id.done_edit_button);
 
 
-        endDateEntryField.setOnTouchListener(new View.OnTouchListener() {
+        startTimeEntryField.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                startTimeEntryField.setVisibility(View.VISIBLE);
-                startTimeTextView.setVisibility(View.VISIBLE);
-                endTimeEntryField.setVisibility(View.VISIBLE);
-                endTimeTextView.setVisibility(View.VISIBLE);
-                tentativeDatesToggle.setVisibility(View.VISIBLE);
-                locationEntryField.setVisibility(View.VISIBLE);
-                locationTextView.setVisibility(View.VISIBLE);
-                tagsEntryField.setVisibility(View.VISIBLE);
-                tagsTextView.setVisibility(View.VISIBLE);
-                addTagButton.setVisibility(View.VISIBLE);
-                editTagButton.setVisibility(View.VISIBLE);
+
+                nameTextView.setVisibility(View.GONE);
+                nameEntryField.setVisibility(View.GONE);
+
                 return false;
             }
 
         });
+        startTimeEntryField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    nameTextView.setVisibility(View.VISIBLE);
+                    nameEntryField.setVisibility(View.VISIBLE);
+                    descriptionTextView.setVisibility(View.VISIBLE);
+                    descriptionEntryField.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+
+
+
+
 
         editTagButton.setOnClickListener(new View.OnClickListener()
         {
