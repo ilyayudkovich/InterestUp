@@ -66,5 +66,6 @@ public class DiscussionMessageFragment extends Fragment implements View.OnClickL
 
         messageAdapter = new DiscussionMessageAdapter(messageList);
         messageRecycler.setAdapter(messageAdapter);
+        editText.setText("");
     }
 }

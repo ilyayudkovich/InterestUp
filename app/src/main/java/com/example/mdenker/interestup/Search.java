@@ -67,7 +67,8 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
         eventResult = new ArrayList<>();
 
         for (Event event : Database.events) {
-            if (event.getName().toLowerCase().contains(search.toLowerCase())) {
+            if (event.getName().toLowerCase().contains(search.toLowerCase()) ||
+                    containsIgnoreCase(event.getInterests(), search)) {
                 eventResult.add(event);
             }
         }
@@ -123,5 +124,15 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
             return convertView;
         }
+    }
+
+    private boolean containsIgnoreCase(List<String> interests, String input) {
+        for (String s : interests) {
+            if (s.equalsIgnoreCase(input)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
