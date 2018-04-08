@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class Database {
-    public static List<Event> events = new ArrayList<>();
+    private static final String API_KEY = "7e6810756824521576265de5f124652";
+
+    public static Set<Event> events = new HashSet<>();
+    public static Set<MeetupTopic> meetupTopics = new HashSet<>();
     private static List<EventsListener> listeners = new ArrayList<>();
 
     public static void addEventListener(EventsListener listener) {
@@ -35,7 +40,7 @@ public class Database {
         }
     }
 
-    public static Event getEvent(int id) {
+    public static Event getEvent(long id) {
         for (Event e : events) {
             if (e.getID() == id) {
                 return e;
@@ -51,11 +56,9 @@ public class Database {
         }
     }
 
-    public static List<Event> fetchEvents(Date startRange, long duration) {
+    public static List<Event> fetchEventsByDate(Date startRange, long duration) {
         String spec = "https://api.meetup.com/find/upcoming_events?" +
-                "key=7e6810756824521576265de5f124652" +
-                "&order=time" +
-                "&fields=group_category,+event_hosts,+plain_text_description";
+                String.format("key=%s&order=time&fields=group_topics,+event_hosts,+plain_text_description", API_KEY);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss", Locale.US);
         String formStartRange = format.format(startRange);
@@ -65,6 +68,26 @@ public class Database {
         String formEndRange = format.format(startRange);
         spec += "&end_date_range=" + formEndRange;
 
+        return fetchEvents(spec);
+    }
+
+    public static List<Event> fetchEventsByCategory(String category) {
+        int categoryId = -1;
+        for (MeetupTopic topic : meetupTopics) {
+            if (topic.getName().toLowerCase().contains(category.toLowerCase())) {
+                categoryId = topic.getId();
+                break;
+            }
+        }
+
+        String spec = "https://api.meetup.com/find/upcoming_events?" +
+                "order=time&fields=group_topics,+event_hosts,+plain_text_description" +
+                String.format("&key=%s&topic_category=%s", API_KEY, categoryId);
+
+        return fetchEvents(spec);
+    }
+
+    private static List<Event> fetchEvents(String spec) {
         List<Event> added = new ArrayList<>();
         try {
             URL url = new URL(spec);
@@ -87,19 +110,30 @@ public class Database {
                 start.setTime(startDate);
                 Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
+
+                List<String> topics = new ArrayList<>();
+                for (MeetupTopic topic : event.getTopics()) {
+                    meetupTopics.add(topic);
+                    topics.add(topic.getName());
+                }
+                if (topics.size() > 3) {
+                    topics = topics.subList(0, 3);
+                }
+
                 Event e = EventFactory.create()
+                        .setId(event.getId())
                         .setName(event.getName())
                         .setDescription(event.getDescription())
                         .setStartDateTime(start)
                         .setEndDateTime(end)
                         .setLocation(event.getVenue())
                         .setHost(event.getHost())
-                        .setTags(event.getCategory())
+                        .setTags(topics)
                         .build();
                 added.add(e);
                 events.add(e);
             }
-        } catch (IOException |ParseException e) {
+        } catch (IOException | ParseException | IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
         return added;

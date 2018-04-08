@@ -1,21 +1,24 @@
 package com.example.mdenker.interestup;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class MeetupEvents {
-    private MeetupEvent[] events;
+    private List<MeetupEvent> events;
 
     public MeetupEvents() {
-        this.events = new MeetupEvent[0];
+        this.events = new ArrayList<>();
     }
 
-    public MeetupEvent[] getEvents() {
+    public List<MeetupEvent> getEvents() {
         return this.events;
     }
 
     public class MeetupEvent {
+        private String id;
         private String name;
         private long duration;
         private String local_date;
@@ -23,7 +26,11 @@ public class MeetupEvents {
         private Venue venue;
         private String plain_text_description;
         private Group group;
-        private Host[] event_hosts;
+        private List<Host> event_hosts;
+
+        public long getId() {
+            return Long.parseLong(this.id, 36);
+        }
 
         public String getName() {
             return this.name;
@@ -61,33 +68,29 @@ public class MeetupEvents {
             return this.plain_text_description;
         }
 
-        public String getCategory() {
-            if (this.group == null) {
-                return "Misc";
+        public List<MeetupTopic> getTopics() {
+            if (this.group == null || this.group.topics == null) {
+                return new ArrayList<>();
             }
-            return this.group.category.shortname;
+            return this.group.topics;
         }
 
         public String getHost() {
             if (this.event_hosts == null) {
                 return "Monica Smith";
             }
-            return this.event_hosts[0].name;
+            return this.event_hosts.get(0).name;
         }
 
-        private class Group {
-            private Category category;
-
-            private class Category {
-                private String shortname;
-            }
+        class Group {
+            private List<MeetupTopic> topics;
         }
 
-        private class Venue {
+        class Venue {
             private String name;
         }
 
-        private class Host {
+        class Host {
             private String name;
         }
     }

@@ -31,9 +31,10 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:maxLines="2"
                 android:text="Event Name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toStartOf="@+id/home_going_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +73,7 @@
             android:layout_marginTop="8dp"
             android:text="Interests"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/nameConstraint" />
 
@@ -91,12 +92,11 @@
             android:id="@+id/eventEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="End"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventStart" />
+            app:layout_constraintStart_toEndOf="@+id/eventStart"
+            app:layout_constraintTop_toBottomOf="@+id/eventInterests" />
 
         <TextView
             android:id="@+id/eventLocation"

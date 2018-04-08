@@ -51,7 +51,7 @@ public class EventDisplay extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        event = Database.getEvent(getIntent().getExtras().getInt("event"));
+        event = Database.getEvent(getIntent().getExtras().getLong("event"));
     }
 
     //Functionality for back button

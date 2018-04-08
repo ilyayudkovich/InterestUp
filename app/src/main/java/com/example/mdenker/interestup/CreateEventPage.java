@@ -185,8 +185,6 @@ public class CreateEventPage extends AppCompatActivity {
                     } catch(Exception e) {
                         e.printStackTrace();
                     }
-                    
-                    String[] tagsToAdd = CreateEventPage_GeneralTab.tags.toArray(new String[CreateEventPage_GeneralTab.tags.size()]);
 
                     Event event = EventFactory.create()
                             .setName(nameFieldText)
@@ -196,7 +194,7 @@ public class CreateEventPage extends AppCompatActivity {
                             .setEndDateTime(endDateCalendar)
                             .setTentativeDates(tentativeDatesSwitchValue)
                             .setLocation(locationFieldText)
-                            .setTags(tagsToAdd)
+                            .setTags(CreateEventPage_GeneralTab.tags)
                             .setNumberOfAttendees(numberOfAttendees)
                             .setViewRestrictions(viewRestrictionText)
                             .setExclusions(CreateEventPage_AdvancedTab.exclusions)

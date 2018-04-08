@@ -22,6 +22,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private Activity activity;
     private TabLayout tabLayout;
     private Set<String> tabNames;
+    private String previousTab;
     private List<Event> events;
     private List<Event> filtered;
 
@@ -91,7 +92,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             goingButton.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_check_green_36dp));
         }
 
-        DateFormat format = new SimpleDateFormat("EEEE, MMMM d h:mm:a", Locale.US);
+        DateFormat format = new SimpleDateFormat("EEE, MMMM d h:mm a", Locale.US);
         String date = format.format(e.getStartDateTime().getTime()) + " - ";
         ((TextView) holder.itemView.findViewById(R.id.eventStart)).setText(date);
 
@@ -144,8 +145,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                         }
                     }
                 }
+                if (!previousTab.equals(interest) && filtered.size() < 5) {
+                    new GetEventsByCategoryTask().execute(interest);
+                }
                 break;
         }
+        this.previousTab = interest;
         this.notifyDataSetChanged();
     }
 

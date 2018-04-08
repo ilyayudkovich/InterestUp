@@ -4,19 +4,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by micha on 3/2/2018.
- */
-
 public class EventFactory {
     private static EventFactory factory;
     private static Event event;
-    private static int id = -1;
 
     private EventFactory() {
-        id++;
         event = new Event();
-        event.setId(id);
     }
 
     public static EventFactory create() {
@@ -24,7 +17,7 @@ public class EventFactory {
         return factory;
     }
 
-    public EventFactory setId(int id) {
+    public EventFactory setId(long id) {
         event.setId(id);
         return factory;
     }
@@ -64,8 +57,8 @@ public class EventFactory {
         return factory;
     }
 
-    public EventFactory setTags(String... tags) {
-        event.setInterests(Arrays.asList(tags));
+    public EventFactory setTags(List<String> tags) {
+        event.setInterests(tags);
         return factory;
     }
 

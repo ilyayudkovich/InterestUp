@@ -1,7 +1,6 @@
 package com.example.mdenker.interestup;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
@@ -11,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class Home extends AppCompatActivity implements EventsListener {
     private EventAdapter adapter;
-    private static boolean loading;
+    private static LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +35,7 @@ public class Home extends AppCompatActivity implements EventsListener {
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
@@ -53,9 +50,9 @@ public class Home extends AppCompatActivity implements EventsListener {
                     int allItems = layoutManager.getItemCount();
                     int currentIndex = layoutManager.findFirstVisibleItemPosition();
 
-                    if (!loading) {
+                    if (!GetEventsByDateTask.isLoading()) {
                         if (allItems - currentIndex <= 10) {
-                            new GetEventsTask().execute();
+                            new GetEventsByDateTask().execute();
                         }
                     }
                 }
@@ -64,7 +61,7 @@ public class Home extends AppCompatActivity implements EventsListener {
 
         Database.addEventListener(this);
 
-        new GetEventsTask().execute();
+        new GetEventsByDateTask().execute();
     }
 
     private void showActionBar() {
@@ -93,7 +90,7 @@ public class Home extends AppCompatActivity implements EventsListener {
 
     public void onEventClick(View view) {
         Intent i = new Intent(this, EventDisplay.class);
-        i.putExtra("event", (int) view.getTag());
+        i.putExtra("event", (long) view.getTag());
         startActivity(i);
     }
 
@@ -133,23 +130,5 @@ public class Home extends AppCompatActivity implements EventsListener {
     @Override
     public void onEventChanged(Event event) {
         adapter.onEventChanged(event);
-    }
-
-    private static class GetEventsTask extends AsyncTask<Void, Void, List<Event>> {
-        private static Calendar start = Calendar.getInstance();
-        private static long duration = 604800000;
-
-        @Override
-        protected List<Event> doInBackground(Void... voids) {
-            loading = true;
-            return Database.fetchEvents(start.getTime(), duration);
-        }
-
-        @Override
-        protected void onPostExecute(List<Event> events) {
-            loading = false;
-            start.setTimeInMillis(start.getTimeInMillis() + duration);
-            Database.notifyEventsAdded(events);
-        }
     }
 }

@@ -1,18 +1,17 @@
 package com.example.mdenker.interestup;
 
-import android.view.View;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by tsengjonathan on 2/28/18.
  */
 
 public class Event implements Serializable {
-    private int id;
+    private long id;
     private String host;
     private String name;
     private String description;
@@ -64,7 +63,7 @@ public class Event implements Serializable {
         this.exclusions = new ArrayList<>();
     }
 
-    public int getID() {
+    public long getID() {
         return this.id;
     }
 
@@ -130,7 +129,7 @@ public class Event implements Serializable {
         return this.exclusions;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -225,5 +224,15 @@ public class Event implements Serializable {
                 ", viewRestrictions='" + viewRestrictions + '\'' +
                 ", exclusions=" + exclusions +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof Event && this.id == ((Event) o).getID();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
     }
 }
