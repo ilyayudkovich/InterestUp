@@ -48,13 +48,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void addEvents(List<Event> events) {
         this.events.addAll(events);
         for (Event event : events) {
-            for (String interest : event.getInterests()) {
-                if (!tabNames.contains(interest)) {
-                    tabNames.add(interest);
-                    TabLayout.Tab t = tabLayout.newTab();
-                    t.setText(interest);
-                    tabLayout.addTab(t);
-                }
+            if (!tabNames.contains(event.getCategory())) {
+                tabNames.add(event.getCategory());
+                TabLayout.Tab t = tabLayout.newTab();
+                t.setText(event.getCategory());
+                tabLayout.addTab(t);
             }
         }
         int selectedTab = tabLayout.getSelectedTabPosition();
@@ -139,11 +137,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
             default:
                 for (Event e : events) {
-                    for (String i : e.getInterests()) {
-                        if (i.toLowerCase().equals(interest)) {
-                            filtered.add(e);
-                        }
-                    }
+                    if (e.getCategory().toLowerCase().equals(interest)) {
+                        filtered.add(e); }
                 }
                 if (!previousTab.equals(interest) && filtered.size() < 5) {
                     new GetEventsByCategoryTask().execute(interest);

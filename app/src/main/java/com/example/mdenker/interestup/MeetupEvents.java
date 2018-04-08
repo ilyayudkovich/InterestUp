@@ -68,11 +68,21 @@ public class MeetupEvents {
             return this.plain_text_description;
         }
 
-        public List<MeetupTopic> getTopics() {
-            if (this.group == null || this.group.topics == null) {
-                return new ArrayList<>();
+        public MeetupCategory getCategory() {
+            if (this.group == null || this.group.category == null) {
+                return new MeetupCategory(-1, "Other");
             }
-            return this.group.topics;
+            return this.group.category;
+        }
+
+        public List<String> getTopics() {
+            List<String> topics = new ArrayList<>();
+            if (this.group != null && this.group.topics != null) {
+                for (Group.Topic topic : this.group.topics) {
+                    topics.add(topic.name);
+                }
+            }
+            return topics;
         }
 
         public String getHost() {
@@ -83,7 +93,12 @@ public class MeetupEvents {
         }
 
         class Group {
-            private List<MeetupTopic> topics;
+            private MeetupCategory category;
+            private List<Topic> topics;
+
+            class Topic {
+                private String name;
+            }
         }
 
         class Venue {

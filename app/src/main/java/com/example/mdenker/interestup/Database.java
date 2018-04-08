@@ -21,7 +21,7 @@ public class Database {
     private static final String API_KEY = "7e6810756824521576265de5f124652";
 
     public static Set<Event> events = new HashSet<>();
-    public static Set<MeetupTopic> meetupTopics = new HashSet<>();
+    private static Set<MeetupCategory> meetupCategories = new HashSet<>();
     private static List<EventsListener> listeners = new ArrayList<>();
 
     public static void addEventListener(EventsListener listener) {
@@ -58,7 +58,8 @@ public class Database {
 
     public static List<Event> fetchEventsByDate(Date startRange, long duration) {
         String spec = "https://api.meetup.com/find/upcoming_events?" +
-                String.format("key=%s&order=time&fields=group_topics,+event_hosts,+plain_text_description", API_KEY);
+                "order=time&fields=group_topics,+group_category,+event_hosts,+plain_text_description" +
+                String.format("&key=%s", API_KEY);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss", Locale.US);
         String formStartRange = format.format(startRange);
@@ -73,15 +74,15 @@ public class Database {
 
     public static List<Event> fetchEventsByCategory(String category) {
         int categoryId = -1;
-        for (MeetupTopic topic : meetupTopics) {
-            if (topic.getName().toLowerCase().contains(category.toLowerCase())) {
-                categoryId = topic.getId();
+        for (MeetupCategory meetupCategory : meetupCategories) {
+            if (meetupCategory.getName().toLowerCase().contains(category.toLowerCase())) {
+                categoryId = meetupCategory.getId();
                 break;
             }
         }
 
         String spec = "https://api.meetup.com/find/upcoming_events?" +
-                "order=time&fields=group_topics,+event_hosts,+plain_text_description" +
+                "order=time&fields=group_topics,+group_category,+event_hosts,+plain_text_description" +
                 String.format("&key=%s&topic_category=%s", API_KEY, categoryId);
 
         return fetchEvents(spec);
@@ -119,14 +120,7 @@ public class Database {
                 Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
 
-                List<String> topics = new ArrayList<>();
-                for (MeetupTopic topic : event.getTopics()) {
-                    meetupTopics.add(topic);
-                    topics.add(topic.getName());
-                }
-                if (topics.size() > 3) {
-                    topics = topics.subList(0, 3);
-                }
+                meetupCategories.add(event.getCategory());
 
                 Event e = EventFactory.create()
                         .setId(event.getId())
@@ -136,7 +130,8 @@ public class Database {
                         .setEndDateTime(end)
                         .setLocation(event.getVenue())
                         .setHost(event.getHost())
-                        .setTags(topics)
+                        .setCategory(event.getCategory().getName())
+                        .setTags(event.getTopics())
                         .build();
                 added.add(e);
                 events.add(e);

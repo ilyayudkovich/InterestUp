@@ -57,6 +57,11 @@ public class EventFactory {
         return factory;
     }
 
+    public EventFactory setCategory(String category) {
+        event.setCategory(category);
+        return factory;
+    }
+
     public EventFactory setTags(List<String> tags) {
         event.setInterests(tags);
         return factory;
