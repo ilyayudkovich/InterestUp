@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.Set;
 
 public class Database {
-    private static final String API_KEY = "7e6810756824521576265de5f124652";
+    private static final String API_KEY = "51d5f7b653272b7e26d4191a79";
 
     public static Set<Event> events = new HashSet<>();
     private static Set<MeetupCategory> meetupCategories = new HashSet<>();
@@ -90,7 +90,7 @@ public class Database {
 
     public static List<Event> fetchEventsByQuery(String query) {
         String spec = "https://api.meetup.com/find/upcoming_events?" +
-                "order=time&fields=group_topics,+event_hosts,+plain_text_description" +
+                "order=time&fields=group_topics,+group_category,+event_hosts,+plain_text_description" +
                 String.format("&key=%s&text=%s", API_KEY, query);
 
         return fetchEvents(spec);
