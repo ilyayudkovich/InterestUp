@@ -194,6 +194,7 @@ public class CreateEventPage extends AppCompatActivity {
                             .setEndDateTime(endDateCalendar)
                             .setTentativeDates(tentativeDatesSwitchValue)
                             .setLocation(locationFieldText)
+                            .setCategory(CreateEventPage_GeneralTab.tags.get(0))
                             .setTags(CreateEventPage_GeneralTab.tags)
                             .setNumberOfAttendees(numberOfAttendees)
                             .setViewRestrictions(viewRestrictionText)

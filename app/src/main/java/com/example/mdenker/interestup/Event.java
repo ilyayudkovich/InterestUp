@@ -19,6 +19,7 @@ public class Event implements Serializable {
     private Calendar endDateTime;
     private boolean tentativeDates;
     private String location;
+    private String category;
     private List<String> interests;
     private List<String> going;
     private List<String> interested;
@@ -36,6 +37,7 @@ public class Event implements Serializable {
         this.endDateTime = Calendar.getInstance();
         this.tentativeDates = true;
         this.location = "";
+        this.category = "";
         this.interests = new ArrayList<>();
         this.going = new ArrayList<>();
         this.interested = new ArrayList<>();
@@ -56,6 +58,7 @@ public class Event implements Serializable {
         this.location = location;
         this.interests = new ArrayList<>();
         this.going = new ArrayList<>();
+        this.category = "";
         this.interested = new ArrayList<>();
         this.items = new ArrayList<>();
         this.numberOfAttendees = 1;
@@ -93,6 +96,10 @@ public class Event implements Serializable {
 
     public String getLocation() {
         return this.location;
+    }
+
+    public String getCategory() {
+        return this.category;
     }
 
     public List<String> getInterests() {
@@ -159,6 +166,10 @@ public class Event implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setInterests(List<String> interests) {

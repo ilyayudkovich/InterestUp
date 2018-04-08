@@ -128,7 +128,7 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
 
     private boolean containsIgnoreCase(List<String> interests, String input) {
         for (String s : interests) {
-            if (s.equalsIgnoreCase(input)) {
+            if (s.toLowerCase().contains(input.toLowerCase())) {
                 return true;
             }
         }
