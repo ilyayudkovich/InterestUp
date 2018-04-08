@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.Set;
 
 public class Database {
-    private static final String API_KEY = "51d5f7b653272b7e26d4191a79";
+    private static final String API_KEY = "7e6810756824521576265de5f124652";
 
     public static Set<Event> events = new HashSet<>();
     private static Set<MeetupCategory> meetupCategories = new HashSet<>();
