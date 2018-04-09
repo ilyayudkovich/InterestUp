@@ -88,6 +88,14 @@ public class Database {
         return fetchEvents(spec);
     }
 
+    public static List<Event> fetchEventsByQuery(String query) {
+        String spec = "https://api.meetup.com/find/upcoming_events?" +
+                "order=time&fields=group_topics,+group_category,+event_hosts,+plain_text_description" +
+                String.format("&key=%s&text=%s", API_KEY, query);
+
+        return fetchEvents(spec);
+    }
+
     private static List<Event> fetchEvents(String spec) {
         List<Event> added = new ArrayList<>();
         try {

@@ -73,6 +73,17 @@ public class Search extends AppCompatActivity implements SearchView.OnQueryTextL
             }
         }
 
+        if (eventResult.isEmpty()) {
+            new GetEventsByQueryTask().execute(search);
+
+            for (Event event : Database.events) {
+                if (event.getName().toLowerCase().contains(search.toLowerCase()) ||
+                        containsIgnoreCase(event.getInterests(), search)) {
+                    eventResult.add(event);
+                }
+            }
+        }
+
         adapter = new EventAdapter(this, R.layout.activity_list_view, eventResult);
         listView.setAdapter(adapter);
     }

@@ -159,13 +159,14 @@ public class CreateEventPage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Description field is mandatory!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
                     } else if (startDateFormat.after(endDateFormat) || startDateFieldDate == null || startDateFieldDate.equals("") || endDateFieldDate == null || endDateFieldDate.equals("")) {
-                        Toast.makeText(getApplicationContext(), "Description field is mandatory!", Toast.LENGTH_SHORT).show();
-                        errorHandler = 1;
-                    } else if (startTimeFormat.after(endTimeFormat) || startTimeFieldTime == null || startTimeFieldTime.equals("") || endTimeFieldTime == null || endTimeFieldTime.equals("")) {
                         Toast.makeText(getApplicationContext(), "Time fields must be valid!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
                     } else if (locationFieldText.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Location field is mandatory!", Toast.LENGTH_SHORT).show();
+                        errorHandler = 1;
+                    }
+                    else if (CreateEventPage_GeneralTab.tags.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "At least one tag is required!", Toast.LENGTH_SHORT).show();
                         errorHandler = 1;
                     }
                 } catch(Exception e) {

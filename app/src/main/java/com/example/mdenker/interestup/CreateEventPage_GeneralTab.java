@@ -123,6 +123,8 @@ public class CreateEventPage_GeneralTab extends Fragment {
 
         //Collections.addAll(tags,"j");
 
+        tags.clear();
+
         nameEntryField.clearFocus();
 
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
