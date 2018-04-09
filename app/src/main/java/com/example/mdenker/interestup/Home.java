@@ -96,7 +96,7 @@ public class Home extends AppCompatActivity implements EventsListener {
 
     public void onInterestedClick(View view) {
         //Toast.makeText(this, "Selected Interested", Toast.LENGTH_SHORT).show();
-        int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
+        long id = (long) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_interest_button);
         if (e.getInterested().contains(User.getFullName())) {
@@ -110,7 +110,7 @@ public class Home extends AppCompatActivity implements EventsListener {
 
     public void onGoingClick(View view) {
         //Toast.makeText(this, "Selected Going", Toast.LENGTH_SHORT).show();
-        int id = (int) ((View) view.getParent().getParent().getParent()).getTag();
+        long id = (long) ((View) view.getParent().getParent().getParent()).getTag();
         Event e = Database.getEvent(id);
         ImageButton b = view.findViewById(R.id.home_going_button);
         if (e.getGoing().contains(User.getFullName())) {

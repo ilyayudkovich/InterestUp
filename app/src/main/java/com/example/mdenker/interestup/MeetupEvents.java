@@ -42,7 +42,7 @@ public class MeetupEvents {
 
         public String getLocalDate() {
             if (this.local_date == null) {
-                return new SimpleDateFormat("yyy-MM-dd", Locale.US).format(Calendar.getInstance().getTime());
+                return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().getTime());
             }
             return this.local_date;
         }
